@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Dashboard | New Sanskar Academy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 500:'#0a1f44', 800:'#040e20', 900:'#020814' },
+        gold: { 400:'#fbbf24', 500:'#f59e0b' },
+        emerald: { 400:'#34d399', 500:'#10b981' },
+        school: { red:'#dc2626' }
+      },
+      fontFamily: { sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hidden;}
+
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+@keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(25px) rotate(-5deg)}}
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60%/30% 60% 70% 40%}75%{border-radius:60% 30% 60% 40%/70% 40% 50% 60%}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
+
+.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+.card-hover{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(251,191,36,.1);border-color:rgba(251,191,36,.3)}
+.grad-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:600;}
+
+.sidebar-btn{width:100%;text-align:left;padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);transition:all 0.3s;}
+.sidebar-btn:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
+
+input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;font-family: 'Inter', sans-serif;}
+input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.2);}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+
+.btn-status{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#94a3b8;cursor:pointer;transition:all .2s;}
+.btn-status:hover{border-color:rgba(255,255,255,.2);}
+.btn-present.active{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.3);font-weight:600;}
+.btn-absent.active{background:rgba(248,113,113,.15);color:#f87171;border-color:rgba(248,113,113,.3);font-weight:600;}
+.btn-late.active{background:rgba(251,191,36,.15);color:#fbbf24;border-color:rgba(251,191,36,.3);font-weight:600;}
+
+.marks-input{width:50px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px;color:white;font-size:13px;}
+.marks-input:focus{border-color:rgba(251,191,36,.5);}
+.grade-label{font-size:10px;font-weight:700;margin-top:2px;display:block;}
+
+.msg-teacher{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:12px 12px 2px 12px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;}
+.msg-parent{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);border-radius:12px 12px 12px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;}
+.chat-container{max-height:400px;overflow-y:auto}
+
+.test-tab{transition:all .2s;}
+.test-tab.active{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:700;}
+
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;transform:translateX(150%);transition:transform .4s ease;}
+.toast.show{transform:translateX(0);}
+</style>
+</head>
+<body>
+
+<div id="global-particles" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+<div class="relative z-10 min-h-screen flex flex-col">
+
+    <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
+            <div class="leading-tight">
+                <span class="font-semibold text-sm block">Staff Portal</span>
+                <span id="navbar-class-label" class="text-[10px] text-gold-400 tracking-wider uppercase">Class Teacher</span>
+            </div>
+        </div>
+        <a href="index.html" class="text-sm text-white/70 hover:text-gold-400 transition flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg">
+            <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Website
+        </a>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between hidden md:flex">
+            <div>
+                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
+                    <div id="teacher-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
+                    <h3 id="teacher-name" class="font-bold">--</h3>
+                    <p id="teacher-meta" class="text-xs text-white/50">--</p>
+                </div>
+                <div class="space-y-2">
+                    <button onclick="switchTab('myclass')" class="sidebar-btn active" data-tab="myclass"><span class="iconify text-lg" data-icon="lucide:users"></span> My Class</button>
+                    <button onclick="switchTab('attendance')" class="sidebar-btn" data-tab="attendance"><span class="iconify text-lg" data-icon="lucide:calendar-check"></span> Attendance</button>
+                    <button onclick="switchTab('marks')" class="sidebar-btn" data-tab="marks"><span class="iconify text-lg" data-icon="lucide:clipboard-list"></span> Marks Entry</button>
+                    <button onclick="switchTab('chat')" class="sidebar-btn" data-tab="chat"><span class="iconify text-lg" data-icon="lucide:message-square"></span> Parent Chat</button>
+                    <button onclick="switchTab('notices')" class="sidebar-btn" data-tab="notices"><span class="iconify text-lg" data-icon="lucide:megaphone"></span> Notices</button>
+                </div>
+            </div>
+            <button class="sidebar-btn text-red-400 hover:bg-red-500/10" onclick="doLogout()">
+                <span class="iconify text-lg" data-icon="lucide:log-out"></span> Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-y-auto h-[calc(100vh-73px)]">
+
+            <!-- TAB 1: MY CLASS -->
+            <div id="tab-myclass" class="tab-content">
+                <h2 id="myclass-title" class="text-2xl font-bold mb-6">My Class</h2>
+                <div class="glass rounded-xl p-6 card-hover">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-xs text-white/40 border-b border-white/10">
+                                    <th class="text-left pb-3 font-medium">Roll</th>
+                                    <th class="text-left pb-3 font-medium">Name</th>
+                                    <th class="text-left pb-3 font-medium">Father's Name</th>
+                                    <th class="text-left pb-3 font-medium">Contact</th>
+                                    <th class="text-center pb-3 font-medium">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myclass-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ATTENDANCE -->
+            <div id="tab-attendance" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Mark Attendance</h2>
+
+                <div class="glass rounded-xl p-6 mb-6 card-hover">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6 pb-4 border-b border-white/10 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-white/50 text-sm">Date:</span>
+                            <input id="attendance-date" type="date" class="w-auto" onchange="renderAttendance()">
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="btn-gold px-4 py-2 rounded-lg text-sm flex items-center gap-2" onclick="markAllPresent()"><span class="iconify" data-icon="lucide:zap"></span> Mark All Present</button>
+                            <button class="px-4 py-2 rounded-lg text-sm flex items-center gap-2 border" style="background:rgba(167,139,250,.15);color:#c4b5fd;border-color:rgba(167,139,250,.3)" onclick="markHoliday()"><span class="iconify" data-icon="lucide:palmtree"></span> Mark Holiday</button>
+                        </div>
+                    </div>
+
+                    <div id="attendance-list" class="space-y-4"></div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button class="btn-gold px-6 py-3 rounded-xl flex items-center gap-2" onclick="saveAttendance()"><span class="iconify" data-icon="lucide:save"></span> Save Attendance</button>
+                    </div>
+                </div>
+
+                <div class="glass rounded-xl p-6 card-hover">
+                    <h3 class="font-bold text-lg mb-4">📊 Recent History</h3>
+                    <div id="attendance-history" class="space-y-2 text-sm"></div>
+                </div>
+            </div>
+
+            <!-- TAB 3: MARKS ENTRY -->
+            <div id="tab-marks" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Marks Entry</h2>
+
+                <div id="test-tabs" class="flex gap-2 mb-6"></div>
+
+                <div class="glass rounded-xl p-6 card-hover overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-xs text-white/40 border-b border-white/10" id="marks-thead-row">
+                            </tr>
+                        </thead>
+                        <tbody id="marks-tbody" class="text-center"></tbody>
+                    </table>
+                    <div class="mt-6 flex justify-end">
+                        <button class="btn-gold px-6 py-3 rounded-xl flex items-center gap-2" onclick="saveMarksToast()"><span class="iconify" data-icon="lucide:save"></span> Save Marks</button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <h3 class="font-bold text-sm mb-4">📊 Class Summary (Auto)</h3>
+                        <div id="class-summary" class="grid grid-cols-3 gap-4 text-center"></div>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <h3 class="font-bold text-sm mb-4">📈 Auto Comparison (vs previous test)</h3>
+                        <div id="auto-comparison" class="space-y-2 text-xs"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CHAT -->
+            <div id="tab-chat" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Parent Conversations</h2>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div id="chat-list" class="glass rounded-xl p-4 card-hover space-y-2"></div>
+
+                    <div class="glass rounded-xl p-6 card-hover md:col-span-2">
+                        <div id="chat-header" class="flex items-center gap-3 pb-4 border-b border-white/10 mb-4 text-white/40 text-sm">Select a student to open the conversation</div>
+                        <div id="chat-messages" class="chat-container mb-4"></div>
+                        <div class="flex gap-2 border-t border-white/10 pt-4">
+                            <input id="chat-input" type="text" placeholder="Type a reply..." onkeydown="if(event.key==='Enter')sendChatReply()">
+                            <button class="btn-gold w-12 rounded-lg flex items-center justify-center" onclick="sendChatReply()"><span class="iconify text-lg" data-icon="lucide:send"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: NOTICES -->
+            <div id="tab-notices" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">School Notices</h2>
+                <p class="text-white/40 text-xs mb-4">Posted by Admin — view only, staff cannot add/edit notices.</p>
+                <div id="notices-list" class="space-y-4"></div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<div class="toast glass rounded-xl px-5 py-3 flex items-center gap-2" id="toast">
+    <span class="iconify text-emerald-400" data-icon="lucide:check-circle"></span>
+    <span id="toastMsg" class="text-sm">Saved!</span>
+</div>
+
+<script src="db.js"></script>
+<script>
+/* ================= SESSION GUARD ================= */
+const session = DB.getSession();
+if (!session || session.role !== 'staff') {
+    window.location.href = 'login.html';
+}
+const teacher = DB.getTeacherById(session ? session.id : '');
+if (!teacher) {
+    DB.clearSession();
+    window.location.href = 'login.html';
+}
+const MY_CLASS = teacher ? teacher.class : '';
+let currentTest = DB.getTests()[0];
+let currentChatStudent = null;
+
+function initHeader() {
+    const label = MY_CLASS ? ('Class Teacher (' + MY_CLASS + ')') : 'Homework Team (no class assigned)';
+    document.getElementById('navbar-class-label').textContent = label;
+    document.getElementById('teacher-avatar').textContent = teacher.name.split(' ').filter(w => w[0] === w[0].toUpperCase() && w.length > 1).map(w => w[0]).join('').slice(0, 2) || teacher.name.slice(0, 2).toUpperCase();
+    document.getElementById('teacher-name').textContent = teacher.name;
+    document.getElementById('teacher-meta').textContent = MY_CLASS ? ('Class ' + MY_CLASS + ' • ' + (teacher.subject || '')) : (teacher.subject || 'Homework Team');
+    document.getElementById('myclass-title').textContent = MY_CLASS ? ('Class ' + MY_CLASS + ' — Students List') : 'No class assigned — contact admin';
+}
+
+function doLogout() {
+    DB.clearSession();
+    window.location.href = 'login.html';
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+/* ================= TAB SWITCHING ================= */
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+    document.getElementById('tab-' + tabName).classList.remove('hidden');
+    document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+}
+
+/* ================= TAB 1: MY CLASS ================= */
+function renderMyClass() {
+    const students = DB.getClassStudents(MY_CLASS);
+    const tbody = document.getElementById('myclass-tbody');
+    tbody.innerHTML = students.map(s => `
+        <tr class="border-b border-white/5 hover:bg-white/5">
+            <td class="py-3 text-white/50">${s.roll}</td>
+            <td class="py-3 font-medium">${s.name}</td>
+            <td class="py-3 text-white/70">${s.father}</td>
+            <td class="py-3 text-white/70">${s.contact}</td>
+            <td class="py-3 text-center"><button class="text-gold-400 text-xs hover:underline" onclick="viewStudentQuick('${s.id}')">View Profile</button></td>
+        </tr>
+    `).join('') || `<tr><td colspan="5" class="py-6 text-center text-white/30">No students in this class yet.</td></tr>`;
+}
+
+function viewStudentQuick(studentId) {
+    const s = DB.getStudentById(studentId);
+    const att = DB.getStudentAttendance(MY_CLASS, studentId);
+    const dates = Object.keys(att);
+    const present = dates.filter(d => att[d].status === 'present').length;
+    const pct = dates.length ? Math.round((present / dates.length) * 100) : 0;
+    alert(
+        s.name + ' | Class ' + MY_CLASS + ' | Roll ' + s.roll + '\n' +
+        'Father: ' + s.father + '\n' +
+        'Contact: ' + s.contact + '\n' +
+        'Attendance recorded so far: ' + pct + '% (' + dates.length + ' day(s) marked)\n' +
+        '(Use the Chat tab to message this student\'s parent.)'
+    );
+}
+
+/* ================= TAB 2: ATTENDANCE ================= */
+function todayISO() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function renderAttendance() {
+    const date = document.getElementById('attendance-date').value || todayISO();
+    const students = DB.getClassStudents(MY_CLASS);
+    const saved = DB.getAttendance(MY_CLASS, date);
+    const list = document.getElementById('attendance-list');
+    const isHolidayDay = DB.isHoliday(MY_CLASS, date);
+
+    if (isHolidayDay) {
+        list.innerHTML = `
+        <div class="p-8 rounded-xl text-center border" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.2)">
+            <div class="text-3xl mb-2">🎌</div>
+            <p class="font-bold text-lg" style="color:#c4b5fd">This day is marked as a Holiday</p>
+            <p class="text-white/40 text-sm mt-1">No attendance needed for ${date}.</p>
+            <button class="btn-gold px-5 py-2 rounded-lg text-sm mt-4" onclick="unmarkHoliday()">Undo — Mark as Working Day</button>
+        </div>`;
+        renderAttendanceHistory();
+        return;
+    }
+
+    list.innerHTML = students.map(s => {
+        const rec = saved[s.id] || { status: 'present' };
+        const isAbsent = rec.status === 'absent';
+        const isLate = rec.status === 'late';
+        return `
+        <div class="flex flex-col gap-2 p-3 rounded-lg ${isAbsent ? 'bg-red-500/5 border border-red-500/10' : 'bg-white/5'}" data-student="${s.id}">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">${s.roll}</span>
+                    <span class="font-medium text-sm">${s.name}</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="btn-status btn-present ${rec.status === 'present' ? 'active' : ''}" onclick="setStatus(this,'${s.id}','present')">✅ Present</button>
+                    <button class="btn-status btn-absent ${isAbsent ? 'active' : ''}" onclick="setStatus(this,'${s.id}','absent')">❌ Absent</button>
+                    <button class="btn-status btn-late ${isLate ? 'active' : ''}" onclick="setStatus(this,'${s.id}','late')">⏰ Late</button>
+                </div>
+            </div>
+            <div class="extra-fields ${isAbsent ? '' : 'hidden'} mt-2 pl-9 grid grid-cols-2 gap-2" data-role="absent-fields">
+                <input type="text" placeholder="Reason (e.g. Fever)" value="${rec.reason || ''}" data-field="reason">
+                <input type="text" placeholder="Note" value="${rec.note || ''}" data-field="note">
+            </div>
+            <div class="extra-fields ${isLate ? '' : 'hidden'} mt-2 pl-9" data-role="late-fields">
+                <input type="text" placeholder="Late by (minutes)" value="${rec.lateBy || ''}" data-field="lateBy" class="w-40">
+            </div>
+        </div>`;
+    }).join('') || `<p class="text-white/30 text-center py-4">No students in this class yet.</p>`;
+
+    renderAttendanceHistory();
+}
+
+function setStatus(btn, studentId, status) {
+    const card = btn.closest('[data-student]');
+    card.querySelectorAll('.btn-status').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const absentFields = card.querySelector('[data-role="absent-fields"]');
+    const lateFields = card.querySelector('[data-role="late-fields"]');
+    absentFields.classList.toggle('hidden', status !== 'absent');
+    lateFields.classList.toggle('hidden', status !== 'late');
+    card.dataset.status = status;
+}
+
+function markAllPresent() {
+    document.querySelectorAll('#attendance-list [data-student]').forEach(card => {
+        const presentBtn = card.querySelector('.btn-present');
+        setStatus(presentBtn, card.dataset.student, 'present');
+    });
+}
+
+function markHoliday() {
+    const date = document.getElementById('attendance-date').value || todayISO();
+    if (!confirm('Mark ' + date + ' as a Holiday for Class ' + MY_CLASS + '? (barish, festival, etc. — attendance won\'t be needed for this date)')) return;
+    const students = DB.getClassStudents(MY_CLASS);
+    const data = {};
+    students.forEach(s => { data[s.id] = { status: 'holiday' }; });
+    DB.saveAttendance(MY_CLASS, date, data);
+    showToast('🎌 ' + date + ' marked as Holiday');
+    renderAttendance();
+}
+
+function unmarkHoliday() {
+    const date = document.getElementById('attendance-date').value || todayISO();
+    DB.saveAttendance(MY_CLASS, date, {});
+    renderAttendance();
+}
+
+function saveAttendance() {
+    const date = document.getElementById('attendance-date').value || todayISO();
+    const data = {};
+    document.querySelectorAll('#attendance-list [data-student]').forEach(card => {
+        const studentId = card.dataset.student;
+        const activeBtn = card.querySelector('.btn-status.active');
+        const status = activeBtn ? (activeBtn.classList.contains('btn-present') ? 'present' : activeBtn.classList.contains('btn-absent') ? 'absent' : 'late') : 'present';
+        const rec = { status };
+        if (status === 'absent') {
+            rec.reason = card.querySelector('[data-field="reason"]').value;
+            rec.note = card.querySelector('[data-field="note"]').value;
+        }
+        if (status === 'late') {
+            rec.lateBy = card.querySelector('[data-field="lateBy"]').value;
+        }
+        data[studentId] = rec;
+    });
+    DB.saveAttendance(MY_CLASS, date, data);
+    showToast('Attendance saved for ' + date);
+    renderAttendanceHistory();
+}
+
+function renderAttendanceHistory() {
+    const rows = DB.getAttendanceHistory(MY_CLASS, 6);
+    const el = document.getElementById('attendance-history');
+    el.innerHTML = rows.map(r => {
+        const vals = Object.values(r.data);
+        const isHol = vals.length > 0 && vals.every(v => v.status === 'holiday');
+        if (isHol) {
+            return `<div class="flex justify-between items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer" onclick="document.getElementById('attendance-date').value='${r.date}';renderAttendance();">
+                <span>${r.date}</span>
+                <span style="color:#c4b5fd">🎌 Holiday</span>
+                <span class="text-emerald-400 text-xs">✅ Saved</span>
+            </div>`;
+        }
+        const p = vals.filter(v => v.status === 'present').length;
+        const a = vals.filter(v => v.status === 'absent').length;
+        const l = vals.filter(v => v.status === 'late').length;
+        const pct = vals.length ? Math.round((p / vals.length) * 100) : 0;
+        return `<div class="flex justify-between items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer" onclick="document.getElementById('attendance-date').value='${r.date}';renderAttendance();">
+            <span>${r.date}</span>
+            <span class="text-white/60">${p}P | ${a}A | ${l}L (${pct}%)</span>
+            <span class="text-emerald-400 text-xs">✅ Saved</span>
+        </div>`;
+    }).join('') || `<p class="text-white/30 text-center py-4">No attendance recorded yet.</p>`;
+}
+
+/* ================= TAB 3: MARKS ENTRY ================= */
+function renderTestTabs() {
+    const tests = DB.getTests();
+    document.getElementById('test-tabs').innerHTML = tests.map(t => `
+        <button class="test-tab px-4 py-2 rounded-lg text-sm glass ${t === currentTest ? 'active' : ''}" onclick="selectTest('${t}')">${t}</button>
+    `).join('') + `<button class="test-tab px-4 py-2 rounded-lg text-sm glass text-gold-400 flex items-center gap-1" onclick="createNewTest()"><span class="iconify" data-icon="lucide:plus"></span> New Test</button>`;
+}
+
+function selectTest(test) {
+    currentTest = test;
+    renderTestTabs();
+    renderMarksTable();
+}
+
+function createNewTest() {
+    const name = prompt('New test ka naam likho (jaise "Monthly Test 3", "Half Yearly", "Annual Exam"):');
+    if (!name || !name.trim()) return;
+    const trimmed = name.trim();
+    DB.addTest(trimmed);
+    currentTest = trimmed;
+    renderTestTabs();
+    renderMarksTable();
+    showToast('New test "' + trimmed + '" created — ab numbers daal sakte ho');
+}
+
+function renderMarksTable() {
+    const subjects = DB.getSubjects();
+    const students = DB.getClassStudents(MY_CLASS);
+
+    document.getElementById('marks-thead-row').innerHTML =
+        `<th class="text-left pb-4 font-medium">Roll</th><th class="text-left pb-4 font-medium">Name</th>` +
+        subjects.map(sub => `<th class="pb-4 font-medium">${sub}<br>(100)</th>`).join('') +
+        `<th class="pb-4 font-medium">Total</th><th class="pb-4 font-medium">%</th><th class="pb-4 font-medium">Grade</th>`;
+
+    const tbody = document.getElementById('marks-tbody');
+    tbody.innerHTML = students.map(s => {
+        const marks = DB.getMarks(MY_CLASS, currentTest, s.id) || {};
+        const cells = subjects.map(sub => {
+            const val = marks[sub] ? marks[sub].o : '';
+            const g = marks[sub] ? DB.calcGrade(marks[sub].o) : null;
+            return `<td class="py-4">
+                <input type="number" min="0" max="100" class="marks-input" value="${val}" placeholder="-"
+                    oninput="onMarkInput(this,'${s.id}','${sub}')">
+                <span class="grade-label" style="color:${g ? g.color : '#475569'}">${g ? g.grade : '—'}</span>
+            </td>`;
+        }).join('');
+
+        const { total, pct, grade } = computeStudentTotal(marks, subjects);
+        return `<tr class="border-b border-white/5" data-row="${s.id}">
+            <td class="py-4 text-left text-white/50">${s.roll}</td>
+            <td class="py-4 text-left font-medium">${s.name}</td>
+            ${cells}
+            <td class="py-4 font-bold" data-total>${total !== null ? total : '—'}</td>
+            <td class="py-4 font-bold" data-percent style="color:${grade ? grade.color : '#475569'}">${pct !== null ? pct + '%' : '—'}</td>
+            <td class="py-4"><span class="px-2 py-1 rounded-full text-xs font-bold" data-grade style="background:${grade ? grade.color + '20' : 'rgba(255,255,255,.05)'};color:${grade ? grade.color : '#475569'}">${grade ? grade.grade : '—'}</span></td>
+        </tr>`;
+    }).join('') || `<tr><td colspan="99" class="py-6 text-center text-white/30">No students in this class yet.</td></tr>`;
+
+    renderClassSummary();
+    renderAutoComparison();
+}
+
+function computeStudentTotal(marks, subjects) {
+    let total = 0, count = 0;
+    subjects.forEach(sub => { if (marks[sub]) { total += marks[sub].o; count++; } });
+    if (count === 0) return { total: null, pct: null, grade: null };
+    const pct = Math.round((total / (count * 100)) * 100);
+    return { total, pct, grade: DB.calcGrade(pct) };
+}
+
+function onMarkInput(input, studentId, subject) {
+    const val = input.value === '' ? null : Math.max(0, Math.min(100, parseInt(input.value, 10)));
+    const row = input.closest('tr');
+    const label = input.nextElementSibling;
+
+    if (val === null) {
+        label.textContent = '—';
+        label.style.color = '#475569';
+    } else {
+        DB.saveMark(MY_CLASS, currentTest, studentId, subject, val, 100);
+        const g = DB.calcGrade(val);
+        label.textContent = g.grade;
+        label.style.color = g.color;
+    }
+
+    const subjects = DB.getSubjects();
+    const marks = DB.getMarks(MY_CLASS, currentTest, studentId) || {};
+    const { total, pct, grade } = computeStudentTotal(marks, subjects);
+    row.querySelector('[data-total]').textContent = total !== null ? total : '—';
+    const pctEl = row.querySelector('[data-percent]');
+    pctEl.textContent = pct !== null ? pct + '%' : '—';
+    pctEl.style.color = grade ? grade.color : '#475569';
+    const gradeEl = row.querySelector('[data-grade]');
+    gradeEl.textContent = grade ? grade.grade : '—';
+    gradeEl.style.background = grade ? grade.color + '20' : 'rgba(255,255,255,.05)';
+    gradeEl.style.color = grade ? grade.color : '#475569';
+
+    renderClassSummary();
+    renderAutoComparison();
+}
+
+function saveMarksToast() {
+    showToast('Marks saved for ' + currentTest);
+}
+
+function renderClassSummary() {
+    const subjects = DB.getSubjects();
+    const students = DB.getClassStudents(MY_CLASS);
+    let best = null, worst = null;
+    let sumPct = 0, countPct = 0;
+
+    students.forEach(s => {
+        const marks = DB.getMarks(MY_CLASS, currentTest, s.id) || {};
+        const { pct } = computeStudentTotal(marks, subjects);
+        if (pct === null) return;
+        sumPct += pct; countPct++;
+        if (!best || pct > best.pct) best = { name: s.name, pct };
+        if (!worst || pct < worst.pct) worst = { name: s.name, pct };
+    });
+
+    const avg = countPct ? Math.round(sumPct / countPct) : null;
+    document.getElementById('class-summary').innerHTML = `
+        <div><div class="text-xs text-white/50 mb-1">Class Avg</div><div class="text-xl font-bold text-gold-400">${avg !== null ? avg + '%' : '—'}</div></div>
+        <div><div class="text-xs text-white/50 mb-1">Top Scorer</div><div class="text-xl font-bold text-emerald-400">${best ? best.name.split(' ')[0] : '—'}</div></div>
+        <div><div class="text-xs text-white/50 mb-1">Needs Attention</div><div class="text-xl font-bold text-red-400">${worst ? worst.name.split(' ')[0] : '—'}</div></div>
+    `;
+}
+
+function renderAutoComparison() {
+    const tests = DB.getTests();
+    const idx = tests.indexOf(currentTest);
+    const el = document.getElementById('auto-comparison');
+    if (idx <= 0) {
+        el.innerHTML = `<p class="text-white/30">No previous test to compare against.</p>`;
+        return;
+    }
+    const prevTest = tests[idx - 1];
+    const subjects = DB.getSubjects();
+    const students = DB.getClassStudents(MY_CLASS);
+    let rows = [];
+
+    students.forEach(s => {
+        const curr = DB.getMarks(MY_CLASS, currentTest, s.id);
+        const prev = DB.getMarks(MY_CLASS, prevTest, s.id);
+        if (!curr || !prev) return;
+        subjects.forEach(sub => {
+            if (curr[sub] && prev[sub]) {
+                const diff = curr[sub].o - prev[sub].o;
+                if (diff !== 0) {
+                    rows.push({ name: s.name.split(' ')[0], sub, diff });
+                }
+            }
+        });
+    });
+
+    el.innerHTML = rows.slice(0, 8).map(r => `
+        <div class="flex justify-between items-center pb-2 border-b border-white/5">
+            <span class="text-white/60">${r.name} (${r.sub})</span>
+            <span class="${r.diff > 0 ? 'text-emerald-400' : 'text-red-400'}">${r.diff > 0 ? '↑ +' + r.diff : '↓ ' + r.diff}</span>
+        </div>
+    `).join('') || `<p class="text-white/30">No overlapping marked subjects yet.</p>`;
+}
+
+/* ================= TAB 4: CHAT ================= */
+function renderChatList() {
+    const students = DB.getClassStudents(MY_CLASS);
+    const list = document.getElementById('chat-list');
+    list.innerHTML = students.map(s => {
+        const chat = DB.getChat(teacher.id, s.id);
+        const last = chat.length ? chat[chat.length - 1] : null;
+        const active = currentChatStudent === s.id;
+        return `<div class="p-3 rounded-lg cursor-pointer ${active ? 'bg-gold-400/10 border border-gold-400/20' : 'bg-white/5 hover:bg-white/10'}" onclick="openChat('${s.id}')">
+            <span class="font-medium text-sm">${s.name}'s Parent</span>
+            <p class="text-xs text-white/40 mt-1 truncate">${last ? last.msg : 'No messages yet'}</p>
+        </div>`;
+    }).join('') || `<p class="text-white/30 text-center py-4">No students in this class yet.</p>`;
+}
+
+function openChat(studentId) {
+    currentChatStudent = studentId;
+    const s = DB.getStudentById(studentId);
+    document.getElementById('chat-header').innerHTML = `
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-emerald-400 flex items-center justify-center font-bold text-sm text-navy-900">${s.name.slice(0,2).toUpperCase()}</div>
+        <div><h3 class="font-medium text-sm text-white">${s.father}</h3><p class="text-xs text-white/50">Parent of ${s.name} (${s.class})</p></div>
+    `;
+    renderChatList();
+    renderChatMessages();
+}
+
+function renderChatMessages() {
+    const box = document.getElementById('chat-messages');
+    if (!currentChatStudent) { box.innerHTML = ''; return; }
+    const chat = DB.getChat(teacher.id, currentChatStudent);
+    box.innerHTML = chat.map(m => `
+        <div class="${m.from === 'teacher' ? 'msg-teacher' : 'msg-parent'}">
+            <p class="text-xs ${m.from === 'teacher' ? 'text-emerald-400' : 'text-gold-400'} mb-1">${m.from === 'teacher' ? 'You' : 'Parent'} (${new Date(m.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})})</p>
+            <p class="text-sm text-white/80">${m.msg}</p>
+        </div>
+    `).join('') || `<p class="text-white/30 text-center py-4">No messages yet — say hi!</p>`;
+    box.scrollTop = box.scrollHeight;
+}
+
+function sendChatReply() {
+    if (!currentChatStudent) { showToast('Select a student first'); return; }
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    DB.addChatMessage(teacher.id, currentChatStudent, 'teacher', msg);
+    input.value = '';
+    renderChatMessages();
+    renderChatList();
+}
+
+/* ================= TAB 5: NOTICES ================= */
+function renderNotices() {
+    const notices = DB.getVisibleNotices('staff', null);
+    document.getElementById('notices-list').innerHTML = notices.map(n => `
+        <div class="glass rounded-xl p-6 card-hover ${n.isPinned ? 'border-l-4 border-gold-400' : ''}">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-lg flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:megaphone"></span> ${n.title} ${n.isPinned ? '<span class="text-gold-400 text-xs">📌</span>' : ''}</h3>
+                <span class="text-xs text-white/40">${(n.createdAt || '').slice(0, 10)}</span>
+            </div>
+            <p class="text-white/70 text-sm leading-relaxed">${n.desc || ''}</p>
+            <div class="mt-4 flex gap-2"><span class="text-xs bg-white/5 px-3 py-1 rounded-full text-gold-400">${n.category || 'general'}</span></div>
+        </div>
+    `).join('') || `<p class="text-white/30 text-center py-4">No notices yet.</p>`;
+}
+
+/* ================= PARTICLES (decorative, same as rest of site) ================= */
+(function(){
+  const c=document.getElementById('global-particles');
+  const icons=['lucide:book-open','lucide:graduation-cap','lucide:pencil','lucide:star','lucide:apple','lucide:trophy','lucide:brain','lucide:lightbulb','lucide:heart','lucide:sparkles','lucide:atom','lucide:calculator','lucide:globe','lucide:music','lucide:palette'];
+  const colors=['gold','emerald','blue','purple','rose'];
+  const anims=['floatSlow','floatReverse'];
+  const colorMap={gold:'#fbbf24',emerald:'#34d399',blue:'#60a5fa',purple:'#a78bfa',rose:'#fb7185'};
+  for(let i=0;i<25;i++){
+    const el=document.createElement('div');el.className='absolute pointer-events-none';
+    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
+    el.style.animation=anims[Math.floor(Math.random()*anims.length)]+' '+(5+Math.random()*10)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.03+Math.random()*.07;
+    const s=16+Math.random()*24,co=colors[Math.floor(Math.random()*colors.length)],ic=icons[Math.floor(Math.random()*icons.length)];
+    el.innerHTML=`<span class="iconify" data-icon="${ic}" style="font-size:${s}px;color:${colorMap[co]}"></span>`;
+    c.appendChild(el);
+  }
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');el.className='absolute rounded-full pointer-events-none';
+    const s=2+Math.random()*4;el.style.width=s+'px';el.style.height=s+'px';
+    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
+    const co=colors[Math.floor(Math.random()*colors.length)];
+    el.style.background=colorMap[co];el.style.opacity=.05+Math.random()*.15;
+    el.style.animation=(Math.random()>.5?'floatSlow':'floatReverse')+' '+(8+Math.random()*12)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*8+'s';c.appendChild(el);
+  }
+})();
+
+document.addEventListener('mousemove',function(e){
+  if(Math.random()>.92){
+    const p=document.createElement('div');
+    p.style.cssText=`position:fixed;pointer-events:none;z-index:9999;width:4px;height:4px;border-radius:50%;background:${['#fbbf24','#34d399','#60a5fa'][Math.floor(Math.random()*3)]};opacity:0.6;left:${e.clientX}px;top:${e.clientY}px;transition:all 1s ease;`;
+    document.body.appendChild(p);
+    requestAnimationFrame(()=>{p.style.opacity='0';p.style.transform=`translate(${(Math.random()-.5)*60}px,${-40-Math.random()*40}px) scale(0)`;});
+    setTimeout(()=>p.remove(),1000);
+  }
+});
+
+/* ================= INIT ================= */
+initHeader();
+document.getElementById('attendance-date').value = todayISO();
+renderMyClass();
+renderAttendance();
+renderTestTabs();
+renderMarksTable();
+renderChatList();
+renderNotices();
+</script>
+</body>
+</html>

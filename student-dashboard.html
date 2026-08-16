@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | New Sanskar Academy Higher Secondary School</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 500:'#0a1f44', 800:'#040e20', 900:'#020814' },
+        gold: { 400:'#fbbf24', 500:'#f59e0b' },
+        emerald: { 400:'#34d399', 500:'#10b981' },
+        school: { red:'#dc2626' }
+      },
+      fontFamily: { sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hidden;}
+
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+@keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(25px) rotate(-5deg)}}
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60%/30% 60% 70% 40%}75%{border-radius:60% 30% 60% 40%/70% 40% 50% 60%}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
+
+.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+.card-hover{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(251,191,36,.1);border-color:rgba(251,191,36,.3)}
+.grad-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:600;}
+
+.cal-day{width:100%;aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;}
+.cal-day:hover{transform:scale(1.06);}
+.present{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.2)}
+.absent{background:rgba(248,113,113,.15);color:#f87171;border-color:rgba(248,113,113,.2)}
+.late{background:rgba(251,191,36,.15);color:#fbbf24;border-color:rgba(251,191,36,.2)}
+.holiday{background:rgba(167,139,250,.15);color:#a78bfa;border-color:rgba(167,139,250,.2)}
+.no-school{background:rgba(255,255,255,.02);color:#475569;cursor:default;}
+
+.chat-container{max-height:400px;overflow-y:auto}
+.msg-parent{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);border-radius:12px 12px 12px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;}
+.msg-teacher{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:12px 12px 2px 12px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;}
+
+.sidebar-btn{width:100%;text-align:left;padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);transition:all 0.3s;}
+.sidebar-btn:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
+
+.exam-tab{transition:all .25s;}
+.exam-tab.active{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:700;}
+
+input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;}
+input:focus,textarea:focus{border-color:#fbbf24;}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+</style>
+</head>
+<body>
+
+<div id="global-particles" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+<div class="relative z-10 min-h-screen flex flex-col">
+
+    <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
+            <div class="leading-tight">
+                <span class="font-semibold text-sm block">Student Portal</span>
+                <span class="text-[10px] text-gold-400 tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
+            </div>
+        </div>
+        <a href="index.html" class="text-sm text-white/70 hover:text-gold-400 transition flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg">
+            <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Website
+        </a>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <aside class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between hidden md:flex">
+            <div>
+                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
+                    <div id="sidebar-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-emerald-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
+                    <h3 class="font-bold" id="sidebar-name">--</h3>
+                    <p class="text-xs text-white/50" id="sidebar-meta">--</p>
+                </div>
+                <div class="space-y-2">
+                    <button onclick="switchTab('profile')" class="sidebar-btn active" data-tab="profile"><span class="iconify text-lg" data-icon="lucide:user"></span> Profile</button>
+                    <button onclick="switchTab('attendance')" class="sidebar-btn" data-tab="attendance"><span class="iconify text-lg" data-icon="lucide:calendar-check"></span> Attendance</button>
+                    <button onclick="switchTab('marks')" class="sidebar-btn" data-tab="marks"><span class="iconify text-lg" data-icon="lucide:clipboard-list"></span> Marks</button>
+                    <button onclick="switchTab('fees')" class="sidebar-btn" data-tab="fees"><span class="iconify text-lg" data-icon="lucide:credit-card"></span> Fees</button>
+                    <button onclick="switchTab('chat')" class="sidebar-btn" data-tab="chat"><span class="iconify text-lg" data-icon="lucide:message-square"></span> Chat</button>
+                    <button onclick="switchTab('notices')" class="sidebar-btn" data-tab="notices"><span class="iconify text-lg" data-icon="lucide:megaphone"></span> Notices</button>
+                </div>
+            </div>
+            <button class="sidebar-btn text-red-400 hover:bg-red-500/10" onclick="doLogout()">
+                <span class="iconify text-lg" data-icon="lucide:log-out"></span> Logout
+            </button>
+        </aside>
+
+        <main class="flex-1 p-6 overflow-y-auto h-[calc(100vh-73px)]">
+            
+            <!-- TAB 1: PROFILE -->
+            <div id="tab-profile" class="tab-content">
+                <h2 class="text-2xl font-bold mb-6">My Profile</h2>
+                <div class="glass rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center card-hover">
+                    <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-gold-400/20 to-emerald-400/20 border border-white/10 flex items-center justify-center text-5xl">📷</div>
+                    <div class="grid grid-cols-2 gap-4 flex-1 w-full">
+                        <div><span class="text-xs text-white/50 block mb-1">Student Name</span><p class="font-medium" id="p-name">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Student ID</span><p class="font-medium" id="p-id">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Class</span><p class="font-medium text-gold-400" id="p-class">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Roll No</span><p class="font-medium" id="p-roll">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Father's Name</span><p class="font-medium" id="p-father">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Mother's Name</span><p class="font-medium" id="p-mother">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Class Teacher</span><p class="font-medium" id="p-teacher">--</p></div>
+                        <div><span class="text-xs text-white/50 block mb-1">Contact</span><p class="font-medium" id="p-contact">--</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ATTENDANCE -->
+            <div id="tab-attendance" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Attendance Record</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-emerald-400">
+                        <div class="text-3xl font-bold text-emerald-400" id="att-present">20</div>
+                        <div class="text-xs text-white/50 mt-1">Present</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-red-400">
+                        <div class="text-3xl font-bold text-red-400" id="att-absent">02</div>
+                        <div class="text-xs text-white/50 mt-1">Absent</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-gold-400">
+                        <div class="text-3xl font-bold text-gold-400" id="att-late">01</div>
+                        <div class="text-xs text-white/50 mt-1">Late</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center card-hover">
+                        <div class="text-3xl font-bold grad-text" id="att-overall">87%</div>
+                        <div class="text-xs text-white/50 mt-1">Overall</div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 glass rounded-xl p-6 card-hover">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg flex items-center gap-2">📅 <span id="cal-month-label">March 2025</span></h3>
+                            <div class="flex gap-2">
+                                <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-sm">◀</button>
+                                <button onclick="changeMonth(1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-sm">▶</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2 text-center text-xs text-white/40 mb-2 font-medium">
+                            <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2" id="cal-grid"></div>
+                        <div class="flex flex-wrap gap-3 mt-4 text-[10px] text-white/40">
+                            <span>✅ Present</span><span>❌ Absent</span><span>⏰ Late</span><span>🎌 Holiday</span><span>— No School</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="glass rounded-xl p-6 card-hover border-l-4 border-red-400">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2 text-red-400">❌ Absent Details</h3>
+                            <div class="space-y-3" id="absent-details">
+                            </div>
+                        </div>
+                        
+                        <div class="glass rounded-xl p-6 card-hover">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📊 Monthly %</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span>Jan</span><span class="text-emerald-400">96%</span></div>
+                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-emerald-400 h-2 rounded-full" style="width: 96%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span>Feb</span><span class="text-emerald-400">89%</span></div>
+                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-emerald-400 h-2 rounded-full" style="width: 89%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1"><span>Mar</span><span class="text-gold-400">87%</span></div>
+                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-gold-400 h-2 rounded-full" style="width: 87%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: MARKS -->
+            <div id="tab-marks" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Academic Performance</h2>
+
+                <div id="marks-locked" class="hidden glass rounded-xl p-10 text-center card-hover">
+                    <div class="text-4xl mb-3">🔒</div>
+                    <p class="font-bold text-lg text-white/70">Your results are currently locked.</p>
+                    <p id="marks-locked-reason" class="text-sm text-white/40 mt-2"></p>
+                </div>
+
+                <div id="marks-body">
+                <div id="exam-tabs" class="flex gap-2 mb-6 bg-white/5 p-1 rounded-xl w-full max-w-md"></div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="marks-cards"></div>
+                        <div class="glass rounded-xl p-4 mt-4 flex justify-between items-center card-hover">
+                            <div>
+                                <span class="text-xs text-white/50 block">Overall Percentage</span>
+                                <span class="text-2xl font-bold grad-text" id="marks-overall-pct">84.1%</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-white/50 block">Overall Grade</span>
+                                <span class="text-2xl font-bold text-emerald-400" id="marks-overall-grade">A</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="glass rounded-xl p-6 card-hover">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📊 <span id="compare-title">Q1 vs Previous Test</span></h3>
+                            <table class="w-full text-xs">
+                                <thead>
+                                    <tr class="text-white/40 border-b border-white/10"><th class="text-left pb-2">Subject</th><th class="pb-2" id="compare-col-label">Q1</th><th class="pb-2">Prev</th><th class="text-right pb-2">Diff</th></tr>
+                                </thead>
+                                <tbody class="text-center" id="compare-table-body"></tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="glass rounded-xl p-6 card-hover">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📈 Test Trend</h3>
+                            <div class="space-y-2 text-sm" id="test-trend-list">
+                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 1</span><span class="text-emerald-400 font-medium">78% (B+)</span></div>
+                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 2</span><span class="text-emerald-400 font-medium">82% (A-)</span></div>
+                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 3</span><span class="text-emerald-400 font-medium">85% (A)</span></div>
+                                <div class="flex justify-between items-center text-gold-400 font-bold pt-1"><span>Overall Trend</span><span>Improving ↗️</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: FEES -->
+            <div id="tab-fees" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Fee Details</h2>
+                <div id="fees-content"></div>
+            </div>
+
+            <!-- TAB 5: CHAT -->
+            <div id="tab-chat" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Parent-Teacher Chat</h2>
+                <div class="glass rounded-xl p-4 md:p-6 card-hover">
+                    <div class="flex items-center gap-3 pb-4 border-b border-white/10 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 flex items-center justify-center font-bold text-sm text-navy-900" id="chat-teacher-avatar">--</div>
+                        <div>
+                            <h3 class="font-medium text-sm" id="chat-teacher-name">--</h3>
+                            <p class="text-xs text-emerald-400" id="chat-teacher-meta">--</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-container mb-4" id="chat-messages"></div>
+
+                    <div class="flex gap-2 border-t border-white/10 pt-4">
+                        <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendChat()">
+                        <button onclick="sendChat()" class="btn-gold w-12 rounded-lg flex items-center justify-center shrink-0"><span class="iconify text-lg" data-icon="lucide:send"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: NOTICES -->
+            <div id="tab-notices" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">School Notices</h2>
+                <div id="notices-list" class="space-y-4"></div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="db.js"></script>
+<script>
+// ===== SESSION GUARD =====
+const session = DB.getSession();
+if (!session || session.role !== 'student') {
+    window.location.href = 'login.html';
+}
+const me = DB.getStudentById(session ? session.id : '');
+if (!me) {
+    DB.clearSession();
+    window.location.href = 'login.html';
+}
+const myClass = me ? me.class : '';
+const myTeacher = DB.getTeacherByClass(myClass);
+
+function doLogout() {
+    DB.clearSession();
+    window.location.href = 'login.html';
+}
+
+function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function fillProfile() {
+    document.getElementById('sidebar-avatar').textContent = initials(me.name);
+    document.getElementById('sidebar-name').textContent = me.name;
+    document.getElementById('sidebar-meta').textContent = 'Class ' + me.class + ' • Roll: ' + me.roll;
+
+    document.getElementById('p-name').textContent = me.name;
+    document.getElementById('p-id').textContent = me.id;
+    document.getElementById('p-class').textContent = me.class;
+    document.getElementById('p-roll').textContent = me.roll;
+    document.getElementById('p-father').textContent = me.father;
+    document.getElementById('p-mother').textContent = me.mother || '—';
+    document.getElementById('p-teacher').textContent = myTeacher ? (myTeacher.name + ' (' + myTeacher.subject + ')') : '—';
+    document.getElementById('p-contact').textContent = me.contact;
+}
+
+// ===== GLOBAL FLOATING PARTICLES =====
+(function(){
+  const c=document.getElementById('global-particles');
+  const icons=['lucide:book-open','lucide:graduation-cap','lucide:pencil','lucide:star','lucide:apple','lucide:trophy','lucide:brain','lucide:lightbulb','lucide:heart','lucide:sparkles','lucide:atom','lucide:calculator','lucide:globe','lucide:music','lucide:palette'];
+  const colors=['gold','emerald','blue','purple','rose'];
+  const anims=['floatSlow','floatReverse'];
+  const colorMap={gold:'#fbbf24',emerald:'#34d399',blue:'#60a5fa',purple:'#a78bfa',rose:'#fb7185'};
+
+  for(let i=0;i<25;i++){
+    const el=document.createElement('div');el.className='absolute pointer-events-none';
+    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
+    el.style.animation=anims[Math.floor(Math.random()*anims.length)]+' '+(5+Math.random()*10)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.03+Math.random()*.07;
+    const s=16+Math.random()*24,co=colors[Math.floor(Math.random()*colors.length)],ic=icons[Math.floor(Math.random()*icons.length)];
+    el.innerHTML=`<span class="iconify" data-icon="${ic}" style="font-size:${s}px;color:${colorMap[co]}"></span>`;
+    c.appendChild(el);
+  }
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');el.className='absolute rounded-full pointer-events-none';
+    const s=2+Math.random()*4;el.style.width=s+'px';el.style.height=s+'px';
+    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
+    const co=colors[Math.floor(Math.random()*colors.length)];
+    el.style.background=colorMap[co];el.style.opacity=.05+Math.random()*.15;
+    el.style.animation=(Math.random()>.5?'floatSlow':'floatReverse')+' '+(8+Math.random()*12)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*8+'s';c.appendChild(el);
+  }
+  for(let i=0;i<15;i++){
+    const el=document.createElement('div');el.className='absolute rounded-full pointer-events-none';
+    const s=1+Math.random()*3;el.style.width=s+'px';el.style.height=s+'px';
+    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
+    el.style.background='#fff';el.style.animation='twinkle '+(1.5+Math.random()*3)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*5+'s';c.appendChild(el);
+  }
+  for(let i=0;i<3;i++){
+    const el=document.createElement('div');el.className='absolute pointer-events-none';
+    el.style.top=(20+Math.random()*60)+'%';el.style.left=(10+Math.random()*80)+'%';
+    const s=80+Math.random()*120;el.style.width=s+'px';el.style.height=s+'px';
+    el.style.animation='morph '+(8+Math.random()*8)+'s ease-in-out infinite, floatSlow '+(12+Math.random()*8)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.03;
+    const co=colors[Math.floor(Math.random()*colors.length)];
+    el.style.background=colorMap[co];el.style.filter='blur(40px)';c.appendChild(el);
+  }
+})();
+
+// ===== TAB SWITCHING =====
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+    document.getElementById('tab-' + tabName).classList.remove('hidden');
+    document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+}
+
+// ===== GRADE HELPERS =====
+function gradeColor(g) {
+  var map = { 'A+': '#34d399', 'A':  '#10b981', 'B+': '#fbbf24', 'B':  '#f59e0b', 'C+': '#fb923c', 'C':  '#f97316', 'D':  '#ef4444', 'F':  '#dc2626' };
+  return map[g] || '#94a3b8';
+}
+function calcGrade(p) {
+  if (p >= 90) return 'A+'; if (p >= 80) return 'A'; if (p >= 70) return 'B+';
+  if (p >= 60) return 'B'; if (p >= 50) return 'C+'; if (p >= 40) return 'C';
+  if (p >= 33) return 'D'; return 'F';
+}
+
+// ===== NOTICES (targeted + time-windowed — set by admin) =====
+function renderStudentNotices() {
+  const notices = DB.getVisibleNotices('student', myClass);
+  document.getElementById('notices-list').innerHTML = notices.map(n => `
+    <div class="glass rounded-xl p-6 card-hover ${n.isPinned ? 'border-l-4 border-gold-400' : ''}">
+        <div class="flex justify-between items-start mb-2">
+            <h3 class="font-bold text-lg flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:megaphone"></span> ${n.title} ${n.isPinned ? '<span class="text-gold-400 text-xs">📌</span>' : ''}</h3>
+            <span class="text-xs text-white/40">${(n.createdAt || '').slice(0, 10)}</span>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed">${n.desc || ''}</p>
+    </div>
+  `).join('') || `<p class="text-white/30 text-center py-8">No notices right now.</p>`;
+}
+
+// ===== RESULT LOCK (admin controls this from Marks Control / Search tab) =====
+function applyResultsLock() {
+  const settings = DB.getStudentSettings(me.id);
+  const lockedBox = document.getElementById('marks-locked');
+  const bodyBox = document.getElementById('marks-body');
+  if (!settings.showResults) {
+    lockedBox.classList.remove('hidden');
+    bodyBox.classList.add('hidden');
+    document.getElementById('marks-locked-reason').textContent = settings.resultLockReason ? ('Reason: ' + settings.resultLockReason) : 'Please contact the school office for details.';
+  } else {
+    lockedBox.classList.add('hidden');
+    bodyBox.classList.remove('hidden');
+  }
+}
+
+// ===== MARKS (from db.js — same data the class teacher enters on the staff dashboard) =====
+let currentExam = DB.getTests()[0];
+
+function renderExamTabs() {
+  const tests = DB.getTests();
+  document.getElementById('exam-tabs').innerHTML = tests.map(t => `
+    <button onclick="switchExam('${t}')" data-exam="${t}" class="exam-tab ${t === currentExam ? 'active' : 'text-white/50 hover:text-white'} flex-1 py-2 rounded-lg text-sm font-medium">${t}</button>
+  `).join('');
+}
+
+function renderMarks(examKey) {
+  const subjects = DB.getSubjects();
+  const marks = DB.getMarks(myClass, examKey, me.id) || {};
+  const container = document.getElementById('marks-cards');
+
+  container.innerHTML = subjects.map(sub => {
+    const m = marks[sub];
+    const val = m ? m.o : null;
+    const grade = val !== null ? calcGrade(val) : null;
+    const color = grade ? gradeColor(grade) : '#475569';
+    return `
+        <div class="glass rounded-xl p-4 text-center card-hover" style="border-top: 3px solid ${color}">
+            <div class="text-xs text-white/50 mb-1">${sub}</div>
+            <div class="text-2xl font-bold text-white">${val !== null ? val : '—'}<span class="text-sm text-white/30">/100</span></div>
+            <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-bold" style="background:${color}20; color:${color}">${grade || '—'}</div>
+        </div>
+    `;
+  }).join('');
+
+  let total = 0, count = 0;
+  subjects.forEach(sub => { if (marks[sub]) { total += marks[sub].o; count++; } });
+  const pct = count ? (total / (count * 100) * 100).toFixed(1) : null;
+  const overallGrade = pct !== null ? calcGrade(pct) : null;
+  document.getElementById('marks-overall-pct').textContent = pct !== null ? pct + '%' : '— (not entered yet)';
+  document.getElementById('marks-overall-grade').textContent = overallGrade || '—';
+  document.getElementById('marks-overall-grade').style.color = overallGrade ? gradeColor(overallGrade) : '#94a3b8';
+
+  // Comparison vs previous test in the list
+  const tests = DB.getTests();
+  const idx = tests.indexOf(examKey);
+  const prevTest = idx > 0 ? tests[idx - 1] : null;
+  const prevMarks = prevTest ? (DB.getMarks(myClass, prevTest, me.id) || {}) : {};
+
+  document.getElementById('compare-title').textContent = examKey + (prevTest ? ' vs ' + prevTest : ' (no previous test)');
+  document.getElementById('compare-col-label').textContent = examKey.split(' ').pop();
+  const tbody = document.getElementById('compare-table-body');
+  tbody.innerHTML = subjects.map(sub => {
+    const curr = marks[sub] ? marks[sub].o : null;
+    const prev = prevMarks[sub] ? prevMarks[sub].o : null;
+    if (curr === null) return '';
+    const prevStr = prev !== null ? prev : '—';
+    const diff = (curr !== null && prev !== null) ? curr - prev : null;
+    const diffStr = diff === null ? '—' : diff > 0 ? `↑ +${diff}` : diff < 0 ? `↓ ${diff}` : `— 0`;
+    const diffColor = diff > 0 ? 'text-emerald-400' : diff < 0 ? 'text-red-400' : 'text-white/40';
+    return `
+      <tr class="border-b border-white/5">
+        <td class="text-left py-2">${sub}</td>
+        <td>${curr}</td>
+        <td>${prevStr}</td>
+        <td class="text-right ${diffColor}">${diffStr}</td>
+      </tr>`;
+  }).join('') || `<tr><td colspan="4" class="py-3 text-white/30">No marks entered yet for this test.</td></tr>`;
+
+  // Test trend across every test on record
+  const trendBox = document.getElementById('test-trend-list');
+  const trendRows = tests.map(t => {
+    const tm = DB.getMarks(myClass, t, me.id);
+    if (!tm) return null;
+    let tt = 0, tc = 0;
+    subjects.forEach(sub => { if (tm[sub]) { tt += tm[sub].o; tc++; } });
+    if (!tc) return null;
+    const p = Math.round(tt / (tc * 100) * 100);
+    return { test: t, pct: p, grade: calcGrade(p) };
+  }).filter(Boolean);
+
+  trendBox.innerHTML = trendRows.map(r => `
+    <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">${r.test}</span><span class="font-medium" style="color:${gradeColor(r.grade)}">${r.pct}% (${r.grade})</span></div>
+  `).join('') || `<p class="text-xs text-white/40">No tests recorded yet.</p>`;
+
+  if (trendRows.length >= 2) {
+    const trendDir = trendRows[trendRows.length - 1].pct >= trendRows[0].pct ? 'Improving ↗️' : 'Declining ↘️';
+    trendBox.innerHTML += `<div class="flex justify-between items-center text-gold-400 font-bold pt-1"><span>Overall Trend</span><span>${trendDir}</span></div>`;
+  }
+}
+
+function switchExam(examKey) {
+  currentExam = examKey;
+  renderExamTabs();
+  renderMarks(examKey);
+}
+
+// ===== ATTENDANCE CALENDAR (real data from db.js — set by the class teacher) =====
+// DB.getStudentAttendance returns { 'YYYY-MM-DD': {status, reason, note, lateBy} }
+const today = new Date();
+let calYear = today.getFullYear(), calMonth = today.getMonth();
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const statusIcon = {present:'✅', absent:'❌', late:'⏰', holiday:'🎌'};
+const pad2 = n => String(n).padStart(2, '0');
+
+function renderCalendar() {
+  const allAttendance = DB.getStudentAttendance(myClass, me.id);
+  document.getElementById('cal-month-label').textContent = monthNames[calMonth] + ' ' + calYear;
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  const firstDay = new Date(calYear, calMonth, 1);
+  let startOffset = firstDay.getDay() - 1;
+  if (startOffset < 0) startOffset = 6;
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  for (let i = 0; i < startOffset; i++) {
+    grid.innerHTML += `<div class="cal-day no-school"></div>`;
+  }
+
+  let present = 0, absent = 0, late = 0, totalMarked = 0;
+  const absentList = [];
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateKey = calYear + '-' + pad2(calMonth + 1) + '-' + pad2(d);
+    const info = allAttendance[dateKey];
+    if (!info) {
+      grid.innerHTML += `<div class="cal-day no-school">${d}</div>`;
+      continue;
+    }
+    if (info.status === 'holiday') {
+      grid.innerHTML += `<div class="cal-day holiday" title="holiday">${d} <span class="text-[8px]">🎌</span></div>`;
+      continue;
+    }
+    totalMarked++;
+    if (info.status === 'present') present++;
+    if (info.status === 'late') { late++; present++; }
+    if (info.status === 'absent') { absent++; absentList.push({ d, ...info }); }
+    grid.innerHTML += `<div class="cal-day ${info.status}" title="${info.status}">${d} <span class="text-[8px]">${statusIcon[info.status]}</span></div>`;
+  }
+
+  document.getElementById('att-present').textContent = String(present).padStart(2, '0');
+  document.getElementById('att-absent').textContent = String(absent).padStart(2, '0');
+  document.getElementById('att-late').textContent = String(late).padStart(2, '0');
+  const overall = totalMarked ? Math.round((present / totalMarked) * 100) : 0;
+  document.getElementById('att-overall').textContent = totalMarked ? overall + '%' : '—';
+
+  const absentBox = document.getElementById('absent-details');
+  if (absentList.length === 0) {
+    absentBox.innerHTML = `<p class="text-xs text-white/40">No absences this month 🎉</p>`;
+  } else {
+    absentBox.innerHTML = absentList.map((a, idx) => `
+      <div class="${idx < absentList.length - 1 ? 'pb-3 border-b border-white/5' : ''}">
+        <p class="text-sm font-medium">${a.d} ${monthNames[calMonth]} (${new Date(calYear, calMonth, a.d).toLocaleDateString('en-US', { weekday: 'short' })})</p>
+        <p class="text-xs text-white/50 mt-1">Reason: ${a.reason || '—'}</p>
+        ${a.note ? `<p class="text-xs text-white/30 mt-1">Note: ${a.note}</p>` : ''}
+      </div>
+    `).join('');
+  }
+}
+
+function changeMonth(delta) {
+  calMonth += delta;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+// ===== FEES (real data — respects admin's Fee Control visibility lock) =====
+function renderFees() {
+  const box = document.getElementById('fees-content');
+  const settings = DB.getStudentSettings(me.id);
+
+  if (!settings.showFees) {
+    box.innerHTML = `
+      <div class="glass rounded-xl p-10 text-center card-hover">
+        <div class="text-4xl mb-3">🔒</div>
+        <p class="font-bold text-lg text-white/70">Fee details are currently not available.</p>
+        <p class="text-sm text-white/40 mt-2">Please contact the school office for more information.</p>
+      </div>`;
+    return;
+  }
+
+  const fees = DB.getFees(me.id);
+  const summary = DB.getFeeSummary(me.id);
+  const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+
+  box.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="glass rounded-xl p-6 text-center card-hover">
+            <div class="text-xs text-white/50 mb-1">Total Annual Fee</div>
+            <div class="text-3xl font-bold text-white">₹${summary.total.toLocaleString()}</div>
+        </div>
+        <div class="glass rounded-xl p-6 text-center card-hover border-l-4 border-emerald-400">
+            <div class="text-xs text-white/50 mb-1">Amount Paid</div>
+            <div class="text-3xl font-bold text-emerald-400">₹${summary.paid.toLocaleString()}</div>
+        </div>
+        <div class="glass rounded-xl p-6 text-center card-hover border-l-4 border-red-400">
+            <div class="text-xs text-white/50 mb-1">Pending Due</div>
+            <div class="text-3xl font-bold text-red-400">₹${summary.due.toLocaleString()}</div>
+        </div>
+    </div>
+    <div class="glass rounded-xl p-6 card-hover">
+        <h3 class="font-bold text-lg mb-4">Payment History</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3 font-medium">Quarter</th><th class="pb-3 font-medium">Amount</th><th class="pb-3 font-medium">Status</th><th class="pb-3 font-medium">Date</th><th class="text-right pb-3 font-medium">Receipt</th></tr></thead>
+                <tbody class="text-center">
+                ${quarters.map(q => {
+                  const rec = fees.quarters[q] || { amount: 0, paid: false };
+                  const statusHtml = rec.paid
+                    ? `<span class="px-2 py-1 rounded-full text-xs bg-emerald-400/10 text-emerald-400">✅ Paid</span>`
+                    : `<span class="px-2 py-1 rounded-full text-xs bg-red-400/10 text-red-400">⚠️ Due</span>`;
+                  return `<tr class="border-b border-white/5">
+                    <td class="text-left py-4 font-medium">${q}</td>
+                    <td>₹${(rec.amount || 0).toLocaleString()}</td>
+                    <td>${statusHtml}</td>
+                    <td class="text-white/50">${rec.date || '—'}</td>
+                    <td class="text-right">${rec.paid ? `<button onclick="downloadReceipt('${q}')" class="text-gold-400 text-xs hover:underline">📥 Download</button>` : '<span class="text-white/30 text-xs">—</span>'}</td>
+                  </tr>`;
+                }).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  `;
+}
+
+function downloadReceipt(quarter) {
+  const fees = DB.getFees(me.id);
+  const r = fees.quarters[quarter];
+  if (!r || !r.paid) return;
+  alert(`🧾 Payment Receipt\n\nStudent: ${me.name}\nQuarter: ${quarter}\nAmount: ₹${r.amount.toLocaleString()}\nDate: ${r.date || '—'}\nMethod: ${r.method || '—'}`);
+}
+
+// ===== CHAT (real data — replies sent by the class teacher from staff-dashboard.html show up here) =====
+function fillChatHeader() {
+  if (!myTeacher) {
+    document.getElementById('chat-teacher-name').textContent = 'No class teacher assigned yet';
+    document.getElementById('chat-teacher-meta').textContent = '';
+    return;
+  }
+  document.getElementById('chat-teacher-avatar').textContent = initials(myTeacher.name);
+  document.getElementById('chat-teacher-name').textContent = myTeacher.name;
+  document.getElementById('chat-teacher-meta').textContent = 'Class Teacher (' + myClass + ') • ' + (myTeacher.subject || '');
+}
+
+function renderChat() {
+  const box = document.getElementById('chat-messages');
+  if (!myTeacher) { box.innerHTML = ''; return; }
+  const chat = DB.getChat(myTeacher.id, me.id);
+  box.innerHTML = chat.map(m => `
+    <div class="${m.from === 'parent' ? 'msg-parent' : 'msg-teacher'}">
+        <p class="text-xs ${m.from === 'parent' ? 'text-gold-400' : 'text-emerald-400'} mb-1">${m.from === 'parent' ? 'Parent' : 'Teacher'} (${new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</p>
+        <p class="text-sm text-white/80">${m.msg}</p>
+    </div>`).join('') || `<p class="text-white/30 text-center py-4">No messages yet — say hi to ${myTeacher.name.split(' ').slice(-1)[0]}!</p>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendChat() {
+  if (!myTeacher) return;
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  DB.addChatMessage(myTeacher.id, me.id, 'parent', msg);
+  input.value = '';
+  renderChat();
+}
+
+// ===== INIT =====
+fillProfile();
+renderExamTabs();
+renderMarks(currentExam);
+applyResultsLock();
+renderFees();
+renderCalendar();
+fillChatHeader();
+renderChat();
+renderStudentNotices();
+
+// ===== MOUSE TRAIL =====
+document.addEventListener('mousemove',function(e){
+  if(Math.random()>.92){
+    const p=document.createElement('div');
+    p.style.cssText=`position:fixed;pointer-events:none;z-index:9999;width:4px;height:4px;border-radius:50%;background:${['#fbbf24','#34d399','#60a5fa'][Math.floor(Math.random()*3)]};opacity:0.6;left:${e.clientX}px;top:${e.clientY}px;transition:all 1s ease;`;
+    document.body.appendChild(p);
+    requestAnimationFrame(()=>{p.style.opacity='0';p.style.transform=`translate(${(Math.random()-.5)*60}px,${-40-Math.random()*40}px) scale(0)`;});
+    setTimeout(()=>p.remove(),1000);
+  }
+});
+</script>
+</body>
+</html>

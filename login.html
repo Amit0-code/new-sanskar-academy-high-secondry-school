@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Saraswati Vidya Mandir</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ================= SHARED WEBSITE CSS ================= */
+        body {
+            background: #020814;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display { font-family: 'Outfit', sans-serif; }
+
+        .glass {
+            background: rgba(255,255,255,.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.1);
+        }
+        .grad-text {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: #020814;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-gold:hover { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); transform: translateY(-2px); }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(251,191,36,.1);
+            border-color: rgba(251,191,36,.3);
+        }
+
+        /* ================= BACKGROUND ELEMENTS ================= */
+        #global-particles, #mouse-trail {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        .particle {
+            position: absolute; color: rgba(255,255,255,0.4);
+            font-size: 16px; animation: floatUp linear infinite;
+        }
+        .dot {
+            position: absolute; background: rgba(255,255,255,0.5);
+            border-radius: 50%; animation: twinkle ease-in-out infinite;
+        }
+        .blob {
+            position: fixed; border-radius: 50%; filter: blur(80px);
+            z-index: 0; opacity: 0.4; animation: morph 20s ease-in-out infinite;
+        }
+        .blob-1 { width: 400px; height: 400px; background: #34d399; top: -100px; left: -100px; }
+        .blob-2 { width: 500px; height: 500px; background: #fbbf24; bottom: -150px; right: -150px; animation-delay: -5s; }
+        .blob-3 { width: 300px; height: 300px; background: #3b82f6; top: 40%; left: 50%; animation-delay: -10s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        /* ================= ADMIN SPECIFIC CSS ================= */
+        .sidebar-btn {
+            width: 100%; text-align: left; padding: 12px 16px; border-radius: 8px;
+            display: flex; align-items: center; gap: 12px;
+            color: rgba(255,255,255,0.7); transition: all 0.3s;
+        }
+        .sidebar-btn:hover { background: rgba(255,255,255,.05); color: #fff; }
+        .sidebar-btn.active {
+            background: rgba(251,191,36,.12); color: #fbbf24;
+            border-left: 3px solid #fbbf24;
+        }
+
+        .input-field {
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 8px; padding: 12px 16px; width: 100%;
+            color: #fff; outline: none; transition: all 0.3s;
+        }
+        .input-field:focus { border-color: #fbbf24; box-shadow: 0 0 0 3px rgba(251,191,36,.15); }
+        .input-field::placeholder { color: rgba(255,255,255,0.3); }
+
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { text-align: left; padding: 16px; font-size: 12px; text-transform: uppercase; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,.1); }
+        .data-table td { padding: 16px; border-bottom: 1px solid rgba(255,255,255,.05); font-size: 14px; }
+        .data-table tr:hover { background: rgba(255,255,255,.03); }
+        .data-table tr:last-child td { border-bottom: none; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        ::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(251,191,36,0.5); }
+    </style>
+</head>
+<body>
+
+    <!-- Background Elements -->
+    <div id="global-particles"></div>
+    <div id="mouse-trail"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+
+        <!-- ================= LOGIN VIEW ================= -->
+        <div id="login-view" class="flex items-center justify-center min-h-screen p-4">
+            <div class="glass rounded-2xl p-8 w-full max-w-md card-hover relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-gold-500/10 to-transparent pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="text-center mb-8">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold-400 to-emerald-400 flex items-center justify-center text-3xl">🏫</div>
+                        <h2 class="text-3xl font-bold grad-text">Login Portal</h2>
+                        <p class="text-white/50 text-sm mt-2">Saraswati Vidya Mandir Admin</p>
+                    </div>
+
+                    <div class="flex gap-2 mb-6 bg-white/5 p-1 rounded-xl">
+                        <button onclick="switchRole('admin')" class="role-tab flex-1 py-2 rounded-lg text-sm font-medium transition active">Admin</button>
+                        <button onclick="switchRole('staff')" class="role-tab flex-1 py-2 rounded-lg text-sm font-medium transition">Staff</button>
+                        <button onclick="switchRole('student')" class="role-tab flex-1 py-2 rounded-lg text-sm font-medium transition">Student</button>
+                    </div>
+
+                    <p id="login-error" class="hidden text-xs text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2 mb-4">Invalid ID or Password</p>
+
+                    <form onsubmit="handleLogin(event)" class="space-y-4">
+                        <div>
+                            <label class="text-xs text-white/50 mb-1 block">User ID</label>
+                            <input id="loginId" type="text" class="input-field" placeholder="Enter your ID" value="admin" required>
+                        </div>
+                        <div>
+                            <label class="text-xs text-white/50 mb-1 block">Password</label>
+                            <input id="loginPass" type="password" class="input-field" placeholder="Enter password" value="admin123" required>
+                        </div>
+                        <button type="submit" class="btn-gold w-full py-3 rounded-xl mt-6 flex items-center justify-center gap-2">
+                            <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                        </button>
+                        <p class="text-[11px] text-white/30 text-center pt-2">Demo ID/Password auto-fill hoti hai jab aap tab badalte ho</p>
+                        <p class="text-[11px] text-center pt-1">
+                            <a href="#" onclick="resetTestData(event)" class="text-red-400/70 hover:text-red-400 underline">Test data corrupt/purana lag raha ho to yahan click karo (Reset Test Data)</a>
+                        </p>
+                    </form>
+                    <script>
+                        function resetTestData(e) {
+                            e.preventDefault();
+                            if (confirm('Ye pura test database (attendance, marks, chat) reset karke fresh demo data laayega. Continue?')) {
+                                DB.reset();
+                                DB.clearSession();
+                                alert('Test data reset ho gaya! Ab fresh demo se login karo.');
+                                location.reload();
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="db.js"></script>
+    <script>
+        // ================= BACKGROUND PARTICLES =================
+        const pContainer = document.getElementById('global-particles');
+        const icons = ['📚', '✏️', '🎓', '🌟', '⚛️', '🧪', '🌍'];
+
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (15 + Math.random() * 15) + 's';
+            p.style.animationDelay = -Math.random() * 20 + 's';
+            p.style.fontSize = (10 + Math.random() * 20) + 'px';
+            p.innerText = icons[Math.floor(Math.random() * icons.length)];
+            pContainer.appendChild(p);
+        }
+
+        for (let i = 0; i < 40; i++) {
+            const d = document.createElement('div');
+            d.className = 'dot';
+            d.style.left = Math.random() * 100 + '%';
+            d.style.top = Math.random() * 100 + '%';
+            d.style.width = (1 + Math.random() * 3) + 'px';
+            d.style.height = d.style.width;
+            d.style.animationDuration = (2 + Math.random() * 4) + 's';
+            d.style.animationDelay = -Math.random() * 5 + 's';
+            pContainer.appendChild(d);
+        }
+
+        // ================= MOUSE TRAIL =================
+        const trailContainer = document.getElementById('mouse-trail');
+        document.addEventListener('mousemove', (e) => {
+            const dot = document.createElement('div');
+            dot.style.position = 'absolute';
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+            dot.style.width = '6px';
+            dot.style.height = '6px';
+            dot.style.background = 'rgba(251, 191, 36, 0.8)';
+            dot.style.borderRadius = '50%';
+            dot.style.pointerEvents = 'none';
+            dot.style.transition = 'all 0.5s ease';
+            trailContainer.appendChild(dot);
+
+            setTimeout(() => {
+                dot.style.opacity = '0';
+                dot.style.transform = 'scale(3)';
+            }, 10);
+
+            setTimeout(() => {
+                dot.remove();
+            }, 500);
+        });
+
+        // ================= AUTH & TABS LOGIC =================
+        // Maps the login-form role tab to the key used inside db.js's users object.
+        const ROLE_DB_KEY = { admin: 'admin', staff: 'staff', student: 'students' };
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('loginId').value;
+            const pw = document.getElementById('loginPass').value;
+            const errEl = document.getElementById('login-error');
+            errEl.classList.add('hidden');
+
+            const user = DB.authenticate(ROLE_DB_KEY[selectedRole], id, pw);
+            if (!user) {
+                errEl.textContent = 'Invalid ' + selectedRole + ' ID or Password. Check the demo credentials for this tab.';
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            DB.setSession(user, selectedRole);
+
+            // All three roles now go to their own dedicated dashboard page, wired to db.js.
+            if (selectedRole === 'staff') {
+                window.location.href = 'staff-dashboard.html';
+                return;
+            }
+            if (selectedRole === 'student') {
+                window.location.href = 'student-dashboard.html';
+                return;
+            }
+            if (selectedRole === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+                return;
+            }
+        }
+
+        // Tracks which role tab (admin/staff/student) is currently selected on the login form.
+        let selectedRole = 'admin';
+
+        function switchRole(role) {
+            selectedRole = role;
+            document.querySelectorAll('.role-tab').forEach(tab => {
+                tab.classList.remove('active', 'bg-gradient-to-r', 'from-gold-500', 'to-gold-400', 'text-dark');
+                tab.classList.add('text-white/50');
+            });
+            event.target.classList.add('active', 'bg-gradient-to-r', 'from-gold-500', 'to-gold-400', 'text-dark');
+            event.target.classList.remove('text-white/50');
+
+            // Demo auto-fill so testing is one click — matches db.js seed data.
+            const idEl = document.getElementById('loginId');
+            const pwEl = document.getElementById('loginPass');
+            if (idEl && pwEl) {
+                if (role === 'admin') { idEl.value = 'admin'; pwEl.value = 'admin123'; }
+                else if (role === 'staff') { idEl.value = 't001'; pwEl.value = 'staff123'; }
+                else if (role === 'student') { idEl.value = 'S8A01'; pwEl.value = 'stud123'; }
+            }
+            const errEl = document.getElementById('login-error');
+            if (errEl) errEl.classList.add('hidden');
+        }
+
+        // Initialize first role tab active state
+        document.querySelector('.role-tab').click();
+    </script>
+</body>
+</html>

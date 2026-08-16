@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | New Sanskar Academy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 500:'#0a1f44', 800:'#040e20', 900:'#020814' },
+        gold: { 400:'#fbbf24', 500:'#f59e0b' },
+        emerald: { 400:'#34d399', 500:'#10b981' },
+        school: { red:'#dc2626' }
+      },
+      fontFamily: { sans: ['Inter', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hidden;}
+
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+@keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(25px) rotate(-5deg)}}
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60%/30% 60% 70% 40%}75%{border-radius:60% 30% 60% 40%/70% 40% 50% 60%}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
+
+.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
+.card-hover{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(251,191,36,.1);border-color:rgba(251,191,36,.3)}
+.grad-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:600;}
+
+.sidebar-btn{width:100%;text-align:left;padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);transition:all 0.3s;font-size:13px;}
+.sidebar-btn:hover{background:rgba(255,255,255,.05);color:#fff;}
+.sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
+
+input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;font-family: 'Inter', sans-serif;font-size:14px;}
+input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.2);}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+
+.toggle-btn{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#94a3b8;cursor:pointer;transition:all .2s;}
+.lock-active{background:rgba(248,113,113,.15);color:#f87171;border-color:rgba(248,113,113,.3);}
+.unlock-active{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.3);}
+
+.msg-teacher{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:12px 12px 2px 12px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;}
+.msg-parent{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);border-radius:12px 12px 12px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;}
+.chat-container{max-height:420px;overflow-y:auto}
+
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;transform:translateX(150%);transition:transform .4s ease;}
+.toast.show{transform:translateX(0);}
+</style>
+</head>
+<body>
+
+<div id="global-particles" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+<div class="relative z-10 min-h-screen flex flex-col">
+
+    <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
+            <div class="leading-tight">
+                <span class="font-semibold text-sm block">Admin Portal</span>
+                <span class="text-[10px] text-gold-400 tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
+            </div>
+        </div>
+        <a href="index.html" class="text-sm text-white/70 hover:text-gold-400 transition flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg">
+            <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Website
+        </a>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between hidden md:flex overflow-y-auto h-[calc(100vh-73px)]">
+            <div>
+                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
+                    <div id="admin-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-red-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
+                    <h3 id="admin-name" class="font-bold">--</h3>
+                    <p id="admin-title" class="text-xs text-white/50">--</p>
+                </div>
+                <div class="space-y-1">
+                    <button onclick="switchTab('dashboard')" class="sidebar-btn active" data-tab="dashboard"><span class="iconify text-lg" data-icon="lucide:layout-dashboard"></span> Dashboard</button>
+                    <button onclick="switchTab('staff')" class="sidebar-btn" data-tab="staff"><span class="iconify text-lg" data-icon="lucide:users"></span> Manage Staff</button>
+                    <button onclick="switchTab('students')" class="sidebar-btn" data-tab="students"><span class="iconify text-lg" data-icon="lucide:graduation-cap"></span> Manage Students</button>
+                    <button onclick="switchTab('search')" class="sidebar-btn" data-tab="search"><span class="iconify text-lg" data-icon="lucide:search"></span> Search</button>
+                    <button onclick="switchTab('attendance')" class="sidebar-btn" data-tab="attendance"><span class="iconify text-lg" data-icon="lucide:calendar-check"></span> Attendance</button>
+                    <button onclick="switchTab('marks')" class="sidebar-btn" data-tab="marks"><span class="iconify text-lg" data-icon="lucide:lock"></span> Marks Control</button>
+                    <button onclick="switchTab('fees')" class="sidebar-btn" data-tab="fees"><span class="iconify text-lg" data-icon="lucide:credit-card"></span> Fee Control</button>
+                    <button onclick="switchTab('news')" class="sidebar-btn" data-tab="news"><span class="iconify text-lg" data-icon="lucide:newspaper"></span> News & Updates</button>
+                    <button onclick="switchTab('chat')" class="sidebar-btn" data-tab="chat"><span class="iconify text-lg" data-icon="lucide:message-square"></span> Chat Monitor</button>
+                    <button onclick="switchTab('website')" class="sidebar-btn" data-tab="website"><span class="iconify text-lg" data-icon="lucide:globe"></span> Website Manager</button>
+                </div>
+            </div>
+            <button class="sidebar-btn text-red-400 hover:bg-red-500/10" onclick="doLogout()">
+                <span class="iconify text-lg" data-icon="lucide:log-out"></span> Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-y-auto h-[calc(100vh-73px)]" id="main-content"></main>
+    </div>
+</div>
+
+<div class="toast glass rounded-xl px-5 py-3 flex items-center gap-2" id="toast">
+    <span class="iconify text-emerald-400" data-icon="lucide:check-circle"></span>
+    <span id="toastMsg" class="text-sm">Saved!</span>
+</div>
+
+<script src="db.js"></script>
+<script>
+/* ================= SESSION GUARD ================= */
+const session = DB.getSession();
+if (!session || session.role !== 'admin') {
+    window.location.href = 'login.html';
+}
+const adminRecord = DB.load().users.admin.find(a => a.id === (session ? session.id : '')) || { name: session ? session.name : 'Admin', title: 'Principal / Director' };
+
+function initHeader() {
+    document.getElementById('admin-avatar').textContent = adminRecord.name.split(' ').filter(w => w[0] === w[0].toUpperCase()).map(w => w[0]).join('').slice(0, 2) || 'AD';
+    document.getElementById('admin-name').textContent = adminRecord.name;
+    document.getElementById('admin-title').textContent = adminRecord.title || 'Principal / Director';
+}
+
+function doLogout() {
+    DB.clearSession();
+    window.location.href = 'login.html';
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function todayISO() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function timeAgo(iso) {
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + ' min ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + ' hour' + (hrs > 1 ? 's' : '') + ' ago';
+    const days = Math.floor(hrs / 24);
+    return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+}
+
+const main = document.getElementById('main-content');
+
+/* ================= TAB DISPATCH ================= */
+function switchTab(tabName) {
+    document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector(`[data-tab="${tabName}"]`);
+    if (btn) btn.classList.add('active');
+
+    if (tabName === 'dashboard') renderDashboard();
+    else if (tabName === 'staff') renderStaffTab();
+    else if (tabName === 'students') renderStudentsTab();
+    else if (tabName === 'search') renderSearchTab();
+    else if (tabName === 'attendance') renderAttendanceTab();
+    else if (tabName === 'marks') renderMarksTab();
+    else if (tabName === 'fees') renderFeesTab();
+    else if (tabName === 'news') renderNewsTab();
+    else if (tabName === 'chat') renderChatTab();
+    else if (tabName === 'website') renderWebsiteTab();
+}
+
+/* ================= TAB: DASHBOARD ================= */
+function renderDashboard() {
+    const stats = DB.getStats();
+    const alerts = DB.getAlerts();
+    const activity = DB.getRecentActivity(5);
+    const iconMap = { staff_added: 'user-plus', student_added: 'user-plus', marks_uploaded: 'file-text', notice_posted: 'megaphone', fee_recorded: 'credit-card' };
+
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Dashboard Overview</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.totalStudents}</div><div class="text-xs text-white/50 mt-1">Total Students</div></div>
+            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.totalStaff}</div><div class="text-xs text-white/50 mt-1">Total Staff</div></div>
+            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.activeClasses}</div><div class="text-xs text-white/50 mt-1">Active Classes</div></div>
+            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.activeNotices}</div><div class="text-xs text-white/50 mt-1">Active Notices</div></div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-6">
+            <div class="glass rounded-xl p-6 card-hover">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-red-400" data-icon="lucide:alert-triangle"></span> Alerts</h3>
+                <div class="space-y-3">
+                    ${alerts.lockedCount > 0 ? `<div class="flex items-start gap-3 p-3 bg-red-500/5 rounded-lg border border-red-500/10"><span class="text-red-400 text-xl">🔴</span><div><p class="text-sm">${alerts.lockedCount} student(s) — results LOCKED</p><button onclick="switchTab('marks')" class="text-xs text-gold-400 mt-1 hover:underline">Resolve Now →</button></div></div>` : ''}
+                    ${alerts.unreadByStaff > 0 ? `<div class="flex items-start gap-3 p-3 bg-gold-500/5 rounded-lg border border-gold-500/10"><span class="text-gold-400 text-xl">🟡</span><div><p class="text-sm">${alerts.unreadByStaff} parent message(s) awaiting staff reply</p><button onclick="switchTab('chat')" class="text-xs text-gold-400 mt-1 hover:underline">View Chats →</button></div></div>` : ''}
+                    ${alerts.staffThisWeek > 0 ? `<div class="flex items-start gap-3 p-3 bg-emerald-500/5 rounded-lg border border-emerald-500/10"><span class="text-emerald-400 text-xl">🟢</span><div><p class="text-sm">${alerts.staffThisWeek} new staff member(s) added this week</p></div></div>` : ''}
+                    ${(alerts.lockedCount === 0 && alerts.unreadByStaff === 0 && alerts.staffThisWeek === 0) ? `<p class="text-white/30 text-sm text-center py-6">All clear — no alerts right now 🎉</p>` : ''}
+                </div>
+            </div>
+            <div class="glass rounded-xl p-6 card-hover">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:history"></span> Recent Activity</h3>
+                <div class="space-y-4">
+                    ${activity.map((a, i) => `<div class="flex items-start gap-3 ${i < activity.length - 1 ? 'pb-3 border-b border-white/5' : ''}"><div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-sm"><span class="iconify" data-icon="lucide:${iconMap[a.type] || 'circle'}"></span></div><div class="flex-1"><p class="text-sm">${a.text}</p><span class="text-xs text-white/40">${timeAgo(a.time)}</span></div></div>`).join('') || `<p class="text-white/30 text-sm text-center py-6">No activity yet.</p>`}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/* ================= TAB: MANAGE STAFF ================= */
+let editingStaffId = null;
+
+function renderStaffTab() {
+    const classes = DB.getClasses();
+    main.innerHTML = `
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Manage Staff</h2>
+            <button onclick="openStaffForm()" class="btn-gold px-4 py-2 rounded-lg text-sm flex items-center gap-2"><span class="iconify" data-icon="lucide:user-plus"></span> Add Staff</button>
+        </div>
+        <div id="staff-form-wrap" class="hidden glass rounded-xl p-6 mb-6 border-l-4 border-gold-400">
+            <h3 id="staff-form-title" class="font-bold text-lg mb-4">➕ Add New Staff Member</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div><label class="text-xs text-white/50 mb-1 block">Name</label><input id="sf-name" type="text" placeholder="Mrs. Kavita Joshi"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Subject</label><input id="sf-subject" type="text" placeholder="Hindi"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Staff Type</label><select id="sf-type" onchange="toggleStaffClassField()"><option value="ct">Class Teacher</option><option value="hw">Homework Team</option></select></div>
+                <div id="sf-class-wrap"><label class="text-xs text-white/50 mb-1 block">Assign Class</label><input id="sf-class" list="class-list" placeholder="e.g. 8A, 8B, 11A"><datalist id="class-list">${classes.map(c => `<option value="${c}">`).join('')}</datalist></div>
+                <div><label class="text-xs text-white/50 mb-1 block">User ID</label><input id="sf-id-preview" type="text" value="(auto-generated on save)" readonly class="opacity-50 cursor-not-allowed"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Password</label><input id="sf-password" type="text" value="staff123"></div>
+            </div>
+            <div class="flex gap-3 mt-4">
+                <button onclick="saveStaff()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Save</button>
+                <button onclick="closeStaffForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Cancel</button>
+            </div>
+        </div>
+        <div class="glass rounded-xl p-6 card-hover overflow-x-auto">
+            <table class="w-full text-sm" id="staff-table"></table>
+        </div>
+    `;
+    renderStaffTable();
+}
+
+function toggleStaffClassField() {
+    const type = document.getElementById('sf-type').value;
+    document.getElementById('sf-class-wrap').style.display = type === 'hw' ? 'none' : 'block';
+}
+
+function openStaffForm(id) {
+    document.getElementById('staff-form-wrap').classList.remove('hidden');
+    const title = document.getElementById('staff-form-title');
+    if (id) {
+        editingStaffId = id;
+        const s = DB.getAllStaff().find(x => x.id === id);
+        title.textContent = '✏️ Edit Staff — ' + s.name;
+        document.getElementById('sf-name').value = s.name;
+        document.getElementById('sf-subject').value = s.subject || '';
+        document.getElementById('sf-type').value = s.type || 'ct';
+        document.getElementById('sf-class').value = s.class || '';
+        document.getElementById('sf-id-preview').value = s.id;
+        document.getElementById('sf-password').value = s.password;
+    } else {
+        editingStaffId = null;
+        title.textContent = '➕ Add New Staff Member';
+        document.getElementById('sf-name').value = '';
+        document.getElementById('sf-subject').value = '';
+        document.getElementById('sf-type').value = 'ct';
+        document.getElementById('sf-class').value = '';
+        document.getElementById('sf-id-preview').value = '(auto-generated on save)';
+        document.getElementById('sf-password').value = 'staff123';
+    }
+    toggleStaffClassField();
+}
+
+function closeStaffForm() {
+    document.getElementById('staff-form-wrap').classList.add('hidden');
+    editingStaffId = null;
+}
+
+function saveStaff() {
+    const name = document.getElementById('sf-name').value.trim();
+    if (!name) { alert('Naam daalo'); return; }
+    const subject = document.getElementById('sf-subject').value.trim();
+    const type = document.getElementById('sf-type').value;
+    const cls = document.getElementById('sf-class').value.trim();
+    const pw = document.getElementById('sf-password').value.trim() || 'staff123';
+
+    if (editingStaffId) {
+        DB.updateStaff(editingStaffId, { name, subject, type, class: type === 'hw' ? null : cls, password: pw });
+        showToast('Staff updated');
+    } else {
+        if (type === 'ct' && !cls) { alert('Class Teacher ke liye class zaroori hai'); return; }
+        const staff = DB.addStaff({ name, subject, type, cls });
+        if (pw !== 'staff123') DB.updateStaff(staff.id, { password: pw });
+        alert('Staff created!\n\nUser ID: ' + staff.id + '\nPassword: ' + pw + '\n\nYe credentials teacher ko de dena.');
+    }
+    closeStaffForm();
+    renderStaffTable();
+}
+
+function renderStaffTable() {
+    const rows = DB.getAllStaff();
+    document.getElementById('staff-table').innerHTML = `
+        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3 font-medium">ID</th><th class="text-left pb-3 font-medium">Name</th><th class="text-left pb-3 font-medium">Type</th><th class="text-left pb-3 font-medium">Class</th><th class="text-right pb-3 font-medium">Actions</th></tr></thead>
+        <tbody>
+        ${rows.map(s => `<tr class="border-b border-white/5">
+            <td class="py-3 text-white/50">${s.id}</td>
+            <td class="py-3 font-medium">${s.name}</td>
+            <td class="py-3 text-white/70">${s.type === 'hw' ? 'HW Team' : 'Class Teacher'}</td>
+            <td class="py-3 text-gold-400">${s.class || '—'}</td>
+            <td class="py-3 text-right"><button onclick="openStaffForm('${s.id}')" class="text-blue-400 hover:underline text-xs mr-3">✏️ Edit</button><button onclick="removeStaff('${s.id}')" class="text-red-400 hover:underline text-xs">🗑 Delete</button></td>
+        </tr>`).join('') || `<tr><td colspan="5" class="py-8 text-center text-white/30">No staff yet.</td></tr>`}
+        </tbody>
+    `;
+}
+
+function removeStaff(id) {
+    if (!confirm('Delete this staff member? Unka login access khatam ho jayega.')) return;
+    DB.deleteStaff(id);
+    renderStaffTable();
+    showToast('Staff deleted');
+}
+
+/* ================= TAB: MANAGE STUDENTS ================= */
+let editingStudentId = null;
+
+function renderStudentsTab() {
+    main.innerHTML = `
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Manage Students</h2>
+            <button onclick="openStudentForm()" class="btn-gold px-4 py-2 rounded-lg text-sm flex items-center gap-2"><span class="iconify" data-icon="lucide:user-plus"></span> Add Student</button>
+        </div>
+        <div id="student-form-wrap" class="hidden glass rounded-xl p-6 mb-6 border-l-4 border-gold-400">
+            <h3 id="student-form-title" class="font-bold text-lg mb-4">➕ Add New Student</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div><label class="text-xs text-white/50 mb-1 block">Name</label><input id="stf-name" type="text" placeholder="Amit Kumar"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Class</label><input id="stf-class" list="class-list-2" placeholder="e.g. 8A"><datalist id="class-list-2">${DB.getClasses().map(c => `<option value="${c}">`).join('')}</datalist></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Father's Name</label><input id="stf-father" type="text"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Mother's Name</label><input id="stf-mother" type="text"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Contact</label><input id="stf-contact" type="text" placeholder="98765 43210"></div>
+                <div><label class="text-xs text-white/50 mb-1 block">Password</label><input id="stf-password" type="text" value="stud123"></div>
+            </div>
+            <div class="flex gap-3 mt-4">
+                <button onclick="saveStudent()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Save</button>
+                <button onclick="closeStudentForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Cancel</button>
+            </div>
+        </div>
+        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
+            <input id="stu-search" type="text" placeholder="🔍 Search by name or ID..." class="flex-1" oninput="renderStudentsTable()">
+            <select id="stu-class-filter" class="w-auto" onchange="renderStudentsTable()"><option value="">All Classes</option>${DB.getClasses().map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+        </div>
+        <div class="glass rounded-xl p-6 card-hover overflow-x-auto"><table class="w-full text-sm" id="students-table"></table></div>
+    `;
+    renderStudentsTable();
+}
+
+function openStudentForm(id) {
+    document.getElementById('student-form-wrap').classList.remove('hidden');
+    if (id) {
+        editingStudentId = id;
+        const s = DB.getStudentById(id);
+        document.getElementById('student-form-title').textContent = '✏️ Edit Student — ' + s.name;
+        document.getElementById('stf-name').value = s.name;
+        document.getElementById('stf-class').value = s.class;
+        document.getElementById('stf-father').value = s.father || '';
+        document.getElementById('stf-mother').value = s.mother || '';
+        document.getElementById('stf-contact').value = s.contact || '';
+        document.getElementById('stf-password').value = s.password;
+    } else {
+        editingStudentId = null;
+        document.getElementById('student-form-title').textContent = '➕ Add New Student';
+        ['stf-name', 'stf-class', 'stf-father', 'stf-mother', 'stf-contact'].forEach(fid => document.getElementById(fid).value = '');
+        document.getElementById('stf-password').value = 'stud123';
+    }
+}
+
+function closeStudentForm() {
+    document.getElementById('student-form-wrap').classList.add('hidden');
+    editingStudentId = null;
+}
+
+function saveStudent() {
+    const name = document.getElementById('stf-name').value.trim();
+    const cls = document.getElementById('stf-class').value.trim();
+    if (!name || !cls) { alert('Naam aur class dono zaroori hain'); return; }
+    const father = document.getElementById('stf-father').value.trim();
+    const mother = document.getElementById('stf-mother').value.trim();
+    const contact = document.getElementById('stf-contact').value.trim();
+    const pw = document.getElementById('stf-password').value.trim() || 'stud123';
+
+    if (editingStudentId) {
+        DB.updateStudent(editingStudentId, { name, class: cls, father, mother, contact, password: pw });
+        showToast('Student updated');
+    } else {
+        const student = DB.addStudent({ name, cls, father, mother, contact });
+        if (pw !== 'stud123') DB.updateStudent(student.id, { password: pw });
+        alert('Student created!\n\nUser ID: ' + student.id + '\nPassword: ' + pw + '\n\nYe credentials student/parent ko de dena.');
+    }
+    closeStudentForm();
+    renderStudentsTab();
+}
+
+function renderStudentsTable() {
+    const q = (document.getElementById('stu-search').value || '').toLowerCase();
+    const clsFilter = document.getElementById('stu-class-filter').value;
+    let students = DB.getAllStudents();
+    if (clsFilter) students = students.filter(s => s.class === clsFilter);
+    if (q) students = students.filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+
+    document.getElementById('students-table').innerHTML = `
+        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3 font-medium">ID</th><th class="text-left pb-3 font-medium">Name</th><th class="text-left pb-3 font-medium">Class</th><th class="text-left pb-3 font-medium">Roll</th><th class="text-center pb-3 font-medium">Result</th><th class="text-right pb-3 font-medium">Actions</th></tr></thead>
+        <tbody>
+        ${students.map(s => {
+            const settings = DB.getStudentSettings(s.id);
+            return `<tr class="border-b border-white/5">
+                <td class="py-3 text-white/50">${s.id}</td>
+                <td class="py-3 font-medium">${s.name}</td>
+                <td class="py-3 text-gold-400">${s.class}</td>
+                <td class="py-3">${s.roll}</td>
+                <td class="py-3 text-center">${settings.showResults ? '<span class="text-emerald-400 text-xs">✅ Visible</span>' : '<span class="text-red-400 text-xs">🔒 Locked</span>'}</td>
+                <td class="py-3 text-right"><button onclick="openStudentForm('${s.id}')" class="text-blue-400 hover:underline text-xs mr-2">✏️ Edit</button><button onclick="removeStudent('${s.id}')" class="text-red-400 hover:underline text-xs">🗑 Delete</button></td>
+            </tr>`;
+        }).join('') || `<tr><td colspan="6" class="py-8 text-center text-white/30">No students found.</td></tr>`}
+        </tbody>
+    `;
+}
+
+function removeStudent(id) {
+    if (!confirm('Delete this student? Unka login access aur data khatam ho jayega.')) return;
+    DB.deleteStudent(id);
+    renderStudentsTable();
+    showToast('Student deleted');
+}
+
+/* ================= TAB: SEARCH ================= */
+function renderSearchTab() {
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Search</h2>
+        <div class="glass rounded-xl p-4 mb-6">
+            <input id="search-q" type="text" placeholder="Search by student/staff name, ID, or class..." oninput="runSearch()">
+        </div>
+        <div id="search-results" class="space-y-4"></div>
+    `;
+    document.getElementById('search-q').focus();
+}
+
+function runSearch() {
+    const q = document.getElementById('search-q').value.trim().toLowerCase();
+    const box = document.getElementById('search-results');
+    if (!q) { box.innerHTML = `<p class="text-white/30 text-center py-8">Type a name, ID, or class to search.</p>`; return; }
+
+    const students = DB.getAllStudents().filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || s.class.toLowerCase().includes(q));
+    const staff = DB.getAllStaff().filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || (s.class || '').toLowerCase().includes(q));
+
+    let html = '';
+    students.forEach(s => {
+        const settings = DB.getStudentSettings(s.id);
+        const feeSum = DB.getFeeSummary(s.id);
+        const att = DB.getStudentAttendance(s.class, s.id);
+        const dates = Object.keys(att).filter(d => att[d].status !== 'holiday');
+        const present = dates.filter(d => att[d].status === 'present' || att[d].status === 'late').length;
+        const attPct = dates.length ? Math.round(present / dates.length * 100) : 0;
+        const teacher = DB.getTeacherByClass(s.class);
+        const chatCount = teacher ? DB.getChat(teacher.id, s.id).length : 0;
+        html += `<div class="glass rounded-xl p-5 card-hover">
+            <div class="flex justify-between items-start mb-3 flex-wrap gap-2">
+                <div><h3 class="font-bold text-lg">👤 ${s.name}</h3><p class="text-xs text-white/50">Class: ${s.class} | Roll: ${s.roll} | ID: ${s.id}</p></div>
+                <span class="text-xs px-2 py-1 rounded-full ${settings.showResults ? 'bg-emerald-400/10 text-emerald-400' : 'bg-red-400/10 text-red-400'}">${settings.showResults ? '🔓 Results Visible' : '🔒 Results Locked'}</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-3 text-white/70">
+                <div>📅 Attendance: <span class="text-gold-400">${attPct}%</span></div>
+                <div>💰 Fees Due: <span class="${feeSum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${feeSum.due.toLocaleString()}</span></div>
+                <div>💬 Chat: ${chatCount} messages</div>
+                <div>👨‍🏫 Teacher: ${teacher ? teacher.name : '—'}</div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+                <button onclick="quickToggleResult('${s.id}')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">${settings.showResults ? '🔒 Lock Results' : '🔓 Unlock Results'}</button>
+                <button onclick="quickToggleFee('${s.id}')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">${settings.showFees ? '🙈 Hide Fees' : '👁 Show Fees'}</button>
+                <button onclick="openStudentForm('${s.id}');switchTab('students')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">✏️ Edit</button>
+            </div>
+        </div>`;
+    });
+    staff.forEach(t => {
+        html += `<div class="glass rounded-xl p-5 card-hover">
+            <h3 class="font-bold text-lg">🧑‍🏫 ${t.name}</h3>
+            <p class="text-xs text-white/50">${t.type === 'hw' ? 'Homework Team' : 'Class Teacher'} ${t.class ? ('• Class ' + t.class) : ''} • ID: ${t.id} ${t.subject ? ('• ' + t.subject) : ''}</p>
+        </div>`;
+    });
+    box.innerHTML = html || `<p class="text-white/30 text-center py-8">No matches for "${q}".</p>`;
+}
+
+function quickToggleResult(id) {
+    const cur = DB.getStudentSettings(id);
+    if (cur.showResults) {
+        const reason = prompt('Result LOCK karne ki reason:', 'Fees pending');
+        if (reason === null) return;
+        DB.setResultVisibility(id, false, reason);
+    } else {
+        DB.setResultVisibility(id, true);
+    }
+    runSearch();
+}
+
+function quickToggleFee(id) {
+    const cur = DB.getStudentSettings(id);
+    DB.setFeeVisibility(id, !cur.showFees);
+    runSearch();
+}
+
+/* ================= TAB: ATTENDANCE (view only) ================= */
+function renderAttendanceTab() {
+    const classes = DB.getClasses();
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Attendance Records <span class="text-sm text-white/40 font-normal">(View Only — staff marks it)</span></h2>
+        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
+            <span class="text-sm text-white/50">Class:</span>
+            <select id="att-class" class="w-auto" onchange="renderAdminAttendance()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+            <span class="text-sm text-white/50">Date:</span>
+            <input id="att-date" type="date" class="w-auto" onchange="renderAdminAttendance()">
+        </div>
+        <div id="att-view" class="glass rounded-xl p-6 card-hover"></div>
+    `;
+    document.getElementById('att-date').value = todayISO();
+    renderAdminAttendance();
+}
+
+function renderAdminAttendance() {
+    const cls = document.getElementById('att-class').value;
+    const date = document.getElementById('att-date').value;
+    const students = DB.getClassStudents(cls);
+    const data = DB.getAttendance(cls, date);
+    const isHol = DB.isHoliday(cls, date);
+    const box = document.getElementById('att-view');
+
+    if (isHol) {
+        box.innerHTML = `<p class="text-center py-10" style="color:#c4b5fd">🎌 This day is marked as a Holiday for Class ${cls}.</p>`;
+        return;
+    }
+    if (Object.keys(data).length === 0) {
+        box.innerHTML = `<p class="text-white/30 text-center py-10">No attendance marked for this date yet.</p>`;
+        return;
+    }
+    let p = 0, a = 0, l = 0;
+    const icon = { present: '✅', absent: '❌', late: '⏰' };
+    const rows = students.map(s => {
+        const rec = data[s.id] || { status: '—' };
+        if (rec.status === 'present') p++;
+        if (rec.status === 'late') { l++; p++; }
+        if (rec.status === 'absent') a++;
+        return `<tr class="border-b border-white/5"><td class="py-2 text-left">${s.name}</td><td class="py-2 text-center">${icon[rec.status] || '—'} ${rec.status}</td><td class="py-2 text-left text-white/50">${rec.reason || rec.note || (rec.lateBy ? rec.lateBy + ' min late' : '—')}</td></tr>`;
+    }).join('');
+    const pct = students.length ? Math.round(p / students.length * 100) : 0;
+    box.innerHTML = `<table class="w-full text-sm mb-4"><thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-2">Name</th><th class="pb-2">Status</th><th class="text-left pb-2">Reason</th></tr></thead><tbody>${rows}</tbody></table><p class="text-sm text-white/50">Summary: ${p}P ${a}A ${l}L = ${pct}%</p>`;
+}
+
+/* ================= TAB: MARKS CONTROL ================= */
+function computeStudentTotal(marks, subjects) {
+    let total = 0, count = 0;
+    subjects.forEach(sub => { if (marks[sub]) { total += marks[sub].o; count++; } });
+    if (count === 0) return { total: null, pct: null, grade: null };
+    const pct = Math.round(total / (count * 100) * 100);
+    return { total, pct, grade: DB.calcGrade(pct) };
+}
+
+function renderMarksTab() {
+    const classes = DB.getClasses();
+    const tests = DB.getTests();
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Marks Control — Lock/Unlock Results</h2>
+        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
+            <span class="text-sm text-white/50">Class:</span><select id="mc-class" class="w-auto" onchange="renderMarksControlTable()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+            <span class="text-sm text-white/50">Test:</span><select id="mc-test" class="w-auto" onchange="renderMarksControlTable()">${tests.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+        </div>
+        <div class="glass rounded-xl p-6 card-hover overflow-x-auto"><table class="w-full text-sm" id="mc-table"></table></div>
+        <div class="glass rounded-xl p-6 mt-6 card-hover">
+            <h3 class="font-bold text-sm mb-4">⚡ Bulk Actions</h3>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="bulkLock()" class="px-4 py-2 bg-red-500/10 text-red-400 rounded-lg text-xs hover:bg-red-500/20">🔒 Lock all students with pending fees</button>
+                <button onclick="bulkUnlock()" class="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-lg text-xs hover:bg-emerald-500/20">🔓 Unlock all results</button>
+            </div>
+        </div>
+    `;
+    renderMarksControlTable();
+}
+
+function renderMarksControlTable() {
+    const cls = document.getElementById('mc-class').value;
+    const test = document.getElementById('mc-test').value;
+    const subjects = DB.getSubjects();
+    const students = DB.getClassStudents(cls);
+    document.getElementById('mc-table').innerHTML = `
+        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3">Name</th><th class="pb-3">%</th><th class="pb-3">Grade</th><th class="pb-3">Fee Status</th><th class="text-center pb-3">Result Visibility</th></tr></thead>
+        <tbody class="text-center">
+        ${students.map(s => {
+            const marks = DB.getMarks(cls, test, s.id) || {};
+            const { pct, grade } = computeStudentTotal(marks, subjects);
+            const fee = DB.getFeeSummary(s.id);
+            const settings = DB.getStudentSettings(s.id);
+            return `<tr class="border-b border-white/5">
+                <td class="py-4 text-left font-medium">${s.name}</td>
+                <td class="py-4">${pct !== null ? pct + '%' : '—'}</td>
+                <td class="py-4" style="color:${grade ? grade.color : '#475569'}">${grade ? grade.grade : '—'}</td>
+                <td class="py-4" style="color:${fee.due > 0 ? '#f87171' : '#34d399'}">${fee.due > 0 ? '⚠️ Due ₹' + fee.due.toLocaleString() : '✅ Paid'}</td>
+                <td class="py-4"><button class="toggle-btn ${settings.showResults ? 'unlock-active' : 'lock-active'}" onclick="toggleResultLock('${s.id}')">${settings.showResults ? '🔓 Visible' : '🔒 Locked'}</button></td>
+            </tr>`;
+        }).join('') || `<tr><td colspan="5" class="py-8 text-white/30">No students in this class.</td></tr>`}
+        </tbody>
+    `;
+}
+
+function toggleResultLock(id) {
+    const cur = DB.getStudentSettings(id);
+    if (cur.showResults) {
+        const reason = prompt('Result LOCK karne ki reason:', 'Fees pending');
+        if (reason === null) return;
+        DB.setResultVisibility(id, false, reason);
+    } else {
+        DB.setResultVisibility(id, true);
+    }
+    renderMarksControlTable();
+}
+
+function bulkLock() {
+    if (!confirm('Pending-fee wale sabhi students ke results LOCK kar dein?')) return;
+    const n = DB.bulkLockResultsForPendingFees();
+    showToast(n + ' students results locked');
+    renderMarksControlTable();
+}
+
+function bulkUnlock() {
+    if (!confirm('Sabhi students ke results UNLOCK kar dein?')) return;
+    const n = DB.bulkUnlockAllResults();
+    showToast(n + ' students results unlocked');
+    renderMarksControlTable();
+}
+
+/* ================= TAB: FEE CONTROL ================= */
+function renderFeesTab() {
+    const classes = DB.getClasses();
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Fee Control</h2>
+
+        <div class="glass rounded-xl p-6 mb-6 card-hover">
+            <h3 class="font-bold text-lg mb-1">🏷️ Class-wise Annual Fee</h3>
+            <p class="text-xs text-white/40 mb-4">Har class ki fees alag rakh sakte ho. Naya set karne tak default ₹25,000 rahega.</p>
+            <div class="grid md:grid-cols-3 gap-3" id="class-fee-grid">
+                ${classes.map(c => `
+                    <div class="flex items-center gap-2 bg-white/5 rounded-lg p-2">
+                        <span class="text-sm text-gold-400 w-14">${c}</span>
+                        <input type="number" id="cf-${c}" value="${DB.getClassFee(c)}" class="flex-1">
+                        <button onclick="saveClassFee('${c}')" class="text-xs px-3 py-2 rounded-lg btn-gold">Save</button>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center">
+            <span class="text-sm text-white/50">Class:</span><select id="fc-class" class="w-auto" onchange="renderFeesTable()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+        </div>
+        <div class="glass rounded-xl p-6 card-hover overflow-x-auto"><table class="w-full text-sm" id="fc-table"></table></div>
+
+        <div class="glass rounded-xl p-6 mt-6 card-hover border-l-4 border-emerald-400">
+            <h3 class="font-bold text-lg mb-4">💰 Record New Payment</h3>
+            <div class="grid md:grid-cols-5 gap-4">
+                <select id="fp-student"></select>
+                <select id="fp-quarter"><option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option></select>
+                <input id="fp-amount" type="number" placeholder="Amount ₹" value="6250">
+                <select id="fp-method"><option>UPI</option><option>Cash</option><option>Bank</option><option>Online</option></select>
+                <input id="fp-date" type="date">
+            </div>
+            <button onclick="recordPayment()" class="btn-gold px-6 py-2 rounded-lg mt-4 text-sm">💾 Record Payment</button>
+        </div>
+    `;
+    document.getElementById('fp-date').value = todayISO();
+    populateFeeStudentDropdown();
+    renderFeesTable();
+}
+
+function saveClassFee(cls) {
+    const amount = parseInt(document.getElementById('cf-' + cls).value) || 25000;
+    DB.setClassFee(cls, amount);
+    showToast('Class ' + cls + ' fee set to ₹' + amount.toLocaleString());
+    renderFeesTable();
+}
+
+function populateFeeStudentDropdown() {
+    const students = DB.getAllStudents();
+    document.getElementById('fp-student').innerHTML = students.map(s => `<option value="${s.id}">${s.name} (${s.class})</option>`).join('');
+}
+
+function renderFeesTable() {
+    const cls = document.getElementById('fc-class').value;
+    const students = DB.getClassStudents(cls);
+    document.getElementById('fc-table').innerHTML = `
+        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3">Name</th><th class="pb-3">Total</th><th class="pb-3">Paid</th><th class="pb-3">Due</th><th class="text-center pb-3">Fee Visibility</th><th class="text-right pb-3">Discount</th></tr></thead>
+        <tbody class="text-center">
+        ${students.map(s => {
+            const sum = DB.getFeeSummary(s.id);
+            const fees = DB.getFees(s.id);
+            const settings = DB.getStudentSettings(s.id);
+            return `<tr class="border-b border-white/5">
+                <td class="py-4 text-left font-medium">${s.name}${fees.discountReason ? `<br><span class="text-[10px] text-emerald-400">🎓 ${fees.discountReason}</span>` : ''}</td>
+                <td class="py-4">₹${sum.total.toLocaleString()}</td>
+                <td class="py-4 text-emerald-400">₹${sum.paid.toLocaleString()}</td>
+                <td class="py-4 text-red-400">₹${sum.due.toLocaleString()}</td>
+                <td class="py-4"><button class="toggle-btn ${settings.showFees ? 'unlock-active' : 'lock-active'}" onclick="toggleFeeVis('${s.id}')">${settings.showFees ? '🔓 Visible' : '🔒 Hidden'}</button></td>
+                <td class="py-4 text-right"><button onclick="openFeeOverride('${s.id}')" class="text-xs text-blue-400 hover:underline">🎓 Set Discount</button></td>
+            </tr>`;
+        }).join('') || `<tr><td colspan="6" class="py-8 text-white/30">No students in this class.</td></tr>`}
+        </tbody>
+    `;
+}
+
+function openFeeOverride(id) {
+    const s = DB.getStudentById(id);
+    const current = DB.getFees(id);
+    const newTotal = prompt(s.name + ' ki custom annual fee daalo (scholarship/offer wali amount):', current.total);
+    if (newTotal === null || newTotal.trim() === '') return;
+    const amount = parseInt(newTotal);
+    if (isNaN(amount) || amount < 0) { alert('Sahi amount daalo'); return; }
+    const reason = prompt('Reason (e.g. "50% Scholarship", "Sibling Discount", "Free Seat"):', current.discountReason || '');
+    DB.setStudentFeeOverride(id, amount, reason);
+    showToast('Custom fee set for ' + s.name);
+    renderFeesTable();
+}
+
+function toggleFeeVis(id) {
+    const cur = DB.getStudentSettings(id);
+    DB.setFeeVisibility(id, !cur.showFees);
+    renderFeesTable();
+}
+
+function recordPayment() {
+    const id = document.getElementById('fp-student').value;
+    const quarter = document.getElementById('fp-quarter').value;
+    const amount = parseInt(document.getElementById('fp-amount').value) || 0;
+    const method = document.getElementById('fp-method').value;
+    const date = document.getElementById('fp-date').value;
+    if (!id || !amount) { alert('Student aur amount select karo'); return; }
+    DB.recordFeePayment(id, quarter, amount, method, date);
+    showToast('Payment recorded');
+    renderFeesTable();
+}
+
+/* ================= TAB: NEWS & UPDATES ================= */
+function renderNewsTab() {
+    const classes = DB.getClasses();
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">News & Updates</h2>
+        <div class="grid lg:grid-cols-3 gap-6 mb-6">
+            <div class="lg:col-span-2 glass rounded-xl p-6 card-hover border-l-4 border-gold-400">
+                <h3 class="font-bold text-lg mb-4">📢 Post New Update</h3>
+                <div class="space-y-4">
+                    <input id="nf-title" type="text" placeholder="Title: e.g., Annual Day Celebration">
+                    <textarea id="nf-desc" rows="3" placeholder="Description..."></textarea>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="text-xs text-white/50 mb-1 block">Category</label><select id="nf-cat"><option value="event">Event</option><option value="urgent">Urgent</option><option value="academic">Academic</option><option value="general">General</option></select></div>
+                        <div><label class="text-xs text-white/50 mb-1 block">Target Audience</label><select id="nf-audience"><option value="all">Everyone</option><option value="students_only">Students Only</option><option value="staff_only">Staff Only</option></select></div>
+                    </div>
+                    <div>
+                        <label class="text-xs text-white/50 mb-1 block">Target Classes</label>
+                        <div class="flex flex-wrap gap-3 p-2">
+                            <label class="text-xs flex items-center gap-1"><input type="checkbox" id="nf-all-classes" checked onchange="toggleClassChecks()" class="w-auto"> All Classes</label>
+                            ${classes.map(c => `<label class="text-xs flex items-center gap-1"><input type="checkbox" class="nf-class-check w-auto" disabled value="${c}"> ${c}</label>`).join('')}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="text-xs text-white/50 mb-1 block">Show From</label><input id="nf-from" type="date"></div>
+                        <div><label class="text-xs text-white/50 mb-1 block">Hide After (optional)</label><input id="nf-until" type="date"></div>
+                    </div>
+                    <label class="text-xs flex items-center gap-2"><input id="nf-pin" type="checkbox" class="w-auto"> Pin to top</label>
+                    <div class="flex gap-3">
+                        <button onclick="publishNotice()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Publish Update</button>
+                        <button onclick="resetNoticeForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-6 card-hover">
+                <h3 class="font-bold text-sm mb-4">⚡ Quick Actions</h3>
+                <div class="space-y-2">
+                    <button onclick="quickFeeReminder()" class="w-full p-3 bg-white/5 text-white/70 rounded-lg text-xs hover:bg-white/10 text-left">📢 Send fee reminder to all students</button>
+                </div>
+            </div>
+        </div>
+        <h3 class="font-bold text-lg mb-4">📢 Published Updates</h3>
+        <div id="notices-list-admin" class="space-y-4"></div>
+    `;
+    document.getElementById('nf-from').value = todayISO();
+    renderNoticesListAdmin();
+}
+
+function toggleClassChecks() {
+    const all = document.getElementById('nf-all-classes').checked;
+    document.querySelectorAll('.nf-class-check').forEach(cb => { cb.disabled = all; if (all) cb.checked = false; });
+}
+
+function publishNotice() {
+    const title = document.getElementById('nf-title').value.trim();
+    const desc = document.getElementById('nf-desc').value.trim();
+    if (!title) { alert('Title daalo'); return; }
+    const allClasses = document.getElementById('nf-all-classes').checked;
+    const selected = Array.from(document.querySelectorAll('.nf-class-check:checked')).map(c => c.value);
+    const targetClasses = (allClasses || selected.length === 0) ? ['ALL'] : selected;
+    const from = document.getElementById('nf-from').value;
+    const until = document.getElementById('nf-until').value;
+
+    DB.addNotice({
+        title, desc,
+        category: document.getElementById('nf-cat').value,
+        targetAudience: document.getElementById('nf-audience').value,
+        targetClasses,
+        visibleFrom: from ? new Date(from + 'T00:00:00').toISOString() : new Date().toISOString(),
+        visibleUntil: until ? new Date(until + 'T23:59:59').toISOString() : null,
+        isPinned: document.getElementById('nf-pin').checked
+    });
+    showToast('Notice published!');
+    resetNoticeForm();
+    renderNoticesListAdmin();
+}
+
+function resetNoticeForm() {
+    document.getElementById('nf-title').value = '';
+    document.getElementById('nf-desc').value = '';
+    document.getElementById('nf-all-classes').checked = true;
+    document.querySelectorAll('.nf-class-check').forEach(c => { c.checked = false; c.disabled = true; });
+    document.getElementById('nf-until').value = '';
+    document.getElementById('nf-pin').checked = false;
+}
+
+function quickFeeReminder() {
+    DB.addNotice({
+        title: 'Fee Deadline Reminder',
+        desc: 'Pending quarterly fees ko jaldi jama karayein. Details ke liye office se sampark karein.',
+        category: 'urgent',
+        targetAudience: 'students_only',
+        targetClasses: ['ALL'],
+        visibleFrom: new Date().toISOString(),
+        visibleUntil: null,
+        isPinned: true
+    });
+    showToast('Fee reminder sent to all students');
+    renderNoticesListAdmin();
+}
+
+function renderNoticesListAdmin() {
+    const notices = DB.getAllNotices();
+    document.getElementById('notices-list-admin').innerHTML = notices.map(n => {
+        const status = DB.noticeStatus(n);
+        const statusLabel = status === 'visible' ? '✅ Currently Visible' : status === 'scheduled' ? '⏳ Scheduled' : '⏹ Expired';
+        const targetLabel = n.targetClasses[0] === 'ALL' ? 'All Classes' : n.targetClasses.join(', ');
+        const audienceLabel = { all: '+ Staff & Students', students_only: '(Students only)', staff_only: '(Staff only)' }[n.targetAudience] || '';
+        return `<div class="glass rounded-xl p-5 card-hover ${n.isPinned ? 'border-l-4 border-gold-400' : ''}">
+            <div class="flex justify-between items-start mb-2 flex-wrap gap-2">
+                <h4 class="font-bold flex items-center gap-2">📢 ${n.title} ${n.isPinned ? '<span class="text-gold-400 text-xs">📌 Pinned</span>' : ''}</h4>
+                <span class="text-xs text-white/40">${(n.createdAt || '').slice(0, 10)}</span>
+            </div>
+            <p class="text-white/70 text-sm mb-2">${n.desc || ''}</p>
+            <p class="text-xs text-white/40">👁 For: ${targetLabel} ${audienceLabel}</p>
+            <p class="text-xs text-white/40">📅 Visible: ${(n.visibleFrom || '').slice(0, 10)} → ${n.visibleUntil ? n.visibleUntil.slice(0, 10) : 'Forever'}</p>
+            <p class="text-xs mt-1" style="color:${status === 'visible' ? '#34d399' : status === 'scheduled' ? '#fbbf24' : '#94a3b8'}">${statusLabel}</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="togglePin('${n.id}')" class="text-xs text-blue-400 hover:underline">${n.isPinned ? 'Unpin' : '📌 Pin'}</button>
+                <button onclick="removeNotice('${n.id}')" class="text-xs text-red-400 hover:underline">🗑 Delete</button>
+            </div>
+        </div>`;
+    }).join('') || `<p class="text-white/30 text-center py-8">No notices posted yet.</p>`;
+}
+
+function togglePin(id) { DB.togglePinNotice(id); renderNoticesListAdmin(); }
+function removeNotice(id) { if (!confirm('Delete this notice?')) return; DB.deleteNotice(id); renderNoticesListAdmin(); }
+
+/* ================= TAB: CHAT MONITOR (read only) ================= */
+function renderChatTab() {
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Chat Monitor <span class="text-sm text-white/40 font-normal">(Read Only)</span></h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div id="chat-monitor-list" class="glass rounded-xl p-4 card-hover space-y-2 md:col-span-1"></div>
+            <div class="glass rounded-xl p-6 card-hover md:col-span-2">
+                <div id="chat-monitor-header" class="text-white/40 text-sm mb-4 pb-4 border-b border-white/10">Select a conversation to view</div>
+                <div id="chat-monitor-messages" class="chat-container"></div>
+            </div>
+        </div>
+    `;
+    renderChatMonitorList();
+}
+
+function renderChatMonitorList() {
+    const chats = DB.getAllChatsSummary();
+    document.getElementById('chat-monitor-list').innerHTML = chats.map(c => `
+        <div class="p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer" onclick="viewChatMonitor('${c.teacherId}','${c.studentId}')">
+            <div class="flex justify-between items-center">
+                <span class="font-medium text-sm">${c.studentName} ↔ ${c.teacherName}</span>
+                ${c.unreadByStaff ? '<span class="w-2 h-2 rounded-full bg-red-400"></span>' : ''}
+            </div>
+            <p class="text-xs text-white/40 mt-1 truncate">${c.lastMsg}</p>
+        </div>
+    `).join('') || `<p class="text-white/30 text-center py-4">No conversations yet.</p>`;
+}
+
+function viewChatMonitor(teacherId, studentId) {
+    const student = DB.getStudentById(studentId);
+    const teacher = DB.getTeacherById(teacherId);
+    document.getElementById('chat-monitor-header').innerHTML = `<span class="text-white">${student ? student.name : studentId} (Class ${student ? student.class : '—'}) ↔ ${teacher ? teacher.name : teacherId}</span>`;
+    const msgs = DB.getChat(teacherId, studentId);
+    document.getElementById('chat-monitor-messages').innerHTML = msgs.map(m => `
+        <div class="${m.from === 'teacher' ? 'msg-teacher' : 'msg-parent'}">
+            <p class="text-xs ${m.from === 'teacher' ? 'text-emerald-400' : 'text-gold-400'} mb-1">${m.from === 'teacher' ? 'Teacher' : 'Parent'} (${new Date(m.time).toLocaleString()})</p>
+            <p class="text-sm text-white/80">${m.msg}</p>
+        </div>
+    `).join('') || `<p class="text-white/30 text-center py-4">No messages.</p>`;
+}
+
+/* ================= TAB: WEBSITE MANAGER ================= */
+function renderWebsiteTab() {
+    const content = DB.getSiteContent();
+    const gallery = DB.getGallery();
+    main.innerHTML = `
+        <h2 class="text-2xl font-bold mb-6">Website Content Manager</h2>
+        <p class="text-xs text-white/40 mb-4">Yeh data DB me save hota hai. Homepage (index.html) ko isse live-update karna abhi baaki hai — ye agla step hoga.</p>
+        <div class="grid lg:grid-cols-2 gap-6">
+            <div class="glass rounded-xl p-6 card-hover">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:image"></span> Gallery Photos</h3>
+                <div class="grid grid-cols-3 gap-3" id="gallery-grid">
+                    ${gallery.map(g => `
+                        <div class="relative aspect-square rounded-lg overflow-hidden group">
+                            <img src="${g.url}" class="w-full h-full object-cover" onerror="this.style.opacity=0.2">
+                            <button onclick="removeGalleryPhoto('${g.id}')" class="absolute top-1 right-1 bg-red-500/80 text-white text-xs w-6 h-6 rounded-full opacity-0 group-hover:opacity-100 transition">🗑</button>
+                        </div>
+                    `).join('')}
+                    <div class="aspect-square bg-gradient-to-br from-gold-400/20 to-emerald-400/20 rounded-lg flex items-center justify-center text-gold-400 text-xl cursor-pointer" onclick="addGalleryPhoto()">📎</div>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-6 card-hover">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:file-text"></span> Homepage Text</h3>
+                <div class="space-y-4">
+                    <div><label class="text-xs text-white/50 mb-1 block">School Title</label><input id="wc-title" type="text" value="${content.title}"></div>
+                    <div><label class="text-xs text-white/50 mb-1 block">School Motto</label><input id="wc-motto" type="text" value="${content.motto}"></div>
+                    <div><label class="text-xs text-white/50 mb-1 block">About Us</label><textarea id="wc-about" rows="4">${content.about}</textarea></div>
+                    <button onclick="saveWebsiteContent()" class="btn-gold px-6 py-2 rounded-lg text-sm">💾 Save Changes</button>
+                </div>
+            </div>
+        </div>
+        <div class="glass rounded-xl p-6 mt-6 card-hover">
+            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:image"></span> School Logo</h3>
+            <div class="flex items-center gap-4 flex-wrap">
+                <img id="logo-preview" src="${content.logoUrl}" class="w-16 h-16 rounded-full object-contain bg-white/5">
+                <input id="wc-logo" type="text" value="${content.logoUrl}" placeholder="Logo image URL" class="flex-1 min-w-[200px]">
+                <button onclick="saveLogo()" class="btn-gold px-4 py-2 rounded-lg text-sm">Update</button>
+            </div>
+        </div>
+    `;
+}
+
+function addGalleryPhoto() {
+    const url = prompt('Photo ka image URL daalo:');
+    if (!url) return;
+    const caption = prompt('Caption (optional):', '');
+    DB.addGalleryPhoto(url, caption);
+    renderWebsiteTab();
+}
+
+function removeGalleryPhoto(id) {
+    if (!confirm('Delete this photo?')) return;
+    DB.deleteGalleryPhoto(id);
+    renderWebsiteTab();
+}
+
+function saveWebsiteContent() {
+    DB.saveSiteContent({
+        title: document.getElementById('wc-title').value,
+        motto: document.getElementById('wc-motto').value,
+        about: document.getElementById('wc-about').value
+    });
+    showToast('Website text saved');
+}
+
+function saveLogo() {
+    const url = document.getElementById('wc-logo').value.trim();
+    if (!url) return;
+    DB.saveSiteContent({ logoUrl: url });
+    document.getElementById('logo-preview').src = url;
+    showToast('Logo updated');
+}
+
+/* ================= PARTICLES (decorative, same as rest of site) ================= */
+(function () {
+    const c = document.getElementById('global-particles');
+    const icons = ['lucide:book-open', 'lucide:graduation-cap', 'lucide:pencil', 'lucide:star', 'lucide:apple', 'lucide:trophy', 'lucide:brain', 'lucide:lightbulb', 'lucide:heart', 'lucide:sparkles', 'lucide:atom', 'lucide:calculator', 'lucide:globe', 'lucide:music', 'lucide:palette'];
+    const colors = ['gold', 'emerald', 'blue', 'purple', 'rose'];
+    const anims = ['floatSlow', 'floatReverse'];
+    const colorMap = { gold: '#fbbf24', emerald: '#34d399', blue: '#60a5fa', purple: '#a78bfa', rose: '#fb7185' };
+    for (let i = 0; i < 25; i++) {
+        const el = document.createElement('div'); el.className = 'absolute pointer-events-none';
+        el.style.top = Math.random() * 100 + '%'; el.style.left = Math.random() * 100 + '%';
+        el.style.animation = anims[Math.floor(Math.random() * anims.length)] + ' ' + (5 + Math.random() * 10) + 's ease-in-out infinite';
+        el.style.animationDelay = Math.random() * 5 + 's'; el.style.opacity = .03 + Math.random() * .07;
+        const s = 16 + Math.random() * 24, co = colors[Math.floor(Math.random() * colors.length)], ic = icons[Math.floor(Math.random() * icons.length)];
+        el.innerHTML = `<span class="iconify" data-icon="${ic}" style="font-size:${s}px;color:${colorMap[co]}"></span>`;
+        c.appendChild(el);
+    }
+    for (let i = 0; i < 40; i++) {
+        const el = document.createElement('div'); el.className = 'absolute rounded-full pointer-events-none';
+        const s = 2 + Math.random() * 4; el.style.width = s + 'px'; el.style.height = s + 'px';
+        el.style.top = Math.random() * 100 + '%'; el.style.left = Math.random() * 100 + '%';
+        const co = colors[Math.floor(Math.random() * colors.length)];
+        el.style.background = colorMap[co]; el.style.opacity = .05 + Math.random() * .15;
+        el.style.animation = (Math.random() > .5 ? 'floatSlow' : 'floatReverse') + ' ' + (8 + Math.random() * 12) + 's ease-in-out infinite';
+        el.style.animationDelay = Math.random() * 8 + 's'; c.appendChild(el);
+    }
+})();
+
+document.addEventListener('mousemove', function (e) {
+    if (Math.random() > .92) {
+        const p = document.createElement('div');
+        p.style.cssText = `position:fixed;pointer-events:none;z-index:9999;width:4px;height:4px;border-radius:50%;background:${['#fbbf24', '#34d399', '#60a5fa'][Math.floor(Math.random() * 3)]};opacity:0.6;left:${e.clientX}px;top:${e.clientY}px;transition:all 1s ease;`;
+        document.body.appendChild(p);
+        requestAnimationFrame(() => { p.style.opacity = '0'; p.style.transform = `translate(${(Math.random() - .5) * 60}px,${-40 - Math.random() * 40}px) scale(0)`; });
+        setTimeout(() => p.remove(), 1000);
+    }
+});
+
+/* ================= INIT ================= */
+initHeader();
+switchTab('dashboard');
+</script>
+</body>
+</html>
