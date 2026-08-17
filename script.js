@@ -136,11 +136,26 @@ const CONFIG = {
 
 /* ============================================================
    3. MOBILE NAVIGATION TOGGLE
-   Called by the hamburger button and the X close button.
+   Called by the hamburger button, backdrop, and close buttons.
    ============================================================ */
 function toggleNav() {
-  document.getElementById('mobileNav').classList.toggle('open');
+  const drawer = document.getElementById('mobileNav');
+  const backdrop = document.getElementById('mobileNavBackdrop');
+  if (drawer) drawer.classList.toggle('open');
+  if (backdrop) backdrop.classList.toggle('show');
 }
+
+// Close drawer on Escape key press
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const drawer = document.getElementById('mobileNav');
+    const backdrop = document.getElementById('mobileNavBackdrop');
+    if (drawer && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('show');
+    }
+  }
+});
 
 
 /* ============================================================
@@ -150,10 +165,20 @@ function toggleNav() {
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const href = link.getAttribute('href');
+    if (href && href.length > 1) {
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    const drawer = document.getElementById('mobileNav');
+    const backdrop = document.getElementById('mobileNavBackdrop');
+    if (drawer && drawer.classList.contains('open')) {
+      drawer.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('show');
+    }
   });
 });
+
 
 
 /* ============================================================
