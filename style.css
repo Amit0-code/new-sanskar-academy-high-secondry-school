@@ -27,6 +27,17 @@ body {
   background: #020814;
   color: #fff;
   overflow-x: hidden;
+  color-scheme: dark;
+}
+
+input, textarea, select {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #040e20 !important;
+  color: #ffffff !important;
+  padding: 8px 12px;
 }
 
 

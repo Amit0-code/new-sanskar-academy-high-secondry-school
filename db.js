@@ -4,6 +4,10 @@
    admin) reads/writes the SAME data on this browser (client-side
    demo DB, not a real server DB).
    Include this file on every page BEFORE your page's own <script>.
+
+   NOTE: A Firebase-backed version of this file is being built in
+   a separate step (real server database + real login security).
+   This localStorage version is the current WORKING version.
    ============================================================ */
 
 const DB_KEY = 'nsa_school_db_v1';
@@ -22,16 +26,13 @@ function seedDB() {
         { id: 't003', password: 'staff123', name: 'Ms. P. Gupta', type: 'ct', class: '10A', subject: 'English' }
       ],
       students: [
-        // Class 8A
         { id: 'S8A01', password: 'stud123', name: 'Aarav Patel', class: '8A', roll: 1, father: 'Mr. Rajesh Patel', mother: 'Mrs. Sunita Patel', contact: '98765 43210' },
         { id: 'S8A02', password: 'stud123', name: 'Priya Singh', class: '8A', roll: 2, father: 'Mr. Harish Singh', mother: 'Mrs. Kavita Singh', contact: '98765 12345' },
         { id: 'S8A03', password: 'stud123', name: 'Rahul Kumar', class: '8A', roll: 3, father: 'Mr. Suresh Kumar', mother: 'Mrs. Meena Kumar', contact: '98123 45678' },
         { id: 'S8A04', password: 'stud123', name: 'Sneha Jain', class: '8A', roll: 4, father: 'Mr. Manish Jain', mother: 'Mrs. Anita Jain', contact: '99000 11223' },
-        // Class 9A
         { id: 'S9A01', password: 'stud123', name: 'Kabir Mehta', class: '9A', roll: 1, father: 'Mr. Anil Mehta', mother: 'Mrs. Rekha Mehta', contact: '97000 22334' },
         { id: 'S9A02', password: 'stud123', name: 'Isha Verma', class: '9A', roll: 2, father: 'Mr. Dinesh Verma', mother: 'Mrs. Pooja Verma', contact: '97000 55667' },
         { id: 'S9A03', password: 'stud123', name: 'Yash Malhotra', class: '9A', roll: 3, father: 'Mr. Vinod Malhotra', mother: 'Mrs. Seema Malhotra', contact: '96000 33445' },
-        // Class 10A
         { id: 'S10A01', password: 'stud123', name: 'Anaya Kapoor', class: '10A', roll: 1, father: 'Mr. Rohit Kapoor', mother: 'Mrs. Neha Kapoor', contact: '95000 66778' },
         { id: 'S10A02', password: 'stud123', name: 'Dev Sharma', class: '10A', roll: 2, father: 'Mr. Ajay Sharma', mother: 'Mrs. Ritu Sharma', contact: '95000 88990' },
         { id: 'S10A03', password: 'stud123', name: 'Riya Chauhan', class: '10A', roll: 3, father: 'Mr. Sanjay Chauhan', mother: 'Mrs. Komal Chauhan', contact: '94000 11778' }
@@ -39,11 +40,8 @@ function seedDB() {
     },
 
     subjects: ['Hindi', 'English', 'Maths', 'Science', 'SocialSci'],
-
-    // Every class shares the same two test names so "auto comparison" has something to compare.
     tests: ['Monthly Test 1', 'Monthly Test 2'],
 
-    // key: "<class>_<date>"  ->  { studentId: {status, reason, note, lateBy} }
     attendance: {
       '8A_2026-08-13': {
         S8A01: { status: 'present' },
@@ -53,7 +51,6 @@ function seedDB() {
       }
     },
 
-    // key: "<class>_<test>_<studentId>" -> { Subject: { o, t } }
     marks: {
       '8A_Monthly Test 1_S8A01': { Hindi: { o: 72, t: 100 }, English: { o: 80, t: 100 }, Maths: { o: 88, t: 100 }, Science: { o: 85, t: 100 }, SocialSci: { o: 70, t: 100 } },
       '8A_Monthly Test 2_S8A01': { Hindi: { o: 78, t: 100 }, English: { o: 85, t: 100 }, Maths: { o: 92, t: 100 }, Science: { o: 88, t: 100 }, SocialSci: { o: 72, t: 100 } },
@@ -61,7 +58,6 @@ function seedDB() {
       '8A_Monthly Test 2_S8A02': { Hindi: { o: 65, t: 100 }, English: { o: 90, t: 100 }, Maths: { o: 78, t: 100 }, Science: { o: 82, t: 100 }, SocialSci: { o: 68, t: 100 } }
     },
 
-    // key: "<teacherId>_<studentId>" -> [{from:'teacher'|'parent', msg, time}]
     chat: {
       't001_S8A01': [
         { from: 'teacher', msg: 'Aarav ka maths improve ho rha hai, last test me 92 aaye hain!', time: '2026-08-13T10:00:00' },
@@ -71,31 +67,49 @@ function seedDB() {
       ]
     },
 
-    // Admin controls per-student visibility of results and fees.
-    // Missing entry = default visible (showResults:true, showFees:true).
     studentSettings: {
       S8A03: { showResults: false, showFees: true, resultLockReason: 'Fees pending (Q3 not paid)' }
     },
 
-    // key: studentId -> { total, quarters: { Q1:{amount,paid,date,method}, ... } }
     fees: {
       S8A01: { total: 25000, quarters: { Q1: { amount: 6250, paid: true, date: '2026-04-10', method: 'UPI' }, Q2: { amount: 6250, paid: true, date: '2026-07-15', method: 'Cash' }, Q3: { amount: 6250, paid: false }, Q4: { amount: 6250, paid: false } } },
       S8A02: { total: 25000, quarters: { Q1: { amount: 6250, paid: true, date: '2026-04-12', method: 'Bank' }, Q2: { amount: 6250, paid: true, date: '2026-07-18', method: 'UPI' }, Q3: { amount: 6250, paid: true, date: '2026-08-01', method: 'UPI' }, Q4: { amount: 6250, paid: false } } },
       S8A03: { total: 25000, quarters: { Q1: { amount: 6250, paid: true, date: '2026-04-09', method: 'Cash' }, Q2: { amount: 6250, paid: false }, Q3: { amount: 6250, paid: false }, Q4: { amount: 6250, paid: false } } }
     },
 
-    // Posted by admin — targeted + time-windowed. null visibleUntil = forever.
+    classFees: {},
+
+    homework: [
+      { id: 'HW1', class: '8A', subject: 'Science', title: 'Chapter 4: Force & Pressure Notes', desc: 'Read chapter 4 and solve exercise questions 1 to 5 in your notebook.', driveLink: 'https://drive.google.com/', dueDate: '2026-08-20', createdAt: '2026-08-17T10:00:00', teacherName: 'Mrs. S. Verma' },
+      { id: 'HW2', class: '8A', subject: 'Maths', title: 'Linear Equations Practice Sheet', desc: 'Solve questions 10 to 20 from Exercise 2.2 in homework copy.', driveLink: '', dueDate: '2026-08-22', createdAt: '2026-08-17T11:30:00', teacherName: 'Mr. A. Singh' },
+      { id: 'HW3', class: '9A', subject: 'Mathematics', title: 'Polynomials Theorem Revision', desc: 'Complete question bank practice set 1 and submit on Friday.', driveLink: 'https://drive.google.com/', dueDate: '2026-08-21', createdAt: '2026-08-17T12:00:00', teacherName: 'Mr. A. Singh' },
+      { id: 'HW4', class: '10A', subject: 'English', title: 'Essay on Technology in Modern Education', desc: 'Write an essay (250-300 words) with proper heading and subpoints.', driveLink: '', dueDate: '2026-08-23', createdAt: '2026-08-17T14:00:00', teacherName: 'Ms. P. Gupta' }
+    ],
+
+    payments: [
+      { id: 'TXN1001', receiptNo: 'REC-2026-001', studentId: 'S8A01', amount: 6250, method: 'UPI', date: '2026-04-10', note: '1st Installment Fee', recordedBy: 'Admin', createdAt: '2026-04-10T10:00:00' },
+      { id: 'TXN1002', receiptNo: 'REC-2026-002', studentId: 'S8A01', amount: 6250, method: 'Cash', date: '2026-07-15', note: '2nd Installment Fee', recordedBy: 'Admin', createdAt: '2026-07-15T11:30:00' },
+      { id: 'TXN1003', receiptNo: 'REC-2026-003', studentId: 'S8A02', amount: 6250, method: 'Bank Transfer', date: '2026-04-12', note: '1st Installment Fee', recordedBy: 'Admin', createdAt: '2026-04-12T09:15:00' },
+      { id: 'TXN1004', receiptNo: 'REC-2026-004', studentId: 'S8A02', amount: 6250, method: 'UPI', date: '2026-07-18', note: '2nd Installment Fee', recordedBy: 'Admin', createdAt: '2026-07-18T14:20:00' },
+      { id: 'TXN1005', receiptNo: 'REC-2026-005', studentId: 'S8A02', amount: 6250, method: 'UPI', date: '2026-08-01', note: '3rd Installment Fee', recordedBy: 'Admin', createdAt: '2026-08-01T16:45:00' },
+      { id: 'TXN1006', receiptNo: 'REC-2026-006', studentId: 'S8A03', amount: 6250, method: 'Cash', date: '2026-04-09', note: '1st Installment Fee', recordedBy: 'Admin', createdAt: '2026-04-09T10:30:00' }
+    ],
+
+    paymentProofs: [
+      { id: 'PAY1', studentId: 'S8A03', quarter: 'Q2', amount: 6250, utr: 'UTR9823471029', date: '2026-08-17', status: 'pending', submittedAt: '2026-08-17T16:00:00' }
+    ],
+
+    schoolSettings: {
+      name: 'New Sanskar Academy Higher Secondary School',
+      upiId: 'newsanskaracademy@upi',
+      upiName: 'New Sanskar Academy',
+      phone: '9876543210',
+      address: 'Dhannad Khurd, Pithampur, Dhar (M.P.)'
+    },
+
     notices: [
-      {
-        id: 'N1', title: 'Parent-Teacher Meeting', desc: 'All parents are requested to attend the PTM scheduled on 25th August 2026 to discuss half-yearly performance.',
-        category: 'event', targetClasses: ['ALL'], targetAudience: 'all',
-        visibleFrom: '2026-08-10T00:00:00', visibleUntil: null, isPinned: true, createdAt: '2026-08-10T07:30:00'
-      },
-      {
-        id: 'N2', title: 'Annual Sports Day', desc: 'The Annual Sports Day will be held on 15th August. Students interested should register with the sports department by 12th August.',
-        category: 'general', targetClasses: ['ALL'], targetAudience: 'all',
-        visibleFrom: '2026-08-05T00:00:00', visibleUntil: null, isPinned: false, createdAt: '2026-08-05T09:00:00'
-      }
+      { id: 'N1', title: 'Parent-Teacher Meeting', desc: 'All parents are requested to attend the PTM scheduled on 25th August 2026 to discuss half-yearly performance.', category: 'event', targetClasses: ['ALL'], targetAudience: 'all', visibleFrom: '2026-08-10T00:00:00', visibleUntil: null, isPinned: true, createdAt: '2026-08-10T07:30:00' },
+      { id: 'N2', title: 'Annual Sports Day', desc: 'The Annual Sports Day will be held on 15th August. Students interested should register with the sports department by 12th August.', category: 'general', targetClasses: ['ALL'], targetAudience: 'all', visibleFrom: '2026-08-05T00:00:00', visibleUntil: null, isPinned: false, createdAt: '2026-08-05T09:00:00' }
     ],
 
     gallery: [
@@ -104,14 +118,53 @@ function seedDB() {
     ],
 
     siteContent: {
-      title: 'New Sanskar Academy High Secondary School',
+      title: 'New Sanskar Academy',
+      subtitle: 'Higher Secondary School',
       motto: 'Knowledge is Power, Education is Life',
-      about: 'Established in 2005, New Sanskar Academy High Secondary School has been a beacon of holistic education at Dhannad Khurd, Pithampur — blending traditional values with modern pedagogy.',
-      logoUrl: 'https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37'
-    },
+      badge: 'Admission Open 2025-26',
+      heroDesc: '"Knowledge is Power, Education is Life" — Nurturing minds since 2005 with excellence in academics, character & discipline at Dhannad Khurd, Pithampur.',
+      heroImg: 'https://z-cdn-media.chatglm.cn/files/04c767cd-1c13-4a4e-9011-34fd9961de88.png?auth_key=1886449124-e5f6ba766d034c77af1d45200aa3a970-0-132ee08959cb2ea5545ba1b77f583fa4',
+      logoUrl: 'https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37',
+      
+      // Stats
+      statStudents: 1200,
+      statTeachers: 65,
+      statLegacy: 20,
+      
+      // About Section
+      aboutHeading: 'Building Future Leaders',
+      about: 'Established in 2005, New Sanskar Academy Higher Secondary School has been a beacon of holistic education at Dhannad Khurd, Pithampur — blending traditional values with modern pedagogy.',
+      aboutImg: 'https://z-cdn-media.chatglm.cn/files/c5f7f86f-d63d-4b50-8716-b6f71ad2e7bb.png?auth_key=1886449124-21a3c2d4063a4cab9532d1d8757a3f1a-0-bd27e24eea173b651d67a658e3d57b78',
+      aboutYears: '20+',
 
-    // Base annual fee per class — admin can edit; classes not listed here default to ₹25,000.
-    classFees: {},
+      // Contact
+      phone1: '+91 98765 43210',
+      phone2: '+91 98765 12345',
+      email1: 'info@sanskaracademy.edu',
+      email2: 'admission@sanskaracademy.edu',
+      officeHours: 'Mon-Sat: 8:00 AM - 3:00 PM (Sun: Closed)',
+      address: 'Dhannad Khurd, Pithampur, Dist. Dhar (M.P.)',
+      whatsappNumber: '919876543210',
+      mapsLink: 'https://maps.google.com',
+
+      // Featured Faculty
+      faculty: [
+        { name: 'Dr. R. Sharma', role: 'Principal', exp: 'Ph.D. Education, 25 yrs exp', photo: 'https://picsum.photos/seed/principal-sir/200/200.jpg' },
+        { name: 'Mrs. S. Verma', role: 'Head — Science', exp: 'M.Sc. Physics, 18 yrs exp', photo: 'https://picsum.photos/seed/science-mam/200/200.jpg' },
+        { name: 'Mr. A. Singh', role: 'Head — Mathematics', exp: 'M.A. Maths, 15 yrs exp', photo: 'https://picsum.photos/seed/maths-sir/200/200.jpg' },
+        { name: 'Ms. P. Gupta', role: 'Head — English', exp: 'M.A. Literature, 12 yrs exp', photo: 'https://picsum.photos/seed/english-mam/200/200.jpg' }
+      ],
+
+      // Facilities
+      facilities: [
+        { title: 'Smart Classrooms', desc: 'Interactive boards, projectors & digital content in every room.', icon: 'lucide:monitor', photo: 'https://picsum.photos/seed/smart-classroom/400/300.jpg' },
+        { title: 'Science Labs', desc: 'Physics, Chemistry & Biology labs with latest equipment.', icon: 'lucide:flask-conical', photo: 'https://picsum.photos/seed/science-lab-school/400/300.jpg' },
+        { title: 'Library', desc: '10,000+ books, e-library section & quiet reading zones.', icon: 'lucide:library', photo: 'https://picsum.photos/seed/school-library/400/300.jpg' },
+        { title: 'Sports Complex', desc: 'Cricket, football, basketball, athletics & indoor games.', icon: 'lucide:trophy', photo: 'https://picsum.photos/seed/sports-field/400/300.jpg' },
+        { title: 'Computer Lab', desc: '50+ systems, high-speed WiFi, coding & robotics kits.', icon: 'lucide:cpu', photo: 'https://picsum.photos/seed/computer-lab-school/400/300.jpg' },
+        { title: 'Transport', desc: 'GPS-enabled buses covering all major routes in Pithampur.', icon: 'lucide:bus', photo: 'https://picsum.photos/seed/yellow-school-bus/400/300.jpg' }
+      ]
+    },
 
     activityLog: [
       { type: 'staff_added', text: 'Ms. P. Gupta added as Class Teacher (10A)', time: '2026-08-09T10:00:00' },
@@ -132,12 +185,15 @@ const DB = {
     }
     try {
       const parsed = JSON.parse(raw);
-      // Fill in any new fields added by later versions of this file, without wiping existing data.
       const fresh = seedDB();
       let changed = false;
-      ['studentSettings', 'fees', 'gallery', 'siteContent', 'activityLog', 'classFees'].forEach(key => {
+      ['studentSettings', 'fees', 'gallery', 'siteContent', 'activityLog', 'classFees', 'homework', 'paymentProofs', 'schoolSettings', 'payments'].forEach(key => {
         if (parsed[key] === undefined) { parsed[key] = fresh[key]; changed = true; }
       });
+      if (parsed.siteContent) {
+        parsed.siteContent = Object.assign(fresh.siteContent, parsed.siteContent);
+        changed = true;
+      }
       if (changed) localStorage.setItem(DB_KEY, JSON.stringify(parsed));
       return parsed;
     } catch (e) {
@@ -151,7 +207,6 @@ const DB = {
     localStorage.setItem(DB_KEY, JSON.stringify(db));
   },
 
-  // Wipes everything and reseeds — useful while testing.
   reset() {
     const seeded = seedDB();
     localStorage.setItem(DB_KEY, JSON.stringify(seeded));
@@ -226,7 +281,6 @@ const DB = {
     return db.users.staff.slice();
   },
 
-  // Every distinct class that has a teacher and/or a student.
   getClasses() {
     const db = this.load();
     const set = new Set();
@@ -239,12 +293,8 @@ const DB = {
   generateStaffId(type) {
     const db = this.load();
     const prefix = type === 'hw' ? 'hw' : 't';
-    let n = 1;
-    let id;
-    do {
-      id = prefix + String(n).padStart(3, '0');
-      n++;
-    } while (db.users.staff.some(s => s.id === id));
+    let n = 1, id;
+    do { id = prefix + String(n).padStart(3, '0'); n++; } while (db.users.staff.some(s => s.id === id));
     return id;
   },
 
@@ -267,10 +317,6 @@ const DB = {
     return staff;
   },
 
-  resetStaffPassword(id, newPassword) {
-    return this.updateStaff(id, { password: newPassword });
-  },
-
   deleteStaff(id) {
     const db = this.load();
     db.users.staff = db.users.staff.filter(s => s.id !== id);
@@ -281,12 +327,8 @@ const DB = {
   generateStudentId(cls) {
     const db = this.load();
     const inClass = db.users.students.filter(s => s.class === cls);
-    let roll = inClass.length + 1;
-    let id;
-    do {
-      id = 'S' + cls + String(roll).padStart(2, '0');
-      roll++;
-    } while (db.users.students.some(s => s.id === id));
+    let roll = inClass.length + 1, id;
+    do { id = 'S' + cls + String(roll).padStart(2, '0'); roll++; } while (db.users.students.some(s => s.id === id));
     return { id, roll: roll - 1 };
   },
 
@@ -307,10 +349,6 @@ const DB = {
     Object.assign(student, updates);
     this.save(db);
     return student;
-  },
-
-  resetStudentPassword(id, newPassword) {
-    return this.updateStudent(id, { password: newPassword });
   },
 
   deleteStudent(id) {
@@ -371,7 +409,6 @@ const DB = {
   },
 
   /* ---------- FEES ---------- */
-  // Base annual fee per class — set by admin. Falls back to ₹25,000 for a class with no fee set yet.
   getClassFee(cls) {
     const db = this.load();
     return (db.classFees && db.classFees[cls]) || 25000;
@@ -382,11 +419,6 @@ const DB = {
     if (!db.classFees) db.classFees = {};
     db.classFees[cls] = amount;
     this.save(db);
-  },
-
-  getAllClassFees() {
-    const db = this.load();
-    return db.classFees || {};
   },
 
   defaultFeeRecord(total) {
@@ -404,21 +436,55 @@ const DB = {
 
   getFeeSummary(studentId) {
     const fees = this.getFees(studentId);
+    const txns = this.getStudentPayments(studentId);
     let paid = 0;
-    Object.values(fees.quarters).forEach(q => { if (q.paid) paid += q.amount; });
-    return { total: fees.total, paid, due: fees.total - paid };
+    txns.forEach(t => { paid += Number(t.amount || 0); });
+    if (txns.length === 0 && fees.quarters) {
+      Object.values(fees.quarters).forEach(q => { if (q.paid) paid += Number(q.amount || 0); });
+    }
+    const due = Math.max(0, fees.total - paid);
+    return { total: fees.total, paid, due, txnsCount: txns.length };
   },
 
-  recordFeePayment(studentId, quarter, amount, method, date) {
+  getAllPayments() {
     const db = this.load();
-    if (!db.fees[studentId]) db.fees[studentId] = this.getFees(studentId);
-    db.fees[studentId].quarters[quarter] = { amount: amount, paid: true, date: date || new Date().toISOString().slice(0, 10), method: method || 'Cash' };
-    this.save(db);
-    this.logActivity('fee_recorded', '₹' + amount + ' (' + quarter + ') recorded for ' + (this.getStudentById(studentId) || {}).name);
+    return (db.payments || []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
   },
 
-  // Admin gives a student a custom total fee (scholarship / sibling discount / concession).
-  // Already-paid quarters keep their recorded amount; the remaining balance is split across unpaid quarters.
+  getStudentPayments(studentId) {
+    const db = this.load();
+    return (db.payments || []).filter(p => p.studentId === studentId).sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
+  },
+
+  recordFeePayment(studentId, amount, method, date, note) {
+    const db = this.load();
+    if (!db.payments) db.payments = [];
+    const num = db.payments.length + 1;
+    const receiptNo = 'REC-2026-' + String(num).padStart(3, '0');
+    const payment = {
+      id: 'TXN' + (1000 + num),
+      receiptNo,
+      studentId,
+      amount: Number(amount),
+      method: method || 'Cash',
+      date: date || new Date().toISOString().slice(0, 10),
+      note: note || `Payment #${num}`,
+      recordedBy: 'Admin',
+      createdAt: new Date().toISOString()
+    };
+    db.payments.unshift(payment);
+    this.save(db);
+    const s = this.getStudentById(studentId);
+    this.logActivity('fee_recorded', `₹${Number(amount).toLocaleString()} received from ${s ? s.name : studentId} via ${method} (Receipt: ${receiptNo})`);
+    return payment;
+  },
+
+  deletePayment(paymentId) {
+    const db = this.load();
+    db.payments = (db.payments || []).filter(p => p.id !== paymentId);
+    this.save(db);
+  },
+
   setStudentFeeOverride(studentId, newTotal, reason) {
     const db = this.load();
     const current = this.getFees(studentId);
@@ -435,15 +501,6 @@ const DB = {
     db.fees[studentId] = { total: newTotal, quarters: newQuarters, discountReason: reason || null };
     this.save(db);
     this.logActivity('fee_recorded', 'Custom fee ₹' + newTotal + ' set for ' + (this.getStudentById(studentId) || {}).name + (reason ? ' (' + reason + ')' : ''));
-  },
-
-  clearStudentFeeOverride(studentId) {
-    const db = this.load();
-    const student = this.getStudentById(studentId);
-    if (!student) return;
-    const classTotal = this.getClassFee(student.class);
-    db.fees[studentId] = this.defaultFeeRecord(classTotal);
-    this.save(db);
   },
 
   /* ---------- ATTENDANCE ---------- */
@@ -474,35 +531,23 @@ const DB = {
       .map(k => ({ date: k.slice(prefix.length), data: db.attendance[k] }));
   },
 
-  // All attendance rows for one student across every date recorded (for the student dashboard).
   getStudentAttendance(cls, studentId) {
     const db = this.load();
     const prefix = cls + '_';
     const out = {};
     Object.keys(db.attendance).forEach(k => {
-      if (k.startsWith(prefix) && db.attendance[k][studentId]) {
-        out[k.slice(prefix.length)] = db.attendance[k][studentId];
-      }
+      if (k.startsWith(prefix) && db.attendance[k][studentId]) out[k.slice(prefix.length)] = db.attendance[k][studentId];
     });
     return out;
   },
 
   /* ---------- MARKS ---------- */
-  getSubjects() {
-    return this.load().subjects;
-  },
+  getSubjects() { return this.load().subjects; },
+  getTests() { return this.load().tests; },
 
-  getTests() {
-    return this.load().tests;
-  },
-
-  // Teacher/admin can create a new test (e.g. "Monthly Test 3", "Half Yearly").
   addTest(name) {
     const db = this.load();
-    if (!db.tests.includes(name)) {
-      db.tests.push(name);
-      this.save(db);
-    }
+    if (!db.tests.includes(name)) { db.tests.push(name); this.save(db); }
     return db.tests;
   },
 
@@ -519,14 +564,10 @@ const DB = {
     this.save(db);
   },
 
-  // All marks for a student across all tests (for the student dashboard).
   getStudentAllMarks(cls, studentId) {
     const db = this.load();
     const out = {};
-    (db.tests || []).forEach(test => {
-      const m = db.marks[cls + '_' + test + '_' + studentId];
-      if (m) out[test] = m;
-    });
+    (db.tests || []).forEach(test => { const m = db.marks[cls + '_' + test + '_' + studentId]; if (m) out[test] = m; });
     return out;
   },
 
@@ -544,7 +585,6 @@ const DB = {
     this.save(db);
   },
 
-  // Admin: read-only summary of every conversation across the school.
   getAllChatsSummary() {
     const db = this.load();
     return Object.keys(db.chat).map(key => {
@@ -568,7 +608,7 @@ const DB = {
     }).sort((a, b) => (b.lastTime || '').localeCompare(a.lastTime || ''));
   },
 
-  /* ---------- NOTICES (admin posts with targeting + timer) ---------- */
+  /* ---------- NOTICES ---------- */
   getAllNotices() {
     const db = this.load();
     return db.notices.slice().sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
@@ -577,15 +617,7 @@ const DB = {
   addNotice(notice) {
     const db = this.load();
     const id = 'N' + (db.notices.length ? Math.max(...db.notices.map(n => parseInt(n.id.slice(1)) || 0)) + 1 : 1);
-    const full = Object.assign({
-      id,
-      targetClasses: ['ALL'],
-      targetAudience: 'all',
-      visibleFrom: new Date().toISOString(),
-      visibleUntil: null,
-      isPinned: false,
-      createdAt: new Date().toISOString()
-    }, notice, { id });
+    const full = Object.assign({ id, targetClasses: ['ALL'], targetAudience: 'all', visibleFrom: new Date().toISOString(), visibleUntil: null, isPinned: false, createdAt: new Date().toISOString() }, notice, { id });
     db.notices.push(full);
     this.save(db);
     this.logActivity('notice_posted', 'Notice posted: ' + full.title);
@@ -624,7 +656,6 @@ const DB = {
     return 'visible';
   },
 
-  // Used by staff/student dashboards to only show notices meant for them, within the time window.
   getVisibleNotices(role, cls) {
     const db = this.load();
     const now = new Date();
@@ -635,9 +666,7 @@ const DB = {
       if (until && now > until) return false;
       if (n.targetAudience === 'students_only' && role !== 'student') return false;
       if (n.targetAudience === 'staff_only' && role !== 'staff') return false;
-      if (n.targetClasses && n.targetClasses[0] !== 'ALL' && role === 'student') {
-        if (n.targetClasses.indexOf(cls) === -1) return false;
-      }
+      if (n.targetClasses && n.targetClasses[0] !== 'ALL' && role === 'student' && n.targetClasses.indexOf(cls) === -1) return false;
       return true;
     }).sort((a, b) => {
       if (a.isPinned && !b.isPinned) return -1;
@@ -646,15 +675,10 @@ const DB = {
     });
   },
 
-  /* Backwards-compatible plain getter (used by earlier pages) */
-  getNotices() {
-    return this.load().notices;
-  },
+  getNotices() { return this.load().notices; },
 
   /* ---------- WEBSITE MANAGER ---------- */
-  getSiteContent() {
-    return this.load().siteContent;
-  },
+  getSiteContent() { return this.load().siteContent; },
 
   saveSiteContent(content) {
     const db = this.load();
@@ -662,9 +686,7 @@ const DB = {
     this.save(db);
   },
 
-  getGallery() {
-    return this.load().gallery;
-  },
+  getGallery() { return this.load().gallery; },
 
   addGalleryPhoto(url, caption) {
     const db = this.load();
@@ -679,7 +701,7 @@ const DB = {
     this.save(db);
   },
 
-  /* ---------- ADMIN DASHBOARD STATS (all computed live from real data) ---------- */
+  /* ---------- ADMIN DASHBOARD STATS ---------- */
   getStats() {
     const db = this.load();
     return {
@@ -699,7 +721,99 @@ const DB = {
     return { lockedCount, unreadByStaff, staffThisWeek };
   },
 
-  /* ---------- GRADE HELPERS (shared everywhere so numbers always match) ---------- */
+  /* ---------- HOMEWORK METHODS ---------- */
+  getHomework(cls) {
+    const db = this.load();
+    const list = db.homework || [];
+    if (!cls || cls === 'ALL') return list;
+    return list.filter(h => h.class === cls || h.class === 'ALL').sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+  },
+
+  addHomework(hw) {
+    const db = this.load();
+    if (!db.homework) db.homework = [];
+    const id = 'HW' + (db.homework.length ? Math.max(...db.homework.map(h => parseInt(String(h.id).replace('HW','')) || 0)) + 1 : 1);
+    const newHw = {
+      id,
+      class: hw.class,
+      subject: hw.subject,
+      title: hw.title,
+      desc: hw.desc || '',
+      driveLink: hw.driveLink || '',
+      dueDate: hw.dueDate || '',
+      createdAt: new Date().toISOString(),
+      teacherName: hw.teacherName || 'Staff'
+    };
+    db.homework.unshift(newHw);
+    this.save(db);
+    this.logActivity('homework_added', `Homework posted for Class ${hw.class} (${hw.subject})`);
+    return newHw;
+  },
+
+  deleteHomework(id) {
+    const db = this.load();
+    db.homework = (db.homework || []).filter(h => h.id !== id);
+    this.save(db);
+  },
+
+  /* ---------- UPI PAYMENT PROOFS ---------- */
+  getPaymentProofs(studentId) {
+    const db = this.load();
+    const list = db.paymentProofs || [];
+    if (studentId) return list.filter(p => p.studentId === studentId);
+    return list;
+  },
+
+  submitPaymentProof(data) {
+    const db = this.load();
+    if (!db.paymentProofs) db.paymentProofs = [];
+    const id = 'PAY' + (db.paymentProofs.length + 1);
+    const item = {
+      id,
+      studentId: data.studentId,
+      quarter: data.quarter,
+      amount: Number(data.amount),
+      utr: data.utr,
+      date: data.date || new Date().toISOString().split('T')[0],
+      status: 'pending',
+      submittedAt: new Date().toISOString()
+    };
+    db.paymentProofs.unshift(item);
+    this.save(db);
+    this.logActivity('fee_proof_submitted', `Fee payment proof submitted for ${data.studentId} (${data.quarter})`);
+    return item;
+  },
+
+  verifyPaymentProof(proofId, approve) {
+    const db = this.load();
+    const proof = (db.paymentProofs || []).find(p => p.id === proofId);
+    if (!proof) return;
+    proof.status = approve ? 'verified' : 'rejected';
+    if (approve) {
+      this.recordFeePayment(proof.studentId, proof.amount, 'UPI-Online', proof.date, `Online UPI Settlement (UTR: ${proof.utr})`);
+    }
+    this.save(db);
+  },
+
+  /* ---------- SCHOOL SETTINGS ---------- */
+  getSchoolSettings() {
+    const db = this.load();
+    return db.schoolSettings || {
+      name: 'New Sanskar Academy Higher Secondary School',
+      upiId: 'newsanskaracademy@upi',
+      upiName: 'New Sanskar Academy',
+      phone: '9876543210',
+      address: 'Dhannad Khurd, Pithampur, Dhar (M.P.)'
+    };
+  },
+
+  saveSchoolSettings(settings) {
+    const db = this.load();
+    db.schoolSettings = Object.assign(db.schoolSettings || {}, settings);
+    this.save(db);
+  },
+
+  /* ---------- GRADE HELPERS ---------- */
   calcGrade(marks) {
     if (marks >= 91) return { grade: 'A+', color: '#34d399' };
     if (marks >= 81) return { grade: 'A', color: '#10b981' };
@@ -712,5 +826,7 @@ const DB = {
   }
 };
 
-// Make sure the DB exists as soon as this file loads on any page.
 DB.load();
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = DB;
+}

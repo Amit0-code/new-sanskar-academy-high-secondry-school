@@ -42,7 +42,9 @@ body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hid
 .sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
 
 input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;font-family: 'Inter', sans-serif;}
-input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.2);}
+select{color-scheme:dark;}
+select option{background-color:#040e20 !important;color:#ffffff !important;padding:8px;}
+input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.2);}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
@@ -66,6 +68,13 @@ input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,19
 
 .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;transform:translateX(150%);transition:transform .4s ease;}
 .toast.show{transform:translateX(0);}
+
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:39;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.sidebar-backdrop.show{opacity:1;pointer-events:auto;}
+@media (max-width:767px){
+  #sidebar{position:fixed;top:0;left:0;bottom:0;z-index:40;width:78%;max-width:280px;transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto;}
+  #sidebar.open{transform:translateX(0);}
+}
 </style>
 </head>
 <body>
@@ -76,6 +85,7 @@ input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,19
 
     <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="md:hidden text-white/80 p-1 -ml-1"><span class="iconify text-2xl" data-icon="lucide:menu"></span></button>
             <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
             <div class="leading-tight">
                 <span class="font-semibold text-sm block">Staff Portal</span>
@@ -87,11 +97,14 @@ input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,19
         </a>
     </nav>
 
+    <div id="sidebar-backdrop" onclick="closeSidebar()" class="sidebar-backdrop"></div>
+
     <div class="flex flex-1 overflow-hidden">
 
         <!-- Sidebar -->
-        <aside class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between hidden md:flex">
+        <aside id="sidebar" class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between">
             <div>
+                <div class="flex justify-end mb-2 md:hidden"><button onclick="closeSidebar()" class="text-white/60 p-1"><span class="iconify text-xl" data-icon="lucide:x"></span></button></div>
                 <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
                     <div id="teacher-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
                     <h3 id="teacher-name" class="font-bold">--</h3>
@@ -101,6 +114,7 @@ input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,19
                     <button onclick="switchTab('myclass')" class="sidebar-btn active" data-tab="myclass"><span class="iconify text-lg" data-icon="lucide:users"></span> My Class</button>
                     <button onclick="switchTab('attendance')" class="sidebar-btn" data-tab="attendance"><span class="iconify text-lg" data-icon="lucide:calendar-check"></span> Attendance</button>
                     <button onclick="switchTab('marks')" class="sidebar-btn" data-tab="marks"><span class="iconify text-lg" data-icon="lucide:clipboard-list"></span> Marks Entry</button>
+                    <button onclick="switchTab('homework')" class="sidebar-btn" data-tab="homework"><span class="iconify text-lg" data-icon="lucide:book-open"></span> Homework</button>
                     <button onclick="switchTab('chat')" class="sidebar-btn" data-tab="chat"><span class="iconify text-lg" data-icon="lucide:message-square"></span> Parent Chat</button>
                     <button onclick="switchTab('notices')" class="sidebar-btn" data-tab="notices"><span class="iconify text-lg" data-icon="lucide:megaphone"></span> Notices</button>
                 </div>
@@ -194,6 +208,58 @@ input:focus,textarea:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,19
                 </div>
             </div>
 
+            <!-- TAB: HOMEWORK -->
+            <div id="tab-homework" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-6">Homework & Study Material</h2>
+                
+                <!-- Post Homework Form -->
+                <div class="glass rounded-xl p-6 mb-6 card-hover">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:plus-circle"></span> Post New Homework</h3>
+                    <form onsubmit="handlePostHomework(event)" class="space-y-4">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="text-xs text-white/50 mb-1 block">Subject</label>
+                                <select id="hw-subject" required>
+                                    <option value="Science">Science</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="English">English</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Social Science">Social Science</option>
+                                    <option value="Computer">Computer</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs text-white/50 mb-1 block">Submission Due Date</label>
+                                <input id="hw-due-date" type="date" required>
+                            </div>
+                            <div>
+                                <label class="text-xs text-white/50 mb-1 block">Drive / Study Link (Optional - 0 MB)</label>
+                                <input id="hw-link" type="url" placeholder="https://drive.google.com/...">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs text-white/50 mb-1 block">Homework Title / Chapter</label>
+                            <input id="hw-title" type="text" placeholder="e.g. Chapter 4: Force & Pressure Exercise" required>
+                        </div>
+                        <div>
+                            <label class="text-xs text-white/50 mb-1 block">Instructions / Questions</label>
+                            <textarea id="hw-desc" rows="3" placeholder="Write question numbers, page numbers or study guidelines..." required></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2">
+                                <span class="iconify" data-icon="lucide:send"></span> Post Homework
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Active Homework List -->
+                <div class="glass rounded-xl p-6 card-hover">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-emerald-400" data-icon="lucide:book-open"></span> Active Homework for Class <span id="hw-class-badge"></span></h3>
+                    <div id="hw-list" class="space-y-4"></div>
+                </div>
+            </div>
+
             <!-- TAB 4: CHAT -->
             <div id="tab-chat" class="tab-content hidden">
                 <h2 class="text-2xl font-bold mb-6">Parent Conversations</h2>
@@ -265,8 +331,19 @@ function showToast(message) {
     setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+/* ================= MOBILE SIDEBAR ================= */
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-backdrop').classList.toggle('show');
+}
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-backdrop').classList.remove('show');
+}
+
 /* ================= TAB SWITCHING ================= */
 function switchTab(tabName) {
+    closeSidebar();
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
     document.getElementById('tab-' + tabName).classList.remove('hidden');
     document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
@@ -283,7 +360,12 @@ function renderMyClass() {
             <td class="py-3 font-medium">${s.name}</td>
             <td class="py-3 text-white/70">${s.father}</td>
             <td class="py-3 text-white/70">${s.contact}</td>
-            <td class="py-3 text-center"><button class="text-gold-400 text-xs hover:underline" onclick="viewStudentQuick('${s.id}')">View Profile</button></td>
+            <td class="py-3 text-center flex items-center justify-center gap-2">
+                <button class="text-gold-400 text-xs hover:underline" onclick="viewStudentQuick('${s.id}')">Profile</button>
+                <button class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 text-xs hover:bg-emerald-500/30 flex items-center gap-1" onclick="sendDirectParentWhatsApp('${s.id}')">
+                    <span class="iconify" data-icon="lucide:message-circle"></span> WhatsApp
+                </button>
+            </td>
         </tr>
     `).join('') || `<tr><td colspan="5" class="py-6 text-center text-white/30">No students in this class yet.</td></tr>`;
 }
@@ -345,9 +427,16 @@ function renderAttendance() {
                     <button class="btn-status btn-late ${isLate ? 'active' : ''}" onclick="setStatus(this,'${s.id}','late')">⏰ Late</button>
                 </div>
             </div>
-            <div class="extra-fields ${isAbsent ? '' : 'hidden'} mt-2 pl-9 grid grid-cols-2 gap-2" data-role="absent-fields">
-                <input type="text" placeholder="Reason (e.g. Fever)" value="${rec.reason || ''}" data-field="reason">
-                <input type="text" placeholder="Note" value="${rec.note || ''}" data-field="note">
+            <div class="extra-fields ${isAbsent ? '' : 'hidden'} mt-2 pl-9 space-y-2" data-role="absent-fields">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" placeholder="Reason (e.g. Fever)" value="${rec.reason || ''}" data-field="reason">
+                    <input type="text" placeholder="Note" value="${rec.note || ''}" data-field="note">
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" onclick="sendAbsentWhatsApp('${s.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold hover:bg-emerald-500/30 flex items-center gap-1.5 transition">
+                        <span class="iconify text-sm" data-icon="lucide:message-circle"></span> 📱 Send WhatsApp Absent Alert
+                    </button>
+                </div>
             </div>
             <div class="extra-fields ${isLate ? '' : 'hidden'} mt-2 pl-9" data-role="late-fields">
                 <input type="text" placeholder="Late by (minutes)" value="${rec.lateBy || ''}" data-field="lateBy" class="w-40">
@@ -705,6 +794,95 @@ document.addEventListener('mousemove',function(e){
   }
 });
 
+/* ================= WHATSAPP ALERTS & HOMEWORK LOGIC ================= */
+function sendAbsentWhatsApp(studentId) {
+    const s = DB.getStudentById(studentId);
+    if (!s) return;
+    const date = document.getElementById('attendance-date').value || todayISO();
+    const card = document.querySelector(`[data-student="${studentId}"]`);
+    const reason = card ? (card.querySelector('[data-field="reason"]').value.trim() || 'Not specified') : 'Not specified';
+    const cleanPhone = (s.contact || '').replace(/[^0-9]/g, '');
+    const phone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
+    
+    const message = `Namaste ${s.father || 'Parent'},\n\n*New Sanskar Academy Higher Secondary School* se suchit kiya jata hai ki aapka bachha *${s.name}* (Class ${MY_CLASS}, Roll No. ${s.roll}) aaj date *${date}* ko school me *ABSENT* hai.\n\nKaran: ${reason}\n\nAgar kisi zaroori karan se chhutti li hai to kripya suchit karein.\n\nDhanyawad,\nNew Sanskar Academy`;
+    
+    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`, '_blank');
+}
+
+function sendDirectParentWhatsApp(studentId) {
+    const s = DB.getStudentById(studentId);
+    if (!s) return;
+    const cleanPhone = (s.contact || '').replace(/[^0-9]/g, '');
+    const phone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
+    const message = `Namaste ${s.father || 'Parent'}, New Sanskar Academy Higher Secondary School se Class Teacher (${teacher ? teacher.name : ''}). Student: ${s.name} (Class ${MY_CLASS}).`;
+    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`, '_blank');
+}
+
+/* ================= TAB: HOMEWORK LOGIC ================= */
+function renderHomework() {
+    const badge = document.getElementById('hw-class-badge');
+    if (badge) badge.textContent = MY_CLASS;
+    const list = DB.getHomework(MY_CLASS);
+    const box = document.getElementById('hw-list');
+    if (!box) return;
+    box.innerHTML = list.map(h => `
+        <div class="glass rounded-xl p-5 card-hover border-l-4 border-gold-400">
+            <div class="flex justify-between items-start mb-2 flex-wrap gap-2">
+                <div>
+                    <span class="text-xs bg-gold-400/10 text-gold-400 px-2.5 py-1 rounded-full font-semibold mr-2">${h.subject}</span>
+                    <span class="text-xs text-white/40">Due: 📅 <strong class="text-white/80">${h.dueDate || 'No due date'}</strong></span>
+                </div>
+                <button onclick="deleteHw('${h.id}')" class="text-xs text-red-400/80 hover:text-red-400 flex items-center gap-1">
+                    <span class="iconify" data-icon="lucide:trash-2"></span> Delete
+                </button>
+            </div>
+            <h4 class="font-bold text-base mt-2">${h.title}</h4>
+            <p class="text-sm text-white/70 mt-1 leading-relaxed whitespace-pre-line">${h.desc || ''}</p>
+            ${h.driveLink ? `
+                <div class="mt-3">
+                    <a href="${h.driveLink}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:underline bg-emerald-400/10 px-3 py-1.5 rounded-lg">
+                        <span class="iconify" data-icon="lucide:external-link"></span> Open Google Drive / Study Link
+                    </a>
+                </div>
+            ` : ''}
+            <div class="mt-3 pt-3 border-t border-white/5 flex justify-between items-center text-[11px] text-white/40">
+                <span>Posted by: ${h.teacherName || teacher.name}</span>
+                <span>${(h.createdAt || '').slice(0, 10)}</span>
+            </div>
+        </div>
+    `).join('') || `<p class="text-white/30 text-center py-6">No homework posted for Class ${MY_CLASS} yet.</p>`;
+}
+
+function handlePostHomework(e) {
+    e.preventDefault();
+    const subject = document.getElementById('hw-subject').value;
+    const dueDate = document.getElementById('hw-due-date').value;
+    const driveLink = document.getElementById('hw-link').value.trim();
+    const title = document.getElementById('hw-title').value.trim();
+    const desc = document.getElementById('hw-desc').value.trim();
+    
+    DB.addHomework({
+        class: MY_CLASS,
+        subject,
+        title,
+        desc,
+        driveLink,
+        dueDate,
+        teacherName: teacher.name
+    });
+    
+    showToast('📚 Homework posted for Class ' + MY_CLASS + '!');
+    e.target.reset();
+    renderHomework();
+}
+
+function deleteHw(id) {
+    if (!confirm('Are you sure you want to delete this homework?')) return;
+    DB.deleteHomework(id);
+    showToast('Homework deleted');
+    renderHomework();
+}
+
 /* ================= INIT ================= */
 initHeader();
 document.getElementById('attendance-date').value = todayISO();
@@ -712,6 +890,7 @@ renderMyClass();
 renderAttendance();
 renderTestTabs();
 renderMarksTable();
+renderHomework();
 renderChatList();
 renderNotices();
 </script>

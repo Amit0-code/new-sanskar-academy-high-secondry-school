@@ -306,3 +306,135 @@ document.addEventListener('mousemove', function (e) {
     setTimeout(() => particle.remove(), 1000);
   }
 });
+
+
+/* ============================================================
+   11. DYNAMIC CMS SYNCHRONIZATION WITH DB
+   Loads customized site text, stats, facilities, faculty,
+   contact info and photos set by the admin in Website Manager.
+   ============================================================ */
+function loadDynamicSiteContent() {
+  if (typeof DB === 'undefined') return;
+  const c = DB.getSiteContent();
+  if (!c) return;
+
+  if (c.whatsappNumber) CONFIG.whatsappNumber = c.whatsappNumber;
+  if (c.statStudents) CONFIG.counters.students = Number(c.statStudents);
+  if (c.statTeachers) CONFIG.counters.teachers = Number(c.statTeachers);
+  if (c.statLegacy) CONFIG.counters.yearsLegacy = Number(c.statLegacy);
+
+  // Hero Section
+  const badgeEl = document.getElementById('hero-badge');
+  if (badgeEl && c.badge) badgeEl.textContent = c.badge;
+
+  const titleEl = document.getElementById('hero-title');
+  if (titleEl && c.title) titleEl.textContent = c.title;
+
+  const subEl = document.getElementById('hero-subtitle');
+  if (subEl && c.subtitle) subEl.textContent = c.subtitle;
+
+  const descEl = document.getElementById('hero-desc');
+  if (descEl && c.heroDesc) descEl.textContent = c.heroDesc;
+
+  const heroImgEl = document.getElementById('hero-img');
+  if (heroImgEl && c.heroImg) heroImgEl.src = c.heroImg;
+
+  // Logos
+  if (c.logoUrl) {
+    document.querySelectorAll('.logo-img').forEach(img => {
+      img.src = c.logoUrl;
+    });
+  }
+
+  // About Section
+  const aboutHead = document.getElementById('about-heading');
+  if (aboutHead && c.aboutHeading) aboutHead.innerHTML = c.aboutHeading.replace(/Leaders|Future/g, match => `<span class="grad-text">${match}</span>`);
+
+  const aboutDesc = document.getElementById('about-desc');
+  if (aboutDesc && c.about) aboutDesc.textContent = c.about;
+
+  const aboutImg = document.getElementById('about-img');
+  if (aboutImg && c.aboutImg) aboutImg.src = c.aboutImg;
+
+  const aboutYears = document.getElementById('about-years');
+  if (aboutYears && c.aboutYears) aboutYears.textContent = c.aboutYears;
+
+  // Faculty Grid
+  const facultyGrid = document.getElementById('faculty-grid');
+  if (facultyGrid && c.faculty && c.faculty.length > 0) {
+    facultyGrid.innerHTML = c.faculty.map((f, idx) => `
+      <div class="glass rounded-2xl p-6 text-center card-hover group relative overflow-hidden">
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 ${idx % 2 === 0 ? 'border-gold-400/20 group-hover:border-gold-400/50' : 'border-emerald-400/20 group-hover:border-emerald-400/50'} transition-colors">
+          <img src="${f.photo}" alt="${f.name}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/${encodeURIComponent(f.name)}/200/200.jpg'">
+        </div>
+        <h4 class="font-semibold text-white">${f.name}</h4>
+        <p class="text-xs text-gold-400 mt-1">${f.role}</p>
+        <p class="text-xs text-slate-500 mt-2">${f.exp}</p>
+      </div>
+    `).join('');
+  }
+
+  // Facilities Grid
+  const facilitiesGrid = document.getElementById('facilities-grid');
+  if (facilitiesGrid && c.facilities && c.facilities.length > 0) {
+    facilitiesGrid.innerHTML = c.facilities.map((fc, idx) => `
+      <div class="glass rounded-2xl overflow-hidden card-hover group">
+        <div class="relative h-48 overflow-hidden">
+          <img src="${fc.photo}" alt="${fc.title}" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" onerror="this.src='https://picsum.photos/seed/school-${idx}/400/300.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-navy-900/90 to-transparent"></div>
+          <div class="absolute bottom-3 left-4"><span class="iconify text-2xl ${idx % 2 === 0 ? 'text-gold-400' : 'text-emerald-400'}" data-icon="${fc.icon || 'lucide:sparkles'}"></span></div>
+        </div>
+        <div class="p-5">
+          <h4 class="font-semibold mb-1 text-white">${fc.title}</h4>
+          <p class="text-xs text-slate-400">${fc.desc}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Contact Info
+  const p1 = document.getElementById('contact-phone-1');
+  if (p1 && c.phone1) p1.textContent = c.phone1;
+  const p2 = document.getElementById('contact-phone-2');
+  if (p2 && c.phone2) p2.textContent = c.phone2;
+
+  const e1 = document.getElementById('contact-email-1');
+  if (e1 && c.email1) e1.textContent = c.email1;
+  const e2 = document.getElementById('contact-email-2');
+  if (e2 && c.email2) e2.textContent = c.email2;
+
+  const hours = document.getElementById('contact-hours');
+  if (hours && c.officeHours) hours.textContent = c.officeHours;
+
+  const addr1 = document.getElementById('contact-address-1');
+  if (addr1 && c.address) addr1.textContent = c.address;
+
+  const mapsLink = document.getElementById('contact-map-link');
+  if (mapsLink && c.mapsLink) mapsLink.href = c.mapsLink;
+
+  // Floating WhatsApp Link
+  const waBtn = document.getElementById('floating-whatsapp-link');
+  if (waBtn && c.whatsappNumber) waBtn.href = `https://wa.me/${c.whatsappNumber}`;
+
+  // Footer Info
+  const footerName = document.getElementById('footer-school-name');
+  if (footerName && c.title) footerName.textContent = c.title;
+
+  const footerSub = document.getElementById('footer-school-sub');
+  if (footerSub && c.subtitle) footerSub.textContent = c.subtitle;
+
+  const footerMotto = document.getElementById('footer-motto');
+  if (footerMotto && c.motto) footerMotto.textContent = `"${c.motto}" — Nurturing minds, building character, shaping futures since 2005.`;
+
+  const footerPhone = document.getElementById('footer-phone');
+  if (footerPhone && c.phone1) footerPhone.textContent = c.phone1;
+
+  const footerEmail = document.getElementById('footer-email');
+  if (footerEmail && c.email1) footerEmail.textContent = c.email1;
+
+  const footerAddr = document.getElementById('footer-address');
+  if (footerAddr && c.address) footerAddr.textContent = c.address;
+}
+
+// Run on initial load
+loadDynamicSiteContent();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New Sanskar Academy High Secondary School</title>
+<title>New Sanskar Academy Higher Secondary School</title>
 
 <!-- ===== EXTERNAL LIBRARIES ===== -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,7 @@ tailwind.config = {
       <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-10 h-10 rounded-full object-contain logo-img">
       <div class="leading-tight">
         <span class="font-semibold text-sm tracking-tight block">New Sanskar Academy</span>
-        <span class="text-[10px] text-gold-400 tracking-wider uppercase">High Secondary School</span>
+        <span class="text-[10px] text-gold-400 tracking-wider uppercase">Higher Secondary School</span>
       </div>
     </a>
     <div class="hidden md:flex items-center gap-8">
@@ -110,14 +110,13 @@ tailwind.config = {
       <div>
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-gold-400 text-xs font-medium tracking-wider uppercase mb-6 f-slow">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Admission Open 2025-26
+          <span id="hero-badge">Admission Open 2025-26</span>
         </div>
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
-          <span class="text-white">New Sanskar</span><br>
-          <span class="grad-text-2">Academy</span><br>
-          <span class="text-white text-3xl md:text-5xl lg:text-5xl">High Secondary School</span>
+          <span class="text-white" id="hero-title">New Sanskar Academy</span><br>
+          <span class="text-white text-3xl md:text-5xl lg:text-5xl" id="hero-subtitle">Higher Secondary School</span>
         </h1>
-        <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-lg">
+        <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-lg" id="hero-desc">
           "Knowledge is Power, Education is Life" — Nurturing minds since 2005 with excellence in academics, character & discipline at Dhannad Khurd, Pithampur.
         </p>
         <div class="flex flex-wrap gap-4">
@@ -151,7 +150,7 @@ tailwind.config = {
           <div class="absolute -inset-4 rounded-3xl border border-gold-400/10 spin-slow"></div>
           <div class="absolute -inset-10 rounded-3xl border border-emerald-400/5 spin-slow" style="animation-direction:reverse;animation-duration:30s"></div>
           <div class="relative rounded-3xl overflow-hidden glass hero-float shadow-2xl shadow-black/50">
-            <img src="https://z-cdn-media.chatglm.cn/files/04c767cd-1c13-4a4e-9011-34fd9961de88.png?auth_key=1886449124-e5f6ba766d034c77af1d45200aa3a970-0-132ee08959cb2ea5545ba1b77f583fa4" alt="New Sanskar Academy Building" class="w-full h-full object-cover">
+            <img id="hero-img" src="https://z-cdn-media.chatglm.cn/files/04c767cd-1c13-4a4e-9011-34fd9961de88.png?auth_key=1886449124-e5f6ba766d034c77af1d45200aa3a970-0-132ee08959cb2ea5545ba1b77f583fa4" alt="New Sanskar Academy Building" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-navy-900/20"></div>
           </div>
           <div class="absolute top-4 right-4 glass rounded-xl px-3 py-2 f2 flex items-center gap-2">
@@ -167,7 +166,7 @@ tailwind.config = {
             <span class="text-xs text-blue-400 font-medium">1:20 Ratio</span>
           </div>
           <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full overflow-hidden border border-gold-400/20 f-slow opacity-60">
-            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-full h-full object-contain">
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-full h-full object-contain logo-img">
           </div>
         </div>
       </div>
@@ -194,22 +193,22 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="text-center mb-16">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold-400 text-xs font-medium tracking-wider uppercase mb-4">About Us</div>
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Building <span class="grad-text">Future Leaders</span></h2>
-      <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Established in 2005, New Sanskar Academy High Secondary School has been a beacon of holistic education at Dhannad Khurd, Pithampur — blending traditional values with modern pedagogy.</p>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight" id="about-heading">Building <span class="grad-text">Future Leaders</span></h2>
+      <p class="text-slate-400 mt-4 max-w-2xl mx-auto" id="about-desc">Established in 2005, New Sanskar Academy Higher Secondary School has been a beacon of holistic education at Dhannad Khurd, Pithampur — blending traditional values with modern pedagogy.</p>
     </div>
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <!-- Campus photo with floating badge -->
       <div class="relative">
         <div class="rounded-2xl overflow-hidden glass card-hover">
-          <img src="https://z-cdn-media.chatglm.cn/files/c5f7f86f-d63d-4b50-8716-b6f71ad2e7bb.png?auth_key=1886449124-21a3c2d4063a4cab9532d1d8757a3f1a-0-bd27e24eea173b651d67a658e3d57b78" alt="School Campus" class="w-full h-80 object-cover">
+          <img id="about-img" src="https://z-cdn-media.chatglm.cn/files/c5f7f86f-d63d-4b50-8716-b6f71ad2e7bb.png?auth_key=1886449124-21a3c2d4063a4cab9532d1d8757a3f1a-0-bd27e24eea173b651d67a658e3d57b78" alt="School Campus" class="w-full h-80 object-cover">
         </div>
         <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-4 f2">
-          <div class="text-3xl font-bold grad-text">20+</div>
+          <div class="text-3xl font-bold grad-text" id="about-years">20+</div>
           <div class="text-xs text-slate-400">Years of Excellence</div>
         </div>
         <div class="absolute -top-4 -left-4 w-16 h-16 rounded-2xl border border-gold-400/20 f1"><div class="w-full h-full rounded-2xl bg-gold-400/5"></div></div>
         <div class="absolute top-4 right-4 w-14 h-14 rounded-full overflow-hidden glass p-1 f-slow">
-          <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-full h-full object-contain">
+          <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-full h-full object-contain logo-img">
         </div>
       </div>
       <!-- Mission text + value cards -->
@@ -329,7 +328,7 @@ tailwind.config = {
       <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Expert <span class="grad-text">Faculty</span></h2>
       <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Dedicated educators with years of experience, passionate about shaping young minds.</p>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="faculty-grid">
 
       <!-- Staff card: Principal -->
       <div class="glass rounded-2xl p-6 text-center card-hover group relative overflow-hidden">
@@ -390,7 +389,7 @@ tailwind.config = {
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-gold-400 text-xs font-medium tracking-wider uppercase mb-4">Infrastructure</div>
       <h2 class="text-3xl md:text-5xl font-bold tracking-tight">World-Class <span class="grad-text">Facilities</span></h2>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="facilities-grid">
 
       <!-- Facility card: Smart Classrooms -->
       <div class="glass rounded-2xl overflow-hidden card-hover group">
@@ -604,21 +603,21 @@ tailwind.config = {
       <div class="glass rounded-2xl p-6 text-center card-hover">
         <div class="w-12 h-12 rounded-xl bg-gold-400/10 flex items-center justify-center mx-auto mb-4"><span class="iconify text-2xl text-gold-400" data-icon="lucide:phone"></span></div>
         <h4 class="font-medium mb-1">Phone</h4>
-        <p class="text-sm text-slate-400">+91 XXXXX XXXXX</p>
-        <p class="text-sm text-slate-400">+91 XXXXX XXXXX</p>
+        <p class="text-sm text-slate-400" id="contact-phone-1">+91 98765 43210</p>
+        <p class="text-sm text-slate-400" id="contact-phone-2">+91 98765 12345</p>
       </div>
       <!-- Contact card: Email -->
       <div class="glass rounded-2xl p-6 text-center card-hover">
         <div class="w-12 h-12 rounded-xl bg-emerald-400/10 flex items-center justify-center mx-auto mb-4"><span class="iconify text-2xl text-emerald-400" data-icon="lucide:mail"></span></div>
         <h4 class="font-medium mb-1">Email</h4>
-        <p class="text-sm text-slate-400">info@sanskaracademy.edu</p>
-        <p class="text-sm text-slate-400">admission@sanskaracademy.edu</p>
+        <p class="text-sm text-slate-400" id="contact-email-1">info@sanskaracademy.edu</p>
+        <p class="text-sm text-slate-400" id="contact-email-2">admission@sanskaracademy.edu</p>
       </div>
       <!-- Contact card: Office Hours -->
       <div class="glass rounded-2xl p-6 text-center card-hover">
         <div class="w-12 h-12 rounded-xl bg-blue-400/10 flex items-center justify-center mx-auto mb-4"><span class="iconify text-2xl text-blue-400" data-icon="lucide:clock"></span></div>
         <h4 class="font-medium mb-1">Office Hours</h4>
-        <p class="text-sm text-slate-400">Mon-Sat: 8:00 AM - 3:00 PM</p>
+        <p class="text-sm text-slate-400" id="contact-hours">Mon-Sat: 8:00 AM - 3:00 PM</p>
         <p class="text-sm text-slate-400">Sun: Closed</p>
       </div>
     </div>
@@ -631,9 +630,9 @@ tailwind.config = {
           <div class="w-14 h-14 rounded-full bg-gold-400/20 flex items-center justify-center mx-auto mb-3 pulse-glow">
             <span class="iconify text-3xl text-gold-400" data-icon="lucide:map-pin"></span>
           </div>
-          <p class="text-white font-semibold">Dhannad Khurd, Pithampur</p>
-          <p class="text-sm text-slate-400 mt-1">Dist. Dhar, Madhya Pradesh</p>
-          <a href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-1 text-gold-400 text-xs mt-3 hover:underline bg-gold-400/10 px-4 py-2 rounded-full">
+          <p class="text-white font-semibold" id="contact-address-1">Dhannad Khurd, Pithampur</p>
+          <p class="text-sm text-slate-400 mt-1" id="contact-address-2">Dist. Dhar, Madhya Pradesh</p>
+          <a id="contact-map-link" href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-1 text-gold-400 text-xs mt-3 hover:underline bg-gold-400/10 px-4 py-2 rounded-full">
             <span class="iconify" data-icon="lucide:navigation"></span> Get Directions
           </a>
         </div>
@@ -659,11 +658,11 @@ tailwind.config = {
         <div class="flex items-center gap-3 mb-4">
           <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="Logo" class="w-10 h-10 rounded-full object-contain logo-img">
           <div class="leading-tight">
-            <span class="font-semibold text-sm block">New Sanskar Academy</span>
-            <span class="text-[10px] text-gold-400 tracking-wider uppercase">High Secondary School</span>
+            <span class="font-semibold text-sm block" id="footer-school-name">New Sanskar Academy</span>
+            <span class="text-[10px] text-gold-400 tracking-wider uppercase" id="footer-school-sub">Higher Secondary School</span>
           </div>
         </div>
-        <p class="text-sm text-slate-500 leading-relaxed">"Knowledge is Power, Education is Life" — Nurturing minds, building character, shaping futures since 2005.</p>
+        <p class="text-sm text-slate-500 leading-relaxed" id="footer-motto">"Knowledge is Power, Education is Life" — Nurturing minds, building character, shaping futures since 2005.</p>
         <div class="flex gap-3 mt-4">
           <a href="#" class="w-9 h-9 rounded-lg glass flex items-center justify-center hover:border-gold-400/30 transition-colors"><span class="iconify text-lg text-slate-400" data-icon="lucide:facebook"></span></a>
           <a href="#" class="w-9 h-9 rounded-lg glass flex items-center justify-center hover:border-gold-400/30 transition-colors"><span class="iconify text-lg text-slate-400" data-icon="lucide:instagram"></span></a>
@@ -701,14 +700,14 @@ tailwind.config = {
       <div>
         <h5 class="font-semibold text-sm mb-4 text-gold-400">Contact</h5>
         <div class="space-y-2 text-sm text-slate-500">
-          <div class="flex items-start gap-2"><span class="iconify text-gold-400 mt-0.5 shrink-0" data-icon="lucide:map-pin"></span>Dhannad Khurd, Pithampur, Dhar (M.P.)</div>
-          <div class="flex items-center gap-2"><span class="iconify text-gold-400 shrink-0" data-icon="lucide:phone"></span>+91 XXXXX XXXXX</div>
-          <div class="flex items-center gap-2"><span class="iconify text-gold-400 shrink-0" data-icon="lucide:mail"></span>info@sanskaracademy.edu</div>
+          <div class="flex items-start gap-2"><span class="iconify text-gold-400 mt-0.5 shrink-0" data-icon="lucide:map-pin"></span><span id="footer-address">Dhannad Khurd, Pithampur, Dhar (M.P.)</span></div>
+          <div class="flex items-center gap-2"><span class="iconify text-gold-400 shrink-0" data-icon="lucide:phone"></span><span id="footer-phone">+91 98765 43210</span></div>
+          <div class="flex items-center gap-2"><span class="iconify text-gold-400 shrink-0" data-icon="lucide:mail"></span><span id="footer-email">info@sanskaracademy.edu</span></div>
         </div>
       </div>
     </div>
     <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-slate-600">© 2025 New Sanskar Academy High Secondary School, Dhannad Khurd, Pithampur. All rights reserved.</p>
+      <p class="text-xs text-slate-600">© 2025 New Sanskar Academy Higher Secondary School, Dhannad Khurd, Pithampur. All rights reserved.</p>
       <p class="text-xs text-slate-600">Made with <span class="text-red-400">❤</span> for Education</p>
     </div>
   </div>
@@ -727,7 +726,7 @@ tailwind.config = {
 </div>
 
 <!-- Floating WhatsApp button (bottom-left) -->
-<a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30 hover:scale-110 transition-transform">
+<a id="floating-whatsapp-link" href="https://wa.me/919876543210" target="_blank" class="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30 hover:scale-110 transition-transform">
   <span class="iconify text-3xl text-white" data-icon="lucide:message-circle"></span>
 </a>
 
@@ -737,7 +736,8 @@ tailwind.config = {
 </button>
 
 
-<!-- ===== PAGE SCRIPT ===== -->
+<!-- ===== PAGE SCRIPTS ===== -->
+<script src="db.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
