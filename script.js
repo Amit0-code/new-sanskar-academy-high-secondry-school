@@ -35,6 +35,7 @@ const CONFIG = {
    ============================================================ */
 (function initFloatingParticles() {
   const container = document.getElementById('global-particles');
+  if (!container) return;
 
   const icons = [
     'lucide:book-open', 'lucide:graduation-cap', 'lucide:pencil', 'lucide:star',
@@ -45,8 +46,8 @@ const CONFIG = {
   const colors = ['gold', 'emerald', 'blue', 'purple', 'rose'];
   const anims = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f-slow', 'f-reverse'];
   const colorMap = {
-    gold: '#fbbf24', emerald: '#34d399', blue: '#60a5fa',
-    purple: '#a78bfa', rose: '#fb7185'
+    gold: '#d97706', emerald: '#059669', blue: '#2563eb',
+    purple: '#7c3aed', rose: '#e11d48'
   };
 
   // --- Floating icons ---
@@ -55,11 +56,11 @@ const CONFIG = {
     el.className = 'absolute pointer-events-none';
     el.style.top = Math.random() * 100 + '%';
     el.style.left = Math.random() * 100 + '%';
-    el.style.animation = anims[Math.floor(Math.random() * anims.length)] + ' ' + (5 + Math.random() * 10) + 's ease-in-out infinite';
+    el.style.animation = anims[Math.floor(Math.random() * anims.length)] + ' ' + (6 + Math.random() * 10) + 's ease-in-out infinite';
     el.style.animationDelay = Math.random() * 5 + 's';
-    el.style.opacity = .03 + Math.random() * .07;
+    el.style.opacity = .06 + Math.random() * .08;
 
-    const size = 16 + Math.random() * 24;
+    const size = 16 + Math.random() * 22;
     const color = colors[Math.floor(Math.random() * colors.length)];
     const icon = icons[Math.floor(Math.random() * icons.length)];
     el.innerHTML = `<span class="iconify" data-icon="${icon}" style="font-size:${size}px;color:${colorMap[color]}"></span>`;
@@ -67,17 +68,17 @@ const CONFIG = {
   }
 
   // --- Small dots ---
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 35; i++) {
     const el = document.createElement('div');
     el.className = 'absolute rounded-full pointer-events-none';
-    const size = 2 + Math.random() * 4;
+    const size = 3 + Math.random() * 4;
     el.style.width = size + 'px';
     el.style.height = size + 'px';
     el.style.top = Math.random() * 100 + '%';
     el.style.left = Math.random() * 100 + '%';
     const color = colors[Math.floor(Math.random() * colors.length)];
     el.style.background = colorMap[color];
-    el.style.opacity = .05 + Math.random() * .15;
+    el.style.opacity = .08 + Math.random() * .12;
     el.style.animation = (Math.random() > .5 ? 'floatSlow' : 'floatReverse') + ' ' + (8 + Math.random() * 12) + 's ease-in-out infinite';
     el.style.animationDelay = Math.random() * 8 + 's';
     container.appendChild(el);
@@ -87,12 +88,13 @@ const CONFIG = {
   for (let i = 0; i < 15; i++) {
     const el = document.createElement('div');
     el.className = 'absolute rounded-full pointer-events-none';
-    const size = 1 + Math.random() * 3;
+    const size = 2 + Math.random() * 3;
     el.style.width = size + 'px';
     el.style.height = size + 'px';
     el.style.top = Math.random() * 100 + '%';
     el.style.left = Math.random() * 100 + '%';
-    el.style.background = '#fff';
+    el.style.background = '#d97706';
+    el.style.opacity = '.2';
     el.style.animation = 'twinkle ' + (1.5 + Math.random() * 3) + 's ease-in-out infinite';
     el.style.animationDelay = Math.random() * 5 + 's';
     container.appendChild(el);
@@ -104,15 +106,15 @@ const CONFIG = {
     el.className = 'absolute pointer-events-none';
     el.style.top = (20 + Math.random() * 60) + '%';
     el.style.left = (10 + Math.random() * 80) + '%';
-    const size = 80 + Math.random() * 120;
+    const size = 100 + Math.random() * 140;
     el.style.width = size + 'px';
     el.style.height = size + 'px';
     el.style.animation = 'morph ' + (8 + Math.random() * 8) + 's ease-in-out infinite, floatSlow ' + (12 + Math.random() * 8) + 's ease-in-out infinite';
     el.style.animationDelay = Math.random() * 5 + 's';
-    el.style.opacity = .03;
+    el.style.opacity = .04;
     const color = colors[Math.floor(Math.random() * colors.length)];
     el.style.background = colorMap[color];
-    el.style.filter = 'blur(40px)';
+    el.style.filter = 'blur(45px)';
     container.appendChild(el);
   }
 
@@ -125,8 +127,8 @@ const CONFIG = {
     el.style.width = size + 'px';
     el.style.height = size + 'px';
     el.style.borderRadius = '50%';
-    el.style.background = i % 2 === 0 ? '#fbbf24' : '#34d399';
-    el.style.opacity = '.15';
+    el.style.background = i % 2 === 0 ? '#d97706' : '#059669';
+    el.style.opacity = '.12';
     el.style.animation = (i % 2 === 0 ? 'drift-right' : 'drift-left') + ' ' + (20 + Math.random() * 15) + 's linear infinite';
     el.style.animationDelay = Math.random() * 10 + 's';
     container.appendChild(el);

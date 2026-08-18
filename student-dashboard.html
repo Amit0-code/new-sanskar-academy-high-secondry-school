@@ -12,9 +12,10 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        navy: { 500:'#0a1f44', 800:'#040e20', 900:'#020814' },
-        gold: { 400:'#fbbf24', 500:'#f59e0b' },
-        emerald: { 400:'#34d399', 500:'#10b981' },
+        cream: { 50:'#fdfbf7', 100:'#faf6ee', 200:'#f4eee1', 300:'#ebdcc5', 400:'#dec59f', 500:'#cca874' },
+        navy: { 500:'#0f2744', 700:'#0a192f', 800:'#081426', 900:'#050c18' },
+        gold: { 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706', 700:'#b45309' },
+        emerald: { 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857' },
         school: { red:'#dc2626' }
       },
       fontFamily: { sans: ['Inter', 'sans-serif'] }
@@ -24,52 +25,67 @@ tailwind.config = {
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hidden;}
+body{
+  font-family:'Inter',sans-serif;
+  background-color:#fdfbf7;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 50% -20%, rgba(217, 119, 6, 0.08), transparent),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(5, 150, 105, 0.06), transparent),
+    radial-gradient(ellipse 70% 60% at 10% 90%, rgba(37, 99, 235, 0.05), transparent);
+  color:#0f172a;
+  overflow-x:hidden;
+}
 
 @keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
 @keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(25px) rotate(-5deg)}}
 @keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60%/30% 60% 70% 40%}75%{border-radius:60% 30% 60% 40%/70% 40% 50% 60%}}
 @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
 
-.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
-.card-hover{transition:all .4s cubic-bezier(.4,0,.2,1)}
-.card-hover:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(251,191,36,.1);border-color:rgba(251,191,36,.3)}
-.grad-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.btn-gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:600;}
+.glass{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(226,218,203,0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+.card-hover{transition:all .3s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(217,119,6,.12);border-color:rgba(217,119,6,.35)}
+.grad-text{background:linear-gradient(135deg,#b45309,#d97706,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-gold{background:linear-gradient(135deg,#d97706,#f59e0b);color:#0f172a;font-weight:700;}
+.btn-gold:hover{box-shadow:0 6px 18px rgba(217,119,6,0.28);transform:translateY(-1px);}
 
-.cal-day{width:100%;aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;}
-.cal-day:hover{transform:scale(1.06);}
+.cal-day{width:100%;aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:1px solid #e2dacb;cursor:pointer;transition:all .2s;}
+.cal-day:hover{transform:scale(1.06);box-shadow:0 4px 10px rgba(0,0,0,0.06);}
 
-.sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:39;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(4px);z-index:39;opacity:0;pointer-events:none;transition:opacity .3s ease;}
 .sidebar-backdrop.show{opacity:1;pointer-events:auto;}
 @media (max-width:767px){
   #sidebar{position:fixed;top:0;left:0;bottom:0;z-index:40;width:78%;max-width:280px;transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto;}
   #sidebar.open{transform:translateX(0);}
 }
-.present{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.2)}
-.absent{background:rgba(248,113,113,.15);color:#f87171;border-color:rgba(248,113,113,.2)}
-.late{background:rgba(251,191,36,.15);color:#fbbf24;border-color:rgba(251,191,36,.2)}
-.holiday{background:rgba(167,139,250,.15);color:#a78bfa;border-color:rgba(167,139,250,.2)}
-.no-school{background:rgba(255,255,255,.02);color:#475569;cursor:default;}
+.present{background:#ecfdf5;color:#047857;border-color:#a7f3d0;}
+.absent{background:#fef2f2;color:#b91c1c;border-color:#fecaca;}
+.late{background:#fffbeb;color:#b45309;border-color:#fde68a;}
+.holiday{background:#f5f3ff;color:#7c3aed;border-color:#ddd6fe;}
+.no-school{background:#faf6ee;color:#94a3b8;cursor:default;border-color:transparent;}
 
 .chat-container{max-height:400px;overflow-y:auto}
-.msg-parent{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);border-radius:12px 12px 12px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;}
-.msg-teacher{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:12px 12px 2px 12px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;}
+.msg-parent{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.25);border-radius:14px 14px 14px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;color:#78350f;}
+.msg-teacher{background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.25);border-radius:14px 14px 2px 14px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;color:#064e3b;}
 
-.sidebar-btn{width:100%;text-align:left;padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);transition:all 0.3s;}
-.sidebar-btn:hover{background:rgba(255,255,255,.05);color:#fff;}
-.sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
+.sidebar-btn{width:100%;text-align:left;padding:10px 14px;border-radius:10px;display:flex;align-items:center;gap:10px;color:#475569;transition:all 0.25s;font-size:13px;font-weight:600;}
+.sidebar-btn:hover{background:#f4eee1;color:#0f172a;}
+.sidebar-btn.active{background:linear-gradient(135deg,#d97706,#f59e0b);color:#0f172a;font-weight:700;box-shadow:0 4px 12px rgba(217,119,6,0.25);}
 
 .exam-tab{transition:all .25s;}
-.exam-tab.active{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:700;}
+.exam-tab.active{background:linear-gradient(135deg,#d97706,#f59e0b);color:#0f172a;font-weight:700;box-shadow:0 2px 8px rgba(217,119,6,0.2);}
 
-input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;}
-select{color-scheme:dark;}
-select option{background-color:#040e20 !important;color:#ffffff !important;padding:8px;}
-input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
+input,textarea,select{background:#faf6ee;border:1px solid #e2dacb;border-radius:8px;padding:10px;width:100%;color:#0f172a;outline:none;}
+select option{background-color:#ffffff !important;color:#0f172a !important;padding:8px;}
+input:focus,textarea:focus,select:focus{border-color:#d97706;box-shadow:0 0 0 3px rgba(217,119,6,.15);background:#ffffff;}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+::-webkit-scrollbar-thumb{background:rgba(217,119,6,0.35);border-radius:4px}
 
 @media print {
   body * {
@@ -85,10 +101,10 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
     width: 100%;
     margin: 0;
     padding: 24px;
-    background: #0f172a !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
     box-shadow: none !important;
-    border: 2px solid #fbbf24 !important;
+    border: 2px solid #d97706 !important;
   }
 }
 </style>
@@ -99,16 +115,16 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
 
 <div class="relative z-10 min-h-screen flex flex-col">
 
-    <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+    <nav class="glass border-b border-cream-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50 bg-cream-50/90 shadow-sm">
         <div class="flex items-center gap-3">
-            <button onclick="toggleSidebar()" class="md:hidden text-white/80 p-1 -ml-1"><span class="iconify text-2xl" data-icon="lucide:menu"></span></button>
-            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-700 p-1 -ml-1"><span class="iconify text-2xl" data-icon="lucide:menu"></span></button>
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain bg-white p-0.5 shadow-sm">
             <div class="leading-tight">
-                <span class="font-semibold text-sm block">Student Portal</span>
-                <span class="text-[10px] text-gold-400 tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
+                <span class="font-bold text-sm block text-slate-900">Student Portal</span>
+                <span class="text-[10px] text-gold-700 font-bold tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
             </div>
         </div>
-        <a href="index.html" class="text-sm text-white/70 hover:text-gold-400 transition flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg">
+        <a href="index.html" class="text-sm text-slate-700 hover:text-gold-700 font-semibold transition flex items-center gap-2 border border-cream-300 bg-white/80 px-4 py-2 rounded-xl shadow-sm">
             <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Website
         </a>
     </nav>
@@ -117,15 +133,15 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
 
     <div class="flex flex-1 overflow-hidden">
         
-        <aside id="sidebar" class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between">
+        <aside id="sidebar" class="w-64 glass border-r border-cream-200 p-4 flex flex-col justify-between bg-cream-50/80">
             <div>
-                <div class="flex justify-end mb-2 md:hidden"><button onclick="closeSidebar()" class="text-white/60 p-1"><span class="iconify text-xl" data-icon="lucide:x"></span></button></div>
-                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
-                    <div id="sidebar-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-emerald-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
-                    <h3 class="font-bold" id="sidebar-name">--</h3>
-                    <p class="text-xs text-white/50" id="sidebar-meta">--</p>
+                <div class="flex justify-end mb-2 md:hidden"><button onclick="closeSidebar()" class="text-slate-500 p-1"><span class="iconify text-xl" data-icon="lucide:x"></span></button></div>
+                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-cream-200">
+                    <div id="sidebar-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold-500 to-amber-600 flex items-center justify-center text-2xl font-black text-white mb-2 shadow-md">--</div>
+                    <h3 class="font-bold text-slate-900 text-base" id="sidebar-name">--</h3>
+                    <p class="text-xs text-slate-500 font-medium" id="sidebar-meta">--</p>
                 </div>
-                <div class="space-y-2">
+                <div class="space-y-1.5">
                     <button onclick="switchTab('profile')" class="sidebar-btn active" data-tab="profile"><span class="iconify text-lg" data-icon="lucide:user"></span> Profile</button>
                     <button onclick="switchTab('attendance')" class="sidebar-btn" data-tab="attendance"><span class="iconify text-lg" data-icon="lucide:calendar-check"></span> Attendance</button>
                     <button onclick="switchTab('marks')" class="sidebar-btn" data-tab="marks"><span class="iconify text-lg" data-icon="lucide:clipboard-list"></span> Marks</button>
@@ -135,7 +151,7 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
                     <button onclick="switchTab('notices')" class="sidebar-btn" data-tab="notices"><span class="iconify text-lg" data-icon="lucide:megaphone"></span> Notices</button>
                 </div>
             </div>
-            <button class="sidebar-btn text-red-400 hover:bg-red-500/10" onclick="doLogout()">
+            <button class="sidebar-btn text-red-600 hover:bg-red-50 mt-4" onclick="doLogout()">
                 <span class="iconify text-lg" data-icon="lucide:log-out"></span> Logout
             </button>
         </aside>
@@ -144,84 +160,84 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
             
             <!-- TAB 1: PROFILE -->
             <div id="tab-profile" class="tab-content">
-                <h2 class="text-2xl font-bold mb-6">My Profile</h2>
-                <div class="glass rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center card-hover">
-                    <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-gold-400/20 to-emerald-400/20 border border-white/10 flex items-center justify-center text-5xl">📷</div>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">My Profile</h2>
+                <div class="glass rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center card-hover border border-cream-300 shadow-sm">
+                    <div class="w-28 h-28 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-4xl shadow-sm">🎓</div>
                     <div class="grid grid-cols-2 gap-4 flex-1 w-full">
-                        <div><span class="text-xs text-white/50 block mb-1">Student Name</span><p class="font-medium" id="p-name">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Student ID</span><p class="font-medium" id="p-id">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Class</span><p class="font-medium text-gold-400" id="p-class">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Roll No</span><p class="font-medium" id="p-roll">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Father's Name</span><p class="font-medium" id="p-father">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Mother's Name</span><p class="font-medium" id="p-mother">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Class Teacher</span><p class="font-medium" id="p-teacher">--</p></div>
-                        <div><span class="text-xs text-white/50 block mb-1">Contact</span><p class="font-medium" id="p-contact">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Student Name</span><p class="font-bold text-slate-900" id="p-name">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Student ID</span><p class="font-bold text-slate-900" id="p-id">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Class</span><p class="font-bold text-gold-700" id="p-class">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Roll No</span><p class="font-bold text-slate-900" id="p-roll">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Father's Name</span><p class="font-bold text-slate-900" id="p-father">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Mother's Name</span><p class="font-bold text-slate-900" id="p-mother">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Class Teacher</span><p class="font-bold text-slate-900" id="p-teacher">--</p></div>
+                        <div><span class="text-xs text-slate-500 font-bold block mb-1">Contact</span><p class="font-bold text-slate-900" id="p-contact">--</p></div>
                     </div>
                 </div>
             </div>
 
             <!-- TAB 2: ATTENDANCE -->
             <div id="tab-attendance" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">Attendance Record</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Attendance Record</h2>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-emerald-400">
-                        <div class="text-3xl font-bold text-emerald-400" id="att-present">20</div>
-                        <div class="text-xs text-white/50 mt-1">Present</div>
+                    <div class="glass rounded-2xl p-4 text-center card-hover border-l-4 border-emerald-500 border-cream-300 shadow-sm">
+                        <div class="text-3xl font-black text-emerald-700" id="att-present">20</div>
+                        <div class="text-xs text-slate-500 font-bold mt-1">Present</div>
                     </div>
-                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-red-400">
-                        <div class="text-3xl font-bold text-red-400" id="att-absent">02</div>
-                        <div class="text-xs text-white/50 mt-1">Absent</div>
+                    <div class="glass rounded-2xl p-4 text-center card-hover border-l-4 border-red-500 border-cream-300 shadow-sm">
+                        <div class="text-3xl font-black text-red-600" id="att-absent">02</div>
+                        <div class="text-xs text-slate-500 font-bold mt-1">Absent</div>
                     </div>
-                    <div class="glass rounded-xl p-4 text-center card-hover border-l-4 border-gold-400">
-                        <div class="text-3xl font-bold text-gold-400" id="att-late">01</div>
-                        <div class="text-xs text-white/50 mt-1">Late</div>
+                    <div class="glass rounded-2xl p-4 text-center card-hover border-l-4 border-gold-500 border-cream-300 shadow-sm">
+                        <div class="text-3xl font-black text-gold-700" id="att-late">01</div>
+                        <div class="text-xs text-slate-500 font-bold mt-1">Late</div>
                     </div>
-                    <div class="glass rounded-xl p-4 text-center card-hover">
-                        <div class="text-3xl font-bold grad-text" id="att-overall">87%</div>
-                        <div class="text-xs text-white/50 mt-1">Overall</div>
+                    <div class="glass rounded-2xl p-4 text-center card-hover border border-cream-300 shadow-sm">
+                        <div class="text-3xl font-black grad-text" id="att-overall">87%</div>
+                        <div class="text-xs text-slate-500 font-bold mt-1">Overall</div>
                     </div>
                 </div>
 
                 <div class="grid lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 glass rounded-xl p-6 card-hover">
+                    <div class="lg:col-span-2 glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-lg flex items-center gap-2">📅 <span id="cal-month-label">March 2025</span></h3>
+                            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">📅 <span id="cal-month-label">March 2025</span></h3>
                             <div class="flex gap-2">
-                                <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-sm">◀</button>
-                                <button onclick="changeMonth(1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-sm">▶</button>
+                                <button onclick="changeMonth(-1)" class="w-8 h-8 rounded-lg bg-cream-200/80 hover:bg-cream-300 flex items-center justify-center text-sm font-bold text-slate-700">◀</button>
+                                <button onclick="changeMonth(1)" class="w-8 h-8 rounded-lg bg-cream-200/80 hover:bg-cream-300 flex items-center justify-center text-sm font-bold text-slate-700">▶</button>
                             </div>
                         </div>
-                        <div class="grid grid-cols-7 gap-2 text-center text-xs text-white/40 mb-2 font-medium">
+                        <div class="grid grid-cols-7 gap-2 text-center text-xs text-slate-500 mb-2 font-bold uppercase">
                             <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
                         </div>
                         <div class="grid grid-cols-7 gap-2" id="cal-grid"></div>
-                        <div class="flex flex-wrap gap-3 mt-4 text-[10px] text-white/40">
+                        <div class="flex flex-wrap gap-3 mt-4 text-xs font-semibold text-slate-600">
                             <span>✅ Present</span><span>❌ Absent</span><span>⏰ Late</span><span>🎌 Holiday</span><span>— No School</span>
                         </div>
                     </div>
 
                     <div class="space-y-6">
-                        <div class="glass rounded-xl p-6 card-hover border-l-4 border-red-400">
-                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2 text-red-400">❌ Absent Details</h3>
+                        <div class="glass rounded-2xl p-6 card-hover border-l-4 border-red-500 border-cream-300 shadow-sm">
+                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2 text-red-600">❌ Absent Details</h3>
                             <div class="space-y-3" id="absent-details">
                             </div>
                         </div>
                         
-                        <div class="glass rounded-xl p-6 card-hover">
-                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📊 Monthly %</h3>
+                        <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                            <h3 class="font-bold text-slate-900 text-sm mb-4 flex items-center gap-2">📊 Monthly %</h3>
                             <div class="space-y-3">
                                 <div>
-                                    <div class="flex justify-between text-xs mb-1"><span>Jan</span><span class="text-emerald-400">96%</span></div>
-                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-emerald-400 h-2 rounded-full" style="width: 96%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1"><span class="text-slate-700">Jan</span><span class="text-emerald-700">96%</span></div>
+                                    <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-emerald-600 h-2 rounded-full" style="width: 96%"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-xs mb-1"><span>Feb</span><span class="text-emerald-400">89%</span></div>
-                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-emerald-400 h-2 rounded-full" style="width: 89%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1"><span class="text-slate-700">Feb</span><span class="text-emerald-700">89%</span></div>
+                                    <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-emerald-600 h-2 rounded-full" style="width: 89%"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-xs mb-1"><span>Mar</span><span class="text-gold-400">87%</span></div>
-                                    <div class="w-full bg-white/5 rounded-full h-2"><div class="bg-gold-400 h-2 rounded-full" style="width: 87%"></div></div>
+                                    <div class="flex justify-between text-xs font-bold mb-1"><span class="text-slate-700">Mar</span><span class="text-gold-700">87%</span></div>
+                                    <div class="w-full bg-slate-200 rounded-full h-2"><div class="bg-gold-600 h-2 rounded-full" style="width: 87%"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -231,50 +247,50 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
 
             <!-- TAB 3: MARKS -->
             <div id="tab-marks" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">Academic Performance</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Academic Performance</h2>
 
-                <div id="marks-locked" class="hidden glass rounded-xl p-10 text-center card-hover">
+                <div id="marks-locked" class="hidden glass rounded-2xl p-10 text-center card-hover border border-cream-300 shadow-sm">
                     <div class="text-4xl mb-3">🔒</div>
-                    <p class="font-bold text-lg text-white/70">Your results are currently locked.</p>
-                    <p id="marks-locked-reason" class="text-sm text-white/40 mt-2"></p>
+                    <p class="font-bold text-lg text-slate-800">Your results are currently locked.</p>
+                    <p id="marks-locked-reason" class="text-sm text-slate-500 mt-2 font-medium"></p>
                 </div>
 
                 <div id="marks-body">
-                <div id="exam-tabs" class="flex gap-2 mb-6 bg-white/5 p-1 rounded-xl w-full max-w-md"></div>
+                <div id="exam-tabs" class="flex gap-2 mb-6 bg-cream-200/80 p-1.5 rounded-2xl w-full max-w-md border border-cream-300"></div>
 
                 <div class="grid lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="marks-cards"></div>
-                        <div class="glass rounded-xl p-4 mt-4 flex justify-between items-center card-hover">
+                        <div class="glass rounded-2xl p-4 mt-4 flex justify-between items-center card-hover border border-cream-300 shadow-sm">
                             <div>
-                                <span class="text-xs text-white/50 block">Overall Percentage</span>
-                                <span class="text-2xl font-bold grad-text" id="marks-overall-pct">84.1%</span>
+                                <span class="text-xs text-slate-500 font-bold block">Overall Percentage</span>
+                                <span class="text-2xl font-black grad-text" id="marks-overall-pct">84.1%</span>
                             </div>
                             <div class="text-right">
-                                <span class="text-xs text-white/50 block">Overall Grade</span>
-                                <span class="text-2xl font-bold text-emerald-400" id="marks-overall-grade">A</span>
+                                <span class="text-xs text-slate-500 font-bold block">Overall Grade</span>
+                                <span class="text-2xl font-black text-emerald-700" id="marks-overall-grade">A</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-6">
-                        <div class="glass rounded-xl p-6 card-hover">
-                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📊 <span id="compare-title">Q1 vs Previous Test</span></h3>
+                        <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                            <h3 class="font-bold text-slate-900 text-sm mb-4 flex items-center gap-2">📊 <span id="compare-title">Q1 vs Previous Test</span></h3>
                             <table class="w-full text-xs">
                                 <thead>
-                                    <tr class="text-white/40 border-b border-white/10"><th class="text-left pb-2">Subject</th><th class="pb-2" id="compare-col-label">Q1</th><th class="pb-2">Prev</th><th class="text-right pb-2">Diff</th></tr>
+                                    <tr class="text-slate-500 font-bold border-b border-cream-200"><th class="text-left pb-2">Subject</th><th class="pb-2" id="compare-col-label">Q1</th><th class="pb-2">Prev</th><th class="text-right pb-2">Diff</th></tr>
                                 </thead>
-                                <tbody class="text-center" id="compare-table-body"></tbody>
+                                <tbody class="text-center font-medium" id="compare-table-body"></tbody>
                             </table>
                         </div>
                         
-                        <div class="glass rounded-xl p-6 card-hover">
-                            <h3 class="font-bold text-sm mb-4 flex items-center gap-2">📈 Test Trend</h3>
+                        <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                            <h3 class="font-bold text-slate-900 text-sm mb-4 flex items-center gap-2">📈 Test Trend</h3>
                             <div class="space-y-2 text-sm" id="test-trend-list">
-                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 1</span><span class="text-emerald-400 font-medium">78% (B+)</span></div>
-                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 2</span><span class="text-emerald-400 font-medium">82% (A-)</span></div>
-                                <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">Monthly 3</span><span class="text-emerald-400 font-medium">85% (A)</span></div>
-                                <div class="flex justify-between items-center text-gold-400 font-bold pt-1"><span>Overall Trend</span><span>Improving ↗️</span></div>
+                                <div class="flex justify-between items-center pb-2 border-b border-cream-200"><span class="text-slate-600 font-medium">Monthly 1</span><span class="text-emerald-700 font-bold">78% (B+)</span></div>
+                                <div class="flex justify-between items-center pb-2 border-b border-cream-200"><span class="text-slate-600 font-medium">Monthly 2</span><span class="text-emerald-700 font-bold">82% (A-)</span></div>
+                                <div class="flex justify-between items-center pb-2 border-b border-cream-200"><span class="text-slate-600 font-medium">Monthly 3</span><span class="text-emerald-700 font-bold">85% (A)</span></div>
+                                <div class="flex justify-between items-center text-gold-700 font-bold pt-1"><span>Overall Trend</span><span>Improving ↗️</span></div>
                             </div>
                         </div>
                     </div>
@@ -284,40 +300,40 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;}
 
             <!-- TAB: HOMEWORK -->
             <div id="tab-homework" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">Homework & Study Materials</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Homework & Study Materials</h2>
                 <div id="student-homework-list" class="space-y-4"></div>
             </div>
 
             <!-- TAB 4: FEES -->
             <div id="tab-fees" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">Fee Details</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Fee Details</h2>
                 <div id="fees-content"></div>
             </div>
 
             <!-- TAB 5: CHAT -->
             <div id="tab-chat" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">Parent-Teacher Chat</h2>
-                <div class="glass rounded-xl p-4 md:p-6 card-hover">
-                    <div class="flex items-center gap-3 pb-4 border-b border-white/10 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-blue-400 flex items-center justify-center font-bold text-sm text-navy-900" id="chat-teacher-avatar">--</div>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Parent-Teacher Chat</h2>
+                <div class="glass rounded-2xl p-4 md:p-6 card-hover border border-cream-300 shadow-sm">
+                    <div class="flex items-center gap-3 pb-4 border-b border-cream-200 mb-4">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center font-bold text-sm text-white shadow-sm" id="chat-teacher-avatar">--</div>
                         <div>
-                            <h3 class="font-medium text-sm" id="chat-teacher-name">--</h3>
-                            <p class="text-xs text-emerald-400" id="chat-teacher-meta">--</p>
+                            <h3 class="font-bold text-sm text-slate-900" id="chat-teacher-name">--</h3>
+                            <p class="text-xs text-emerald-700 font-semibold" id="chat-teacher-meta">--</p>
                         </div>
                     </div>
 
                     <div class="chat-container mb-4" id="chat-messages"></div>
 
-                    <div class="flex gap-2 border-t border-white/10 pt-4">
-                        <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendChat()">
-                        <button onclick="sendChat()" class="btn-gold w-12 rounded-lg flex items-center justify-center shrink-0"><span class="iconify text-lg" data-icon="lucide:send"></span></button>
+                    <div class="flex gap-2 border-t border-cream-200 pt-4">
+                        <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendChat()" class="bg-white border-slate-300 text-slate-900">
+                        <button onclick="sendChat()" class="btn-gold w-12 rounded-xl flex items-center justify-center shrink-0 shadow-md"><span class="iconify text-lg" data-icon="lucide:send"></span></button>
                     </div>
                 </div>
             </div>
 
             <!-- TAB 6: NOTICES -->
             <div id="tab-notices" class="tab-content hidden">
-                <h2 class="text-2xl font-bold mb-6">School Notices</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">School Notices</h2>
                 <div id="notices-list" class="space-y-4"></div>
             </div>
 
@@ -367,44 +383,29 @@ function fillProfile() {
 // ===== GLOBAL FLOATING PARTICLES =====
 (function(){
   const c=document.getElementById('global-particles');
+  if(!c) return;
   const icons=['lucide:book-open','lucide:graduation-cap','lucide:pencil','lucide:star','lucide:apple','lucide:trophy','lucide:brain','lucide:lightbulb','lucide:heart','lucide:sparkles','lucide:atom','lucide:calculator','lucide:globe','lucide:music','lucide:palette'];
   const colors=['gold','emerald','blue','purple','rose'];
   const anims=['floatSlow','floatReverse'];
-  const colorMap={gold:'#fbbf24',emerald:'#34d399',blue:'#60a5fa',purple:'#a78bfa',rose:'#fb7185'};
+  const colorMap={gold:'#d97706',emerald:'#059669',blue:'#2563eb',purple:'#7c3aed',rose:'#e11d48'};
 
   for(let i=0;i<25;i++){
     const el=document.createElement('div');el.className='absolute pointer-events-none';
     el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
-    el.style.animation=anims[Math.floor(Math.random()*anims.length)]+' '+(5+Math.random()*10)+'s ease-in-out infinite';
-    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.03+Math.random()*.07;
-    const s=16+Math.random()*24,co=colors[Math.floor(Math.random()*colors.length)],ic=icons[Math.floor(Math.random()*icons.length)];
+    el.style.animation=anims[Math.floor(Math.random()*anims.length)]+' '+(6+Math.random()*10)+'s ease-in-out infinite';
+    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.06+Math.random()*.08;
+    const s=16+Math.random()*22,co=colors[Math.floor(Math.random()*colors.length)],ic=icons[Math.floor(Math.random()*icons.length)];
     el.innerHTML=`<span class="iconify" data-icon="${ic}" style="font-size:${s}px;color:${colorMap[co]}"></span>`;
     c.appendChild(el);
   }
-  for(let i=0;i<40;i++){
+  for(let i=0;i<35;i++){
     const el=document.createElement('div');el.className='absolute rounded-full pointer-events-none';
-    const s=2+Math.random()*4;el.style.width=s+'px';el.style.height=s+'px';
+    const s=3+Math.random()*4;el.style.width=s+'px';el.style.height=s+'px';
     el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
     const co=colors[Math.floor(Math.random()*colors.length)];
-    el.style.background=colorMap[co];el.style.opacity=.05+Math.random()*.15;
+    el.style.background=colorMap[co];el.style.opacity=.08+Math.random()*.12;
     el.style.animation=(Math.random()>.5?'floatSlow':'floatReverse')+' '+(8+Math.random()*12)+'s ease-in-out infinite';
     el.style.animationDelay=Math.random()*8+'s';c.appendChild(el);
-  }
-  for(let i=0;i<15;i++){
-    const el=document.createElement('div');el.className='absolute rounded-full pointer-events-none';
-    const s=1+Math.random()*3;el.style.width=s+'px';el.style.height=s+'px';
-    el.style.top=Math.random()*100+'%';el.style.left=Math.random()*100+'%';
-    el.style.background='#fff';el.style.animation='twinkle '+(1.5+Math.random()*3)+'s ease-in-out infinite';
-    el.style.animationDelay=Math.random()*5+'s';c.appendChild(el);
-  }
-  for(let i=0;i<3;i++){
-    const el=document.createElement('div');el.className='absolute pointer-events-none';
-    el.style.top=(20+Math.random()*60)+'%';el.style.left=(10+Math.random()*80)+'%';
-    const s=80+Math.random()*120;el.style.width=s+'px';el.style.height=s+'px';
-    el.style.animation='morph '+(8+Math.random()*8)+'s ease-in-out infinite, floatSlow '+(12+Math.random()*8)+'s ease-in-out infinite';
-    el.style.animationDelay=Math.random()*5+'s';el.style.opacity=.03;
-    const co=colors[Math.floor(Math.random()*colors.length)];
-    el.style.background=colorMap[co];el.style.filter='blur(40px)';c.appendChild(el);
   }
 })();
 
@@ -439,8 +440,8 @@ function switchTab(tabName) {
 
 // ===== GRADE HELPERS =====
 function gradeColor(g) {
-  var map = { 'A+': '#34d399', 'A':  '#10b981', 'B+': '#fbbf24', 'B':  '#f59e0b', 'C+': '#fb923c', 'C':  '#f97316', 'D':  '#ef4444', 'F':  '#dc2626' };
-  return map[g] || '#94a3b8';
+  var map = { 'A+': '#059669', 'A':  '#10b981', 'B+': '#d97706', 'B':  '#f59e0b', 'C+': '#ea580c', 'C':  '#f97316', 'D':  '#dc2626', 'F':  '#b91c1c' };
+  return map[g] || '#64748b';
 }
 function calcGrade(p) {
   if (p >= 90) return 'A+'; if (p >= 80) return 'A'; if (p >= 70) return 'B+';
@@ -452,14 +453,14 @@ function calcGrade(p) {
 function renderStudentNotices() {
   const notices = DB.getVisibleNotices('student', myClass);
   document.getElementById('notices-list').innerHTML = notices.map(n => `
-    <div class="glass rounded-xl p-6 card-hover ${n.isPinned ? 'border-l-4 border-gold-400' : ''}">
+    <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm ${n.isPinned ? 'border-l-4 border-l-gold-500' : ''}">
         <div class="flex justify-between items-start mb-2">
-            <h3 class="font-bold text-lg flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:megaphone"></span> ${n.title} ${n.isPinned ? '<span class="text-gold-400 text-xs">📌</span>' : ''}</h3>
-            <span class="text-xs text-white/40">${(n.createdAt || '').slice(0, 10)}</span>
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2"><span class="iconify text-gold-600" data-icon="lucide:megaphone"></span> ${n.title} ${n.isPinned ? '<span class="text-gold-600 text-xs">📌</span>' : ''}</h3>
+            <span class="text-xs text-slate-500 font-semibold">${(n.createdAt || '').slice(0, 10)}</span>
         </div>
-        <p class="text-white/70 text-sm leading-relaxed">${n.desc || ''}</p>
+        <p class="text-slate-600 text-sm leading-relaxed">${n.desc || ''}</p>
     </div>
-  `).join('') || `<p class="text-white/30 text-center py-8">No notices right now.</p>`;
+  `).join('') || `<p class="text-slate-400 text-center py-8">No notices right now.</p>`;
 }
 
 // ===== RESULT LOCK (admin controls this from Marks Control / Search tab) =====
@@ -483,7 +484,7 @@ let currentExam = DB.getTests()[0];
 function renderExamTabs() {
   const tests = DB.getTests();
   document.getElementById('exam-tabs').innerHTML = tests.map(t => `
-    <button onclick="switchExam('${t}')" data-exam="${t}" class="exam-tab ${t === currentExam ? 'active' : 'text-white/50 hover:text-white'} flex-1 py-2 rounded-lg text-sm font-medium">${t}</button>
+    <button onclick="switchExam('${t}')" data-exam="${t}" class="exam-tab ${t === currentExam ? 'active' : 'text-slate-600 hover:text-slate-900'} flex-1 py-2 rounded-xl text-xs font-bold transition">${t}</button>
   `).join('');
 }
 
@@ -496,12 +497,12 @@ function renderMarks(examKey) {
     const m = marks[sub];
     const val = m ? m.o : null;
     const grade = val !== null ? calcGrade(val) : null;
-    const color = grade ? gradeColor(grade) : '#475569';
+    const color = grade ? gradeColor(grade) : '#94a3b8';
     return `
-        <div class="glass rounded-xl p-4 text-center card-hover" style="border-top: 3px solid ${color}">
-            <div class="text-xs text-white/50 mb-1">${sub}</div>
-            <div class="text-2xl font-bold text-white">${val !== null ? val : '—'}<span class="text-sm text-white/30">/100</span></div>
-            <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-bold" style="background:${color}20; color:${color}">${grade || '—'}</div>
+        <div class="glass rounded-2xl p-4 text-center card-hover border border-cream-300 shadow-sm" style="border-top: 4px solid ${color}">
+            <div class="text-xs font-bold text-slate-500 mb-1">${sub}</div>
+            <div class="text-2xl font-black text-slate-900">${val !== null ? val : '—'}<span class="text-xs text-slate-400 font-normal">/100</span></div>
+            <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-black shadow-sm" style="background:${color}15; color:${color}">${grade || '—'}</div>
         </div>
     `;
   }).join('');
@@ -512,7 +513,7 @@ function renderMarks(examKey) {
   const overallGrade = pct !== null ? calcGrade(pct) : null;
   document.getElementById('marks-overall-pct').textContent = pct !== null ? pct + '%' : '— (not entered yet)';
   document.getElementById('marks-overall-grade').textContent = overallGrade || '—';
-  document.getElementById('marks-overall-grade').style.color = overallGrade ? gradeColor(overallGrade) : '#94a3b8';
+  document.getElementById('marks-overall-grade').style.color = overallGrade ? gradeColor(overallGrade) : '#64748b';
 
   // Comparison vs previous test in the list
   const tests = DB.getTests();
@@ -530,15 +531,15 @@ function renderMarks(examKey) {
     const prevStr = prev !== null ? prev : '—';
     const diff = (curr !== null && prev !== null) ? curr - prev : null;
     const diffStr = diff === null ? '—' : diff > 0 ? `↑ +${diff}` : diff < 0 ? `↓ ${diff}` : `— 0`;
-    const diffColor = diff > 0 ? 'text-emerald-400' : diff < 0 ? 'text-red-400' : 'text-white/40';
+    const diffColor = diff > 0 ? 'text-emerald-700 font-bold' : diff < 0 ? 'text-red-600 font-bold' : 'text-slate-400 font-medium';
     return `
-      <tr class="border-b border-white/5">
-        <td class="text-left py-2">${sub}</td>
-        <td>${curr}</td>
-        <td>${prevStr}</td>
+      <tr class="border-b border-cream-200">
+        <td class="text-left py-2 font-bold text-slate-800">${sub}</td>
+        <td class="font-semibold text-slate-800">${curr}</td>
+        <td class="font-medium text-slate-600">${prevStr}</td>
         <td class="text-right ${diffColor}">${diffStr}</td>
       </tr>`;
-  }).join('') || `<tr><td colspan="4" class="py-3 text-white/30">No marks entered yet for this test.</td></tr>`;
+  }).join('') || `<tr><td colspan="4" class="py-3 text-slate-400">No marks entered yet for this test.</td></tr>`;
 
   // Test trend across every test on record
   const trendBox = document.getElementById('test-trend-list');
@@ -553,12 +554,12 @@ function renderMarks(examKey) {
   }).filter(Boolean);
 
   trendBox.innerHTML = trendRows.map(r => `
-    <div class="flex justify-between items-center pb-2 border-b border-white/5"><span class="text-white/60">${r.test}</span><span class="font-medium" style="color:${gradeColor(r.grade)}">${r.pct}% (${r.grade})</span></div>
-  `).join('') || `<p class="text-xs text-white/40">No tests recorded yet.</p>`;
+    <div class="flex justify-between items-center pb-2 border-b border-cream-200"><span class="text-slate-700 font-medium">${r.test}</span><span class="font-bold" style="color:${gradeColor(r.grade)}">${r.pct}% (${r.grade})</span></div>
+  `).join('') || `<p class="text-xs text-slate-400">No tests recorded yet.</p>`;
 
   if (trendRows.length >= 2) {
     const trendDir = trendRows[trendRows.length - 1].pct >= trendRows[0].pct ? 'Improving ↗️' : 'Declining ↘️';
-    trendBox.innerHTML += `<div class="flex justify-between items-center text-gold-400 font-bold pt-1"><span>Overall Trend</span><span>${trendDir}</span></div>`;
+    trendBox.innerHTML += `<div class="flex justify-between items-center text-gold-700 font-black pt-1"><span>Overall Trend</span><span>${trendDir}</span></div>`;
   }
 }
 
@@ -568,8 +569,7 @@ function switchExam(examKey) {
   renderMarks(examKey);
 }
 
-// ===== ATTENDANCE CALENDAR (real data from db.js — set by the class teacher) =====
-// DB.getStudentAttendance returns { 'YYYY-MM-DD': {status, reason, note, lateBy} }
+// ===== ATTENDANCE CALENDAR =====
 const today = new Date();
 let calYear = today.getFullYear(), calMonth = today.getMonth();
 const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -603,14 +603,14 @@ function renderCalendar() {
       continue;
     }
     if (info.status === 'holiday') {
-      grid.innerHTML += `<div class="cal-day holiday" title="holiday">${d} <span class="text-[8px]">🎌</span></div>`;
+      grid.innerHTML += `<div class="cal-day holiday" title="holiday">${d} <span class="text-[9px]">🎌</span></div>`;
       continue;
     }
     totalMarked++;
     if (info.status === 'present') present++;
     if (info.status === 'late') { late++; present++; }
     if (info.status === 'absent') { absent++; absentList.push({ d, ...info }); }
-    grid.innerHTML += `<div class="cal-day ${info.status}" title="${info.status}">${d} <span class="text-[8px]">${statusIcon[info.status]}</span></div>`;
+    grid.innerHTML += `<div class="cal-day ${info.status}" title="${info.status}">${d} <span class="text-[9px]">${statusIcon[info.status]}</span></div>`;
   }
 
   document.getElementById('att-present').textContent = String(present).padStart(2, '0');
@@ -621,13 +621,13 @@ function renderCalendar() {
 
   const absentBox = document.getElementById('absent-details');
   if (absentList.length === 0) {
-    absentBox.innerHTML = `<p class="text-xs text-white/40">No absences this month 🎉</p>`;
+    absentBox.innerHTML = `<p class="text-xs text-slate-400">No absences this month 🎉</p>`;
   } else {
     absentBox.innerHTML = absentList.map((a, idx) => `
-      <div class="${idx < absentList.length - 1 ? 'pb-3 border-b border-white/5' : ''}">
-        <p class="text-sm font-medium">${a.d} ${monthNames[calMonth]} (${new Date(calYear, calMonth, a.d).toLocaleDateString('en-US', { weekday: 'short' })})</p>
-        <p class="text-xs text-white/50 mt-1">Reason: ${a.reason || '—'}</p>
-        ${a.note ? `<p class="text-xs text-white/30 mt-1">Note: ${a.note}</p>` : ''}
+      <div class="${idx < absentList.length - 1 ? 'pb-3 border-b border-cream-200' : ''}">
+        <p class="text-sm font-bold text-slate-900">${a.d} ${monthNames[calMonth]} (${new Date(calYear, calMonth, a.d).toLocaleDateString('en-US', { weekday: 'short' })})</p>
+        <p class="text-xs text-slate-600 mt-1">Reason: <strong class="text-red-600">${a.reason || '—'}</strong></p>
+        ${a.note ? `<p class="text-xs text-slate-500 mt-1">Note: ${a.note}</p>` : ''}
       </div>
     `).join('');
   }
@@ -647,10 +647,10 @@ function renderFees() {
 
   if (!settings.showFees) {
     box.innerHTML = `
-      <div class="glass rounded-xl p-10 text-center card-hover">
+      <div class="glass rounded-2xl p-10 text-center card-hover border border-cream-300 shadow-sm">
         <div class="text-4xl mb-3">🔒</div>
-        <p class="font-bold text-lg text-white/70">Fee details are currently not available.</p>
-        <p class="text-sm text-white/40 mt-2">Please contact the school office for more information.</p>
+        <p class="font-bold text-lg text-slate-800">Fee details are currently not available.</p>
+        <p class="text-sm text-slate-500 mt-2 font-medium">Please contact the school office for more information.</p>
       </div>`;
     return;
   }
@@ -662,89 +662,89 @@ function renderFees() {
 
   box.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div class="glass rounded-xl p-6 text-center card-hover">
-            <div class="text-xs text-white/50 mb-1">Total Annual Fee</div>
-            <div class="text-3xl font-bold text-white">₹${summary.total.toLocaleString()}</div>
-            ${fees.discountReason ? `<div class="text-[11px] text-emerald-400 mt-1">🎓 ${fees.discountReason}</div>` : ''}
+        <div class="glass rounded-2xl p-6 text-center card-hover border border-cream-300 shadow-sm">
+            <div class="text-xs text-slate-500 font-bold mb-1">Total Annual Fee</div>
+            <div class="text-3xl font-black text-slate-900">₹${summary.total.toLocaleString()}</div>
+            ${fees.discountReason ? `<div class="text-xs text-emerald-700 font-bold mt-1">🎓 ${fees.discountReason}</div>` : ''}
         </div>
-        <div class="glass rounded-xl p-6 text-center card-hover border-l-4 border-emerald-400">
-            <div class="text-xs text-white/50 mb-1">Amount Paid Till Date</div>
-            <div class="text-3xl font-bold text-emerald-400">₹${summary.paid.toLocaleString()}</div>
-            <div class="text-[11px] text-white/40 mt-1">${payments.length} Verified Transaction(s)</div>
+        <div class="glass rounded-2xl p-6 text-center card-hover border-l-4 border-emerald-500 border-cream-300 shadow-sm">
+            <div class="text-xs text-slate-500 font-bold mb-1">Amount Paid Till Date</div>
+            <div class="text-3xl font-black text-emerald-700">₹${summary.paid.toLocaleString()}</div>
+            <div class="text-xs text-slate-500 font-medium mt-1">${payments.length} Verified Transaction(s)</div>
         </div>
-        <div class="glass rounded-xl p-6 text-center card-hover border-l-4 border-red-400">
-            <div class="text-xs text-white/50 mb-1">Pending Due</div>
-            <div class="text-3xl font-bold ${summary.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${summary.due.toLocaleString()}</div>
-            <div class="text-[11px] text-white/40 mt-1">${summary.due === 0 ? '✅ All Clear' : '⚠️ Pending'}</div>
+        <div class="glass rounded-2xl p-6 text-center card-hover border-l-4 border-red-500 border-cream-300 shadow-sm">
+            <div class="text-xs text-slate-500 font-bold mb-1">Pending Due</div>
+            <div class="text-3xl font-black ${summary.due > 0 ? 'text-red-600' : 'text-emerald-700'}">₹${summary.due.toLocaleString()}</div>
+            <div class="text-xs font-bold mt-1 ${summary.due === 0 ? 'text-emerald-700' : 'text-amber-700'}">${summary.due === 0 ? '✅ All Clear' : '⚠️ Pending'}</div>
         </div>
     </div>
 
     ${summary.due > 0 ? `
-    <div class="glass rounded-xl p-6 mb-6 border-l-4 border-gold-400 flex flex-col md:flex-row justify-between items-center gap-4 bg-gradient-to-r from-gold-400/10 to-transparent">
+    <div class="glass rounded-2xl p-6 mb-6 border-l-4 border-gold-500 border-cream-300 flex flex-col md:flex-row justify-between items-center gap-4 bg-gradient-to-r from-amber-50 to-cream-50 shadow-sm">
         <div>
-            <h4 class="font-bold text-lg text-gold-400 flex items-center gap-2">
-                <span class="iconify text-xl" data-icon="lucide:qr-code"></span> Pay Pending Fees via School UPI
+            <h4 class="font-black text-lg text-gold-800 flex items-center gap-2">
+                <span class="iconify text-2xl text-gold-600" data-icon="lucide:qr-code"></span> Pay Pending Fees via School UPI
             </h4>
-            <p class="text-xs text-white/60 mt-1">Direct Bank Settlement • 0% Extra Gateway Charges • Instant UTR Verification</p>
+            <p class="text-xs text-slate-600 font-medium mt-1">Direct Bank Settlement • 0% Extra Gateway Charges • Instant UTR Verification</p>
         </div>
-        <button onclick="openUPIModal()" class="btn-gold px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shrink-0">
+        <button onclick="openUPIModal()" class="btn-gold px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 shrink-0 shadow-md">
             <span class="iconify text-lg" data-icon="lucide:smartphone"></span> Pay ₹${summary.due.toLocaleString()} Online
         </button>
     </div>
     ` : ''}
 
-    <div class="glass rounded-xl p-6 card-hover mb-6 border-l-4 border-emerald-400">
+    <div class="glass rounded-2xl p-6 card-hover mb-6 border-l-4 border-emerald-500 border-cream-300 shadow-sm">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-lg flex items-center gap-2">
-                <span class="iconify text-emerald-400" data-icon="lucide:receipt"></span> Verified Payment History & Official Receipts
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                <span class="iconify text-emerald-600" data-icon="lucide:receipt"></span> Verified Payment History & Official Receipts
             </h3>
-            <span class="text-xs text-white/50">Total Paid: ₹${summary.paid.toLocaleString()}</span>
+            <span class="text-xs text-slate-500 font-bold">Total Paid: ₹${summary.paid.toLocaleString()}</span>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="text-xs text-white/40 border-b border-white/10">
-                        <th class="text-left pb-3 font-medium">Receipt No.</th>
-                        <th class="pb-3 font-medium">Amount Paid</th>
-                        <th class="pb-3 font-medium">Mode</th>
-                        <th class="pb-3 font-medium">Date</th>
-                        <th class="text-left pb-3 font-medium">Note / Purpose</th>
-                        <th class="text-right pb-3 font-medium">Official Receipt</th>
+                    <tr class="text-xs text-slate-500 font-bold uppercase border-b border-cream-200">
+                        <th class="text-left pb-3 font-bold">Receipt No.</th>
+                        <th class="pb-3 font-bold">Amount Paid</th>
+                        <th class="pb-3 font-bold">Mode</th>
+                        <th class="pb-3 font-bold">Date</th>
+                        <th class="text-left pb-3 font-bold">Note / Purpose</th>
+                        <th class="text-right pb-3 font-bold">Official Receipt</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
                 ${payments.map(p => `
-                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                        <td class="text-left py-3.5 font-mono font-bold text-gold-400">${p.receiptNo}</td>
-                        <td class="py-3.5 font-bold text-emerald-400">₹${Number(p.amount).toLocaleString()}</td>
-                        <td class="py-3.5 text-xs text-white/70">
-                            <span class="px-2 py-0.5 rounded bg-white/10">${p.method}</span>
+                    <tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+                        <td class="text-left py-3.5 font-mono font-bold text-gold-700">${p.receiptNo}</td>
+                        <td class="py-3.5 font-black text-emerald-700">₹${Number(p.amount).toLocaleString()}</td>
+                        <td class="py-3.5 text-xs">
+                            <span class="px-2.5 py-1 rounded-md bg-cream-200 text-slate-800 font-bold">${p.method}</span>
                         </td>
-                        <td class="py-3.5 text-white/50 text-xs">${p.date}</td>
-                        <td class="py-3.5 text-left text-xs text-white/70">${p.note || 'School Fee Payment'}</td>
+                        <td class="py-3.5 text-slate-500 text-xs font-medium">${p.date}</td>
+                        <td class="py-3.5 text-left text-xs text-slate-700 font-medium">${p.note || 'School Fee Payment'}</td>
                         <td class="py-3.5 text-right">
-                            <button onclick="openReceiptModal('${p.id}')" class="px-3 py-1 rounded bg-gold-400/20 text-gold-400 border border-gold-400/30 text-xs font-semibold hover:bg-gold-400/30 inline-flex items-center gap-1">
+                            <button onclick="openReceiptModal('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-gold-50 text-gold-800 border border-gold-300 text-xs font-bold hover:bg-gold-100 inline-flex items-center gap-1 shadow-sm transition">
                                 <span class="iconify" data-icon="lucide:printer"></span> Print Receipt
                             </button>
                         </td>
                     </tr>
-                `).join('') || `<tr><td colspan="6" class="py-8 text-white/30 text-center">No payment transactions recorded yet.</td></tr>`}
+                `).join('') || `<tr><td colspan="6" class="py-8 text-slate-400 text-center">No payment transactions recorded yet.</td></tr>`}
                 </tbody>
             </table>
         </div>
     </div>
 
     ${proofs.length > 0 ? `
-    <div class="glass rounded-xl p-6 card-hover">
-        <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:clock"></span> Online Payment UTR Submissions</h3>
+    <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+        <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-600" data-icon="lucide:clock"></span> Online Payment UTR Submissions</h3>
         <div class="space-y-3">
             ${proofs.map(p => `
-                <div class="flex justify-between items-center p-3 rounded-lg bg-white/5 text-xs">
+                <div class="flex justify-between items-center p-3.5 rounded-xl bg-cream-100/70 border border-cream-200 text-xs">
                     <div>
-                        <span class="font-bold text-sm text-white">${p.quarter || 'Fee Payment'} — ₹${p.amount.toLocaleString()}</span>
-                        <p class="text-white/50 mt-0.5">UTR / Txn ID: <code class="bg-black/30 px-1 rounded text-emerald-300">${p.utr}</code> • Date: ${p.date}</p>
+                        <span class="font-bold text-sm text-slate-900">${p.quarter || 'Fee Payment'} — ₹${p.amount.toLocaleString()}</span>
+                        <p class="text-slate-600 font-medium mt-0.5">UTR / Txn ID: <code class="bg-white border border-slate-300 px-1.5 py-0.5 rounded font-bold text-emerald-800">${p.utr}</code> • Date: ${p.date}</p>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full ${p.status === 'verified' ? 'bg-emerald-400/15 text-emerald-400' : p.status === 'rejected' ? 'bg-red-400/15 text-red-400' : 'bg-gold-400/15 text-gold-400'} font-semibold uppercase tracking-wider text-[10px]">
+                    <span class="px-3 py-1 rounded-full ${p.status === 'verified' ? 'bg-emerald-100 text-emerald-800' : p.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'} font-bold uppercase tracking-wider text-[10px] shadow-sm">
                         ${p.status === 'verified' ? '✅ Verified & Receipt Issued' : p.status === 'rejected' ? '❌ Rejected' : '⏳ Pending Admin Verification'}
                     </span>
                 </div>
@@ -767,32 +767,32 @@ function openReceiptModal(paymentId) {
   if (!modal) return;
   
   document.getElementById('receipt-content-body').innerHTML = `
-      <div id="receipt-printable-area" class="bg-slate-900 border-2 border-gold-400/40 rounded-2xl p-6 text-white max-w-2xl mx-auto shadow-2xl relative">
-          <div class="border-b-2 border-gold-400 pb-4 mb-4 flex justify-between items-center">
+      <div id="receipt-printable-area" class="bg-white border-2 border-gold-400 rounded-2xl p-6 text-slate-900 max-w-2xl mx-auto shadow-2xl relative">
+          <div class="border-b-2 border-gold-500 pb-4 mb-4 flex justify-between items-center">
               <div class="flex items-center gap-3">
-                  <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" class="w-14 h-14 rounded-full object-contain">
+                  <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" class="w-14 h-14 rounded-full object-contain bg-white shadow-sm">
                   <div>
-                      <h2 class="text-xl font-black text-gold-400 uppercase tracking-tight">${settings.name || 'New Sanskar Academy'}</h2>
-                      <p class="text-xs text-white/70">Higher Secondary School • ${settings.address || 'Dhannad Khurd, Pithampur'}</p>
-                      <p class="text-[11px] text-white/50">Ph: ${settings.phone || '9876543210'} • Official Fee Receipt</p>
+                      <h2 class="text-xl font-black text-slate-900 uppercase tracking-tight">${settings.name || 'New Sanskar Academy'}</h2>
+                      <p class="text-xs text-slate-600 font-medium">Higher Secondary School • ${settings.address || 'Dhannad Khurd, Pithampur'}</p>
+                      <p class="text-[11px] text-slate-500">Ph: ${settings.phone || '9876543210'} • Official Fee Receipt</p>
                   </div>
               </div>
               <div class="text-right">
-                  <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-bold uppercase tracking-wider">PAID</span>
-                  <p class="text-xs font-mono text-white/70 mt-2">Receipt: <strong class="text-gold-400">${p.receiptNo}</strong></p>
-                  <p class="text-xs text-white/50">Date: ${p.date || new Date().toISOString().slice(0, 10)}</p>
+                  <span class="px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">PAID</span>
+                  <p class="text-xs font-mono text-slate-600 mt-2">Receipt: <strong class="text-gold-700">${p.receiptNo}</strong></p>
+                  <p class="text-xs text-slate-500">Date: ${p.date || new Date().toISOString().slice(0, 10)}</p>
               </div>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-white/5 p-3 rounded-xl mb-4 text-xs">
-              <div><span class="text-white/40 block">Student Name:</span><strong class="text-sm text-white">${s.name}</strong></div>
-              <div><span class="text-white/40 block">Class & Roll:</span><strong class="text-white">Class ${s.class}, Roll ${s.roll}</strong></div>
-              <div><span class="text-white/40 block">Student ID:</span><strong class="text-white">${s.id}</strong></div>
-              <div><span class="text-white/40 block">Father's Name:</span><strong class="text-white">${s.father || '—'}</strong></div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-cream-50 border border-cream-200 p-3.5 rounded-xl mb-4 text-xs">
+              <div><span class="text-slate-500 font-semibold block">Student Name:</span><strong class="text-sm text-slate-900">${s.name}</strong></div>
+              <div><span class="text-slate-500 font-semibold block">Class & Roll:</span><strong class="text-slate-900">Class ${s.class}, Roll ${s.roll}</strong></div>
+              <div><span class="text-slate-500 font-semibold block">Student ID:</span><strong class="text-slate-900">${s.id}</strong></div>
+              <div><span class="text-slate-500 font-semibold block">Father's Name:</span><strong class="text-slate-900">${s.father || '—'}</strong></div>
           </div>
 
-          <table class="w-full text-sm mb-4 border border-white/10 rounded-lg overflow-hidden">
-              <thead class="bg-white/10 text-xs text-gold-400">
+          <table class="w-full text-sm mb-4 border border-cream-300 rounded-xl overflow-hidden">
+              <thead class="bg-cream-100 text-xs text-slate-800 font-bold">
                   <tr>
                       <th class="text-left p-2.5">Description / Purpose</th>
                       <th class="p-2.5">Payment Mode</th>
@@ -800,31 +800,31 @@ function openReceiptModal(paymentId) {
                   </tr>
               </thead>
               <tbody>
-                  <tr class="border-t border-white/10">
+                  <tr class="border-t border-cream-200">
                       <td class="p-3">
-                          <span class="font-medium text-white">${p.note || 'School Fee Payment'}</span>
-                          <span class="block text-[11px] text-white/40">Txn Ref: ${p.id}</span>
+                          <span class="font-bold text-slate-900">${p.note || 'School Fee Payment'}</span>
+                          <span class="block text-[11px] text-slate-500">Txn Ref: ${p.id}</span>
                       </td>
-                      <td class="p-3 text-center text-white/80 font-medium">${p.method}</td>
-                      <td class="p-3 text-right font-bold text-emerald-400 text-base">₹${Number(p.amount).toLocaleString()}</td>
+                      <td class="p-3 text-center text-slate-800 font-bold">${p.method}</td>
+                      <td class="p-3 text-right font-black text-emerald-700 text-base">₹${Number(p.amount).toLocaleString()}</td>
                   </tr>
               </tbody>
           </table>
 
-          <div class="grid grid-cols-3 gap-2 bg-white/5 p-3 rounded-xl mb-6 text-xs text-center">
-              <div><span class="text-white/40 block">Total Annual Fee</span><strong>₹${sum.total.toLocaleString()}</strong></div>
-              <div><span class="text-white/40 block">Total Paid Till Date</span><strong class="text-emerald-400">₹${sum.paid.toLocaleString()}</strong></div>
-              <div><span class="text-white/40 block">Remaining Balance</span><strong class="${sum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${sum.due.toLocaleString()}</strong></div>
+          <div class="grid grid-cols-3 gap-2 bg-cream-50 border border-cream-200 p-3 rounded-xl mb-6 text-xs text-center">
+              <div><span class="text-slate-500 block font-semibold">Total Annual Fee</span><strong class="text-slate-900">₹${sum.total.toLocaleString()}</strong></div>
+              <div><span class="text-slate-500 block font-semibold">Total Paid Till Date</span><strong class="text-emerald-700">₹${sum.paid.toLocaleString()}</strong></div>
+              <div><span class="text-slate-500 block font-semibold">Remaining Balance</span><strong class="${sum.due > 0 ? 'text-red-600' : 'text-emerald-700'}">₹${sum.due.toLocaleString()}</strong></div>
           </div>
 
-          <div class="flex justify-between items-end pt-4 border-t border-white/10 text-xs text-white/40">
+          <div class="flex justify-between items-end pt-4 border-t border-cream-200 text-xs text-slate-500">
               <div>
-                  <p>Computer Generated Official Receipt</p>
+                  <p class="font-medium text-slate-700">Computer Generated Official Receipt</p>
                   <p class="text-[10px]">No physical signature required • Issued by School Accounts Dept</p>
               </div>
               <div class="text-center">
-                  <div class="w-28 h-10 border-b border-dashed border-white/30 mb-1"></div>
-                  <p class="text-[10px] text-gold-400 font-semibold uppercase">Authorized Signatory</p>
+                  <div class="w-28 h-10 border-b border-dashed border-slate-400 mb-1"></div>
+                  <p class="text-[10px] text-gold-700 font-bold uppercase">Authorized Signatory</p>
               </div>
           </div>
       </div>
@@ -841,7 +841,7 @@ function printReceipt() {
   window.print();
 }
 
-// ===== CHAT (real data — replies sent by the class teacher from staff-dashboard.html show up here) =====
+// ===== CHAT =====
 function fillChatHeader() {
   if (!myTeacher) {
     document.getElementById('chat-teacher-name').textContent = 'No class teacher assigned yet';
@@ -858,10 +858,10 @@ function renderChat() {
   if (!myTeacher) { box.innerHTML = ''; return; }
   const chat = DB.getChat(myTeacher.id, me.id);
   box.innerHTML = chat.map(m => `
-    <div class="${m.from === 'parent' ? 'msg-parent' : 'msg-teacher'}">
-        <p class="text-xs ${m.from === 'parent' ? 'text-gold-400' : 'text-emerald-400'} mb-1">${m.from === 'parent' ? 'Parent' : 'Teacher'} (${new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</p>
-        <p class="text-sm text-white/80">${m.msg}</p>
-    </div>`).join('') || `<p class="text-white/30 text-center py-4">No messages yet — say hi to ${myTeacher.name.split(' ').slice(-1)[0]}!</p>`;
+    <div class="${m.from === 'parent' ? 'msg-parent' : 'msg-teacher'} shadow-sm">
+        <p class="text-xs ${m.from === 'parent' ? 'text-amber-900' : 'text-emerald-800'} font-bold mb-1">${m.from === 'parent' ? 'Parent' : 'Teacher'} (${new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</p>
+        <p class="text-sm text-slate-900 font-normal leading-relaxed">${m.msg}</p>
+    </div>`).join('') || `<p class="text-slate-400 text-center py-4">No messages yet — say hi to ${myTeacher.name.split(' ').slice(-1)[0]}!</p>`;
   box.scrollTop = box.scrollHeight;
 }
 
@@ -875,31 +875,31 @@ function sendChat() {
   renderChat();
 }
 
-// ===== HOMEWORK (real data from db.js) =====
+// ===== HOMEWORK =====
 function renderStudentHomework() {
   const box = document.getElementById('student-homework-list');
   if (!box) return;
   const list = DB.getHomework(myClass);
   box.innerHTML = list.map(h => `
-    <div class="glass rounded-xl p-5 card-hover border-l-4 border-gold-400">
+    <div class="glass rounded-2xl p-5 card-hover border border-cream-300 border-l-4 border-l-gold-500 shadow-sm">
         <div class="flex justify-between items-start mb-2 flex-wrap gap-2">
             <div>
-                <span class="text-xs bg-gold-400/10 text-gold-400 px-2.5 py-1 rounded-full font-semibold mr-2">${h.subject}</span>
-                <span class="text-xs text-white/40">Due Date: 📅 <strong class="text-white/90">${h.dueDate || 'No due date'}</strong></span>
+                <span class="text-xs bg-gold-100 text-gold-800 border border-gold-200 px-3 py-1 rounded-full font-bold mr-2">${h.subject}</span>
+                <span class="text-xs text-slate-500 font-semibold">Due Date: 📅 <strong class="text-slate-900">${h.dueDate || 'No due date'}</strong></span>
             </div>
-            <span class="text-xs text-white/40">Posted by: ${h.teacherName || 'Teacher'}</span>
+            <span class="text-xs text-slate-500 font-medium">Posted by: ${h.teacherName || 'Teacher'}</span>
         </div>
-        <h4 class="font-bold text-base mt-2">${h.title}</h4>
-        <p class="text-sm text-white/70 mt-1 leading-relaxed whitespace-pre-line">${h.desc || ''}</p>
+        <h4 class="font-bold text-slate-900 text-base mt-2">${h.title}</h4>
+        <p class="text-sm text-slate-600 mt-1 leading-relaxed whitespace-pre-line">${h.desc || ''}</p>
         ${h.driveLink ? `
             <div class="mt-3">
-                <a href="${h.driveLink}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:underline bg-emerald-400/10 px-3 py-1.5 rounded-lg">
+                <a href="${h.driveLink}" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-bold hover:underline bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-xl shadow-sm">
                     <span class="iconify" data-icon="lucide:external-link"></span> Open Google Drive / Study Notes
                 </a>
             </div>
         ` : ''}
     </div>
-  `).join('') || `<p class="text-white/30 text-center py-8">No active homework for Class ${myClass} 🎉</p>`;
+  `).join('') || `<p class="text-slate-400 text-center py-8">No active homework for Class ${myClass} 🎉</p>`;
 }
 
 // ===== 0% COMMISSION UPI MODAL =====
@@ -970,46 +970,35 @@ renderCalendar();
 fillChatHeader();
 renderChat();
 renderStudentNotices();
-
-// ===== MOUSE TRAIL =====
-document.addEventListener('mousemove',function(e){
-  if(Math.random()>.92){
-    const p=document.createElement('div');
-    p.style.cssText=`position:fixed;pointer-events:none;z-index:9999;width:4px;height:4px;border-radius:50%;background:${['#fbbf24','#34d399','#60a5fa'][Math.floor(Math.random()*3)]};opacity:0.6;left:${e.clientX}px;top:${e.clientY}px;transition:all 1s ease;`;
-    document.body.appendChild(p);
-    requestAnimationFrame(()=>{p.style.opacity='0';p.style.transform=`translate(${(Math.random()-.5)*60}px,${-40-Math.random()*40}px) scale(0)`;});
-    setTimeout(()=>p.remove(),1000);
-  }
-});
 </script>
 
 <!-- UPI MODAL (0% Commission) -->
-<div id="upi-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="glass bg-navy-900/95 rounded-2xl p-6 md:p-8 w-full max-w-md border border-white/10 relative card-hover">
-        <button onclick="closeUPIModal()" class="absolute top-4 right-4 text-white/50 hover:text-white"><span class="iconify text-2xl" data-icon="lucide:x"></span></button>
+<div id="upi-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="glass bg-white rounded-3xl p-6 md:p-8 w-full max-w-md border-2 border-cream-300 relative card-hover shadow-2xl">
+        <button onclick="closeUPIModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-cream-100 flex items-center justify-center transition"><span class="iconify text-xl" data-icon="lucide:x"></span></button>
         <div class="text-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gold-400/20 text-gold-400 flex items-center justify-center mx-auto mb-2 text-2xl">🏛️</div>
-            <h3 class="text-lg font-bold">New Sanskar Academy Higher Secondary School</h3>
-            <p class="text-xs text-emerald-400 mt-0.5">Official Direct UPI Payment (0% Commission)</p>
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-gold-700 flex items-center justify-center mx-auto mb-2 text-2xl shadow-sm">🏛️</div>
+            <h3 class="text-lg font-black text-slate-900">New Sanskar Academy</h3>
+            <p class="text-xs text-emerald-700 font-bold mt-0.5">Official Direct UPI Payment (0% Commission)</p>
         </div>
 
-        <div class="glass bg-white/5 rounded-xl p-4 text-center mb-4">
-            <div class="text-xs text-white/50 mb-1">Pending Amount to Pay</div>
-            <div class="text-3xl font-bold text-gold-400" id="upi-modal-amount">₹0</div>
+        <div class="glass bg-cream-50 rounded-2xl p-4 text-center mb-4 border border-cream-200">
+            <div class="text-xs text-slate-500 font-bold mb-1">Pending Amount to Pay</div>
+            <div class="text-3xl font-black text-gold-700" id="upi-modal-amount">₹0</div>
             <div class="mt-3 flex justify-center">
-                <img id="upi-qr-img" src="" alt="School UPI QR" class="w-44 h-44 rounded-xl border border-white/20 p-2 bg-white">
+                <img id="upi-qr-img" src="" alt="School UPI QR" class="w-44 h-44 rounded-2xl border-2 border-amber-300 p-2 bg-white shadow-md">
             </div>
-            <div class="mt-3 flex items-center justify-center gap-2 text-xs text-white/70">
-                <span>UPI ID: <strong id="upi-modal-id">newsanskaracademy@upi</strong></span>
-                <button onclick="copyUPI()" class="text-gold-400 hover:underline flex items-center gap-1"><span class="iconify" data-icon="lucide:copy"></span> Copy</button>
+            <div class="mt-3 flex items-center justify-center gap-2 text-xs text-slate-600 font-medium">
+                <span>UPI ID: <strong id="upi-modal-id" class="text-slate-900">newsanskaracademy@upi</strong></span>
+                <button onclick="copyUPI()" class="text-gold-700 font-bold hover:underline flex items-center gap-1"><span class="iconify" data-icon="lucide:copy"></span> Copy</button>
             </div>
         </div>
 
         <!-- UTR Submission Form -->
         <form onsubmit="submitUPIProof(event)" class="space-y-3">
             <div>
-                <label class="text-xs text-white/60 mb-1 block">Quarter</label>
-                <select id="upi-quarter" class="w-full">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Quarter / Plan</label>
+                <select id="upi-quarter" class="w-full bg-white border-slate-300 text-slate-900 font-medium">
                     <option value="Q1">Quarter 1 (Q1)</option>
                     <option value="Q2">Quarter 2 (Q2)</option>
                     <option value="Q3">Quarter 3 (Q3)</option>
@@ -1018,10 +1007,10 @@ document.addEventListener('mousemove',function(e){
                 </select>
             </div>
             <div>
-                <label class="text-xs text-white/60 mb-1 block">Enter 12-digit UPI UTR / Transaction ID</label>
-                <input id="upi-utr" type="text" placeholder="e.g. 329182390192" required maxlength="30">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Enter 12-digit UPI UTR / Transaction ID</label>
+                <input id="upi-utr" type="text" placeholder="e.g. 329182390192" required maxlength="30" class="bg-white border-slate-300 text-slate-900">
             </div>
-            <button type="submit" class="btn-gold w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 mt-2">
+            <button type="submit" class="btn-gold w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 mt-2 shadow-md">
                 <span class="iconify text-lg" data-icon="lucide:check-circle"></span> Submit UTR for Confirmation
             </button>
         </form>
@@ -1029,17 +1018,17 @@ document.addEventListener('mousemove',function(e){
 </div>
 
 <!-- OFFICIAL RECEIPT MODAL -->
-<div id="receipt-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
-    <div class="glass border border-white/20 rounded-2xl p-6 max-w-3xl w-full relative max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center mb-4 pb-3 border-b border-white/10 no-print">
-            <h3 class="font-bold text-lg text-gold-400 flex items-center gap-2">
+<div id="receipt-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass bg-white border-2 border-cream-300 rounded-3xl p-6 max-w-3xl w-full relative max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div class="flex justify-between items-center mb-4 pb-3 border-b border-cream-200 no-print">
+            <h3 class="font-bold text-lg text-gold-700 flex items-center gap-2">
                 <span class="iconify" data-icon="lucide:file-text"></span> Official School Fee Receipt
             </h3>
             <div class="flex gap-2">
-                <button onclick="printReceipt()" class="btn-gold px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                <button onclick="printReceipt()" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
                     <span class="iconify" data-icon="lucide:printer"></span> Print / Save PDF
                 </button>
-                <button onclick="closeReceiptModal()" class="px-3 py-1.5 rounded-lg bg-white/10 text-white/70 hover:bg-white/20 text-xs">✕ Close</button>
+                <button onclick="closeReceiptModal()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">✕ Close</button>
             </div>
         </div>
         <div id="receipt-content-body"></div>

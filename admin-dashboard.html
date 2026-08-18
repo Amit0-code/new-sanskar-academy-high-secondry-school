@@ -12,9 +12,10 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        navy: { 500:'#0a1f44', 800:'#040e20', 900:'#020814' },
-        gold: { 400:'#fbbf24', 500:'#f59e0b' },
-        emerald: { 400:'#34d399', 500:'#10b981' },
+        cream: { 50:'#fdfbf7', 100:'#faf6ee', 200:'#f4eee1', 300:'#ebdcc5', 400:'#dec59f', 500:'#cca874' },
+        navy: { 500:'#0f2744', 700:'#0a192f', 800:'#081426', 900:'#050c18' },
+        gold: { 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706', 700:'#b45309' },
+        emerald: { 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857' },
         school: { red:'#dc2626' }
       },
       fontFamily: { sans: ['Inter', 'sans-serif'] }
@@ -24,61 +25,76 @@ tailwind.config = {
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:#020814;color:#fff;overflow-x:hidden;}
+body{
+  font-family:'Inter',sans-serif;
+  background-color:#fdfbf7;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 50% -20%, rgba(217, 119, 6, 0.08), transparent),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(5, 150, 105, 0.06), transparent),
+    radial-gradient(ellipse 70% 60% at 10% 90%, rgba(37, 99, 235, 0.05), transparent);
+  color:#0f172a;
+  overflow-x:hidden;
+}
 
 @keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
 @keyframes floatReverse{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(25px) rotate(-5deg)}}
 @keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60%/30% 60% 70% 40%}75%{border-radius:60% 30% 60% 40%/70% 40% 50% 60%}}
 @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
 
-.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}
-.card-hover{transition:all .4s cubic-bezier(.4,0,.2,1)}
-.card-hover:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(251,191,36,.1);border-color:rgba(251,191,36,.3)}
-.grad-text{background:linear-gradient(135deg,#fbbf24,#f59e0b,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.btn-gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#020814;font-weight:600;}
+.glass{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(226,218,203,0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+.card-hover{transition:all .3s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(217,119,6,.12);border-color:rgba(217,119,6,.35)}
+.grad-text{background:linear-gradient(135deg,#b45309,#d97706,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-gold{background:linear-gradient(135deg,#d97706,#f59e0b);color:#0f172a;font-weight:700;}
+.btn-gold:hover{box-shadow:0 6px 18px rgba(217,119,6,0.28);transform:translateY(-1px);}
 
-.sidebar-btn{width:100%;text-align:left;padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);transition:all 0.3s;font-size:13px;}
-.sidebar-btn:hover{background:rgba(255,255,255,.05);color:#fff;}
-.sidebar-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;border-left:3px solid #fbbf24;}
+.sidebar-btn{width:100%;text-align:left;padding:10px 14px;border-radius:10px;display:flex;align-items:center;gap:10px;color:#475569;transition:all 0.25s;font-size:13px;font-weight:600;}
+.sidebar-btn:hover{background:#f4eee1;color:#0f172a;}
+.sidebar-btn.active{background:linear-gradient(135deg,#d97706,#f59e0b);color:#0f172a;font-weight:700;box-shadow:0 4px 12px rgba(217,119,6,0.25);}
 
-input,textarea,select{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px;width:100%;color:#fff;outline:none;font-family: 'Inter', sans-serif;font-size:14px;}
-select{color-scheme:dark;}
-select option{background-color:#040e20 !important;color:#ffffff !important;padding:8px;}
-input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1px rgba(251,191,36,.2);}
+input,textarea,select{background:#faf6ee;border:1px solid #e2dacb;border-radius:8px;padding:10px;width:100%;color:#0f172a;outline:none;font-family: 'Inter', sans-serif;font-size:14px;}
+select option{background-color:#ffffff !important;color:#0f172a !important;padding:8px;}
+input:focus,textarea:focus,select:focus{border-color:#d97706;box-shadow:0 0 0 3px rgba(217,119,6,.15);background:#ffffff;}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+::-webkit-scrollbar-thumb{background:rgba(217,119,6,0.35);border-radius:4px}
 
-.toggle-btn{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#94a3b8;cursor:pointer;transition:all .2s;}
-.lock-active{background:rgba(248,113,113,.15);color:#f87171;border-color:rgba(248,113,113,.3);}
-.unlock-active{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.3);}
+.toggle-btn{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;cursor:pointer;transition:all .2s;}
+.lock-active{background:rgba(220,38,38,.12);color:#b91c1c;border-color:rgba(220,38,38,.35);}
+.unlock-active{background:rgba(5,150,105,.12);color:#047857;border-color:rgba(5,150,105,.35);}
 
-.sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:39;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(4px);z-index:39;opacity:0;pointer-events:none;transition:opacity .3s ease;}
 .sidebar-backdrop.show{opacity:1;pointer-events:auto;}
 @media (max-width:767px){
   #sidebar{position:fixed;top:0;left:0;bottom:0;z-index:40;width:78%;max-width:280px;transform:translateX(-100%);transition:transform .3s ease;}
   #sidebar.open{transform:translateX(0);}
 }
 
-.msg-teacher{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);border-radius:12px 12px 2px 12px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;}
-.msg-parent{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.15);border-radius:12px 12px 12px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;}
+.msg-teacher{background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.25);border-radius:14px 14px 2px 14px;max-width:75%;padding:10px 14px;margin-left:auto;margin-bottom:12px;color:#064e3b;}
+.msg-parent{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.25);border-radius:14px 14px 14px 2px;max-width:75%;padding:10px 14px;margin-bottom:12px;color:#78350f;}
 .chat-container{max-height:420px;overflow-y:auto}
 
 .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;transform:translateX(150%);transition:transform .4s ease;}
 .toast.show{transform:translateX(0);}
 
 .drop-zone {
-  border: 2px dashed rgba(251, 191, 36, 0.35);
+  border: 2px dashed rgba(217, 119, 6, 0.4);
   border-radius: 12px;
   padding: 16px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.02);
+  background: #faf6ee;
   transition: all 0.2s ease;
   cursor: pointer;
 }
 .drop-zone:hover, .drop-zone.dragover {
-  border-color: #fbbf24;
-  background: rgba(251, 191, 36, 0.08);
+  border-color: #d97706;
+  background: #f4eee1;
 }
 
 @media print {
@@ -95,10 +111,10 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
     width: 100%;
     margin: 0;
     padding: 24px;
-    background: #0f172a !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
     box-shadow: none !important;
-    border: 2px solid #fbbf24 !important;
+    border: 2px solid #d97706 !important;
   }
 }
 </style>
@@ -109,16 +125,16 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
 
 <div class="relative z-10 min-h-screen flex flex-col">
 
-    <nav class="glass border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+    <nav class="glass border-b border-cream-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50 bg-cream-50/90 shadow-sm">
         <div class="flex items-center gap-3">
-            <button onclick="toggleSidebar()" class="md:hidden text-white/80 p-1 -ml-1"><span class="iconify text-2xl" data-icon="lucide:menu"></span></button>
-            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain">
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-700 p-1 -ml-1"><span class="iconify text-2xl" data-icon="lucide:menu"></span></button>
+            <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" alt="School Logo" class="w-10 h-10 rounded-full object-contain bg-white p-0.5 shadow-sm">
             <div class="leading-tight">
-                <span class="font-semibold text-sm block">Admin Portal</span>
-                <span class="text-[10px] text-gold-400 tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
+                <span class="font-bold text-sm block text-slate-900">Admin Portal</span>
+                <span class="text-[10px] text-gold-700 font-bold tracking-wider uppercase">New Sanskar Academy Higher Secondary School</span>
             </div>
         </div>
-        <a href="index.html" class="text-sm text-white/70 hover:text-gold-400 transition flex items-center gap-2 border border-white/10 px-4 py-2 rounded-lg">
+        <a href="index.html" class="text-sm text-slate-700 hover:text-gold-700 font-semibold transition flex items-center gap-2 border border-cream-300 bg-white/80 px-4 py-2 rounded-xl shadow-sm">
             <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Website
         </a>
     </nav>
@@ -128,13 +144,13 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
     <div class="flex flex-1 overflow-hidden">
 
         <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 glass border-r border-white/10 p-4 flex flex-col justify-between overflow-y-auto h-[calc(100vh-73px)]">
+        <aside id="sidebar" class="w-64 glass border-r border-cream-200 p-4 flex flex-col justify-between overflow-y-auto h-[calc(100vh-73px)] bg-cream-50/80">
             <div>
-                <div class="flex justify-end mb-2 md:hidden"><button onclick="closeSidebar()" class="text-white/60 p-1"><span class="iconify text-xl" data-icon="lucide:x"></span></button></div>
-                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
-                    <div id="admin-avatar" class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-red-400 flex items-center justify-center text-2xl font-bold text-navy-900 mb-2">--</div>
-                    <h3 id="admin-name" class="font-bold">--</h3>
-                    <p id="admin-title" class="text-xs text-white/50">--</p>
+                <div class="flex justify-end mb-2 md:hidden"><button onclick="closeSidebar()" class="text-slate-500 p-1"><span class="iconify text-xl" data-icon="lucide:x"></span></button></div>
+                <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-cream-200">
+                    <div id="admin-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold-500 to-amber-600 flex items-center justify-center text-2xl font-black text-white mb-2 shadow-md">--</div>
+                    <h3 id="admin-name" class="font-bold text-slate-900 text-base">--</h3>
+                    <p id="admin-title" class="text-xs text-slate-500 font-medium">--</p>
                 </div>
                 <div class="space-y-1">
                     <button onclick="switchTab('dashboard')" class="sidebar-btn active" data-tab="dashboard"><span class="iconify text-lg" data-icon="lucide:layout-dashboard"></span> Dashboard</button>
@@ -149,7 +165,7 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
                     <button onclick="switchTab('website')" class="sidebar-btn" data-tab="website"><span class="iconify text-lg" data-icon="lucide:globe"></span> Website Manager</button>
                 </div>
             </div>
-            <button class="sidebar-btn text-red-400 hover:bg-red-500/10" onclick="doLogout()">
+            <button class="sidebar-btn text-red-600 hover:bg-red-50 mt-4" onclick="doLogout()">
                 <span class="iconify text-lg" data-icon="lucide:log-out"></span> Logout
             </button>
         </aside>
@@ -159,23 +175,23 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
     </div>
 </div>
 
-<div class="toast glass rounded-xl px-5 py-3 flex items-center gap-2" id="toast">
-    <span class="iconify text-emerald-400" data-icon="lucide:check-circle"></span>
-    <span id="toastMsg" class="text-sm">Saved!</span>
+<div class="toast glass rounded-2xl px-5 py-3.5 flex items-center gap-3 bg-white text-slate-900 border border-cream-300 shadow-2xl" id="toast">
+    <span class="iconify text-xl text-emerald-600" data-icon="lucide:check-circle"></span>
+    <span id="toastMsg" class="text-sm font-bold">Saved!</span>
 </div>
 
 <!-- OFFICIAL RECEIPT MODAL -->
-<div id="receipt-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
-    <div class="glass border border-white/20 rounded-2xl p-6 max-w-3xl w-full relative max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center mb-4 pb-3 border-b border-white/10 no-print">
-            <h3 class="font-bold text-lg text-gold-400 flex items-center gap-2">
+<div id="receipt-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass bg-white border-2 border-cream-300 rounded-3xl p-6 max-w-3xl w-full relative max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div class="flex justify-between items-center mb-4 pb-3 border-b border-cream-200 no-print">
+            <h3 class="font-bold text-lg text-gold-700 flex items-center gap-2">
                 <span class="iconify" data-icon="lucide:file-text"></span> Official School Fee Receipt
             </h3>
             <div class="flex gap-2">
-                <button onclick="printReceipt()" class="btn-gold px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                <button onclick="printReceipt()" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
                     <span class="iconify" data-icon="lucide:printer"></span> Print / Save PDF
                 </button>
-                <button onclick="closeReceiptModal()" class="px-3 py-1.5 rounded-lg bg-white/10 text-white/70 hover:bg-white/20 text-xs">✕ Close</button>
+                <button onclick="closeReceiptModal()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">✕ Close</button>
             </div>
         </div>
         <div id="receipt-content-body"></div>
@@ -183,26 +199,26 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
 </div>
 
 <!-- STUDENT DETAILED FEE HISTORY MODAL -->
-<div id="student-fee-history-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] flex items-center justify-center p-3 md:p-6 hidden overflow-y-auto">
-    <div class="glass border border-white/20 rounded-2xl p-5 md:p-7 max-w-4xl w-full relative max-h-[92vh] overflow-y-auto shadow-2xl">
-        <div class="flex justify-between items-center mb-5 pb-4 border-b border-white/10 no-print">
+<div id="student-fee-history-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-3 md:p-6 hidden overflow-y-auto">
+    <div class="glass bg-white border-2 border-cream-300 rounded-3xl p-5 md:p-7 max-w-4xl w-full relative max-h-[92vh] overflow-y-auto shadow-2xl">
+        <div class="flex justify-between items-center mb-5 pb-4 border-b border-cream-200 no-print">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-gold-400/20 text-gold-400 flex items-center justify-center text-xl font-bold border border-gold-400/30">
+                <div class="w-11 h-11 rounded-2xl bg-amber-100 text-gold-700 flex items-center justify-center text-xl font-black border border-amber-200 shadow-sm">
                     📜
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                    <h3 class="font-black text-lg text-slate-900 flex items-center gap-2">
                         <span id="sfh-student-name">Student Name</span>
-                        <span id="sfh-class-badge" class="px-2 py-0.5 rounded-full text-[11px] bg-white/10 text-gold-400 font-semibold">Class 8A</span>
+                        <span id="sfh-class-badge" class="px-2.5 py-0.5 rounded-full text-xs bg-amber-100 text-gold-800 font-bold">Class 8A</span>
                     </h3>
-                    <p class="text-xs text-white/50" id="sfh-student-meta">Roll No: 1 • ID: S8A01 • Father: Rajesh Patel</p>
+                    <p class="text-xs text-slate-500 font-medium" id="sfh-student-meta">Roll No: 1 • ID: S8A01 • Father: Rajesh Patel</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="quickPayFromHistoryModal()" class="btn-gold px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                <button onclick="quickPayFromHistoryModal()" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
                     <span class="iconify" data-icon="lucide:plus-circle"></span> Record Payment
                 </button>
-                <button onclick="closeStudentFeeHistoryModal()" class="p-1.5 rounded-lg bg-white/10 text-white/70 hover:bg-white/20 hover:text-white text-xs">
+                <button onclick="closeStudentFeeHistoryModal()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition">
                     <span class="iconify text-lg" data-icon="lucide:x"></span>
                 </button>
             </div>
@@ -213,75 +229,75 @@ input:focus,textarea:focus,select:focus{border-color:#fbbf24;box-shadow:0 0 0 1p
 </div>
 
 <!-- ADD FACULTY MODAL -->
-<div id="faculty-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
-    <div class="glass border border-white/20 rounded-2xl p-6 max-w-md w-full relative">
+<div id="faculty-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass bg-white border-2 border-cream-300 rounded-3xl p-6 max-w-md w-full relative shadow-2xl">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-lg text-gold-400">👨‍🏫 Add Teacher to Homepage</h3>
-            <button onclick="closeAddFacultyModal()" class="text-white/60 hover:text-white">✕</button>
+            <h3 class="font-bold text-lg text-gold-700">👨‍🏫 Add Teacher to Homepage</h3>
+            <button onclick="closeAddFacultyModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
         </div>
         <div class="space-y-3 text-left">
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Teacher Full Name *</label>
-                <input id="fac-modal-name" type="text" placeholder="e.g. Dr. Rajesh Sharma">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Teacher Full Name *</label>
+                <input id="fac-modal-name" type="text" placeholder="e.g. Dr. Rajesh Sharma" class="bg-white border-slate-300 text-slate-900">
             </div>
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Designation / Subject *</label>
-                <input id="fac-modal-role" type="text" placeholder="e.g. Principal / Head — Science">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Designation / Subject *</label>
+                <input id="fac-modal-role" type="text" placeholder="e.g. Principal / Head — Science" class="bg-white border-slate-300 text-slate-900">
             </div>
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Qualification & Experience</label>
-                <input id="fac-modal-exp" type="text" placeholder="e.g. M.Sc. Physics, 15 yrs exp">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Qualification & Experience</label>
+                <input id="fac-modal-exp" type="text" placeholder="e.g. M.Sc. Physics, 15 yrs exp" class="bg-white border-slate-300 text-slate-900">
             </div>
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Teacher Photo (Drag & Drop or Choose File)</label>
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Teacher Photo (Drag & Drop or Choose File)</label>
                 <div id="fac-modal-dropzone" class="drop-zone mb-2">
-                    <span class="iconify text-2xl text-gold-400 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
-                    <p class="text-xs text-white/80 font-medium">Click or Drag & Drop photo here</p>
-                    <p class="text-[10px] text-white/40">JPG, PNG, WebP supported</p>
+                    <span class="iconify text-2xl text-gold-600 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
+                    <p class="text-xs text-slate-800 font-bold">Click or Drag & Drop photo here</p>
+                    <p class="text-[10px] text-slate-500">JPG, PNG, WebP supported</p>
                 </div>
                 <input type="file" id="fac-modal-file" accept="image/*" class="hidden">
-                <input id="fac-modal-photo-url" type="text" placeholder="Or paste image URL" class="text-xs">
+                <input id="fac-modal-photo-url" type="text" placeholder="Or paste image URL" class="text-xs bg-white border-slate-300 text-slate-900">
                 <div class="mt-2 flex items-center gap-3">
-                    <img id="fac-modal-preview" src="https://via.placeholder.com/150?text=Preview" class="w-12 h-12 rounded-full object-cover border border-white/20">
-                    <span class="text-xs text-white/40">Live Photo Preview</span>
+                    <img id="fac-modal-preview" src="https://via.placeholder.com/150?text=Preview" class="w-12 h-12 rounded-full object-cover border border-cream-300 shadow-sm">
+                    <span class="text-xs text-slate-500 font-medium">Live Photo Preview</span>
                 </div>
             </div>
             <div class="flex gap-2 pt-2">
-                <button onclick="saveNewFaculty()" class="btn-gold flex-1 py-2.5 rounded-lg text-xs font-semibold">Save Teacher Card</button>
-                <button onclick="closeAddFacultyModal()" class="px-4 py-2.5 rounded-lg bg-white/10 text-white/70 text-xs">Cancel</button>
+                <button onclick="saveNewFaculty()" class="btn-gold flex-1 py-2.5 rounded-xl text-xs font-bold shadow-sm">Save Teacher Card</button>
+                <button onclick="closeAddFacultyModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- ADD GALLERY PHOTO MODAL -->
-<div id="gallery-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
-    <div class="glass border border-white/20 rounded-2xl p-6 max-w-md w-full relative">
+<div id="gallery-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass bg-white border-2 border-cream-300 rounded-3xl p-6 max-w-md w-full relative shadow-2xl">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-lg text-gold-400">🖼️ Upload School Gallery Photo</h3>
-            <button onclick="closeAddGalleryModal()" class="text-white/60 hover:text-white">✕</button>
+            <h3 class="font-bold text-lg text-gold-700">🖼️ Upload School Gallery Photo</h3>
+            <button onclick="closeAddGalleryModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
         </div>
         <div class="space-y-3 text-left">
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Photo (Drag & Drop or Choose from PC/Phone) *</label>
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Photo (Drag & Drop or Choose from PC/Phone) *</label>
                 <div id="gal-modal-dropzone" class="drop-zone mb-2">
-                    <span class="iconify text-2xl text-gold-400 mx-auto mb-1 block" data-icon="lucide:image-plus"></span>
-                    <p class="text-xs text-white/80 font-medium">Click or Drag & Drop photo here</p>
-                    <p class="text-[10px] text-white/40">From computer, camera, or phone gallery</p>
+                    <span class="iconify text-2xl text-gold-600 mx-auto mb-1 block" data-icon="lucide:image-plus"></span>
+                    <p class="text-xs text-slate-800 font-bold">Click or Drag & Drop photo here</p>
+                    <p class="text-[10px] text-slate-500">From computer, camera, or phone gallery</p>
                 </div>
                 <input type="file" id="gal-modal-file" accept="image/*" class="hidden">
-                <input id="gal-modal-photo-url" type="text" placeholder="Or paste image URL" class="text-xs">
+                <input id="gal-modal-photo-url" type="text" placeholder="Or paste image URL" class="text-xs bg-white border-slate-300 text-slate-900">
                 <div class="mt-2">
-                    <img id="gal-modal-preview" src="https://via.placeholder.com/300x200?text=Preview" class="w-full h-32 rounded-lg object-cover border border-white/20">
+                    <img id="gal-modal-preview" src="https://via.placeholder.com/300x200?text=Preview" class="w-full h-32 rounded-xl object-cover border border-cream-300 shadow-sm">
                 </div>
             </div>
             <div>
-                <label class="text-xs text-white/50 mb-1 block">Photo Caption / Event Title (optional)</label>
-                <input id="gal-modal-caption" type="text" placeholder="e.g. Annual Sports Meet / Science Exhibition">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">Photo Caption / Event Title (optional)</label>
+                <input id="gal-modal-caption" type="text" placeholder="e.g. Annual Sports Meet / Science Exhibition" class="bg-white border-slate-300 text-slate-900">
             </div>
             <div class="flex gap-2 pt-2">
-                <button onclick="saveNewGalleryPhoto()" class="btn-gold flex-1 py-2.5 rounded-lg text-xs font-semibold">Upload to Gallery</button>
-                <button onclick="closeAddGalleryModal()" class="px-4 py-2.5 rounded-lg bg-white/10 text-white/70 text-xs">Cancel</button>
+                <button onclick="saveNewGalleryPhoto()" class="btn-gold flex-1 py-2.5 rounded-xl text-xs font-bold shadow-sm">Upload to Gallery</button>
+                <button onclick="closeAddGalleryModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Cancel</button>
             </div>
         </div>
     </div>
@@ -369,27 +385,27 @@ function renderDashboard() {
     const iconMap = { staff_added: 'user-plus', student_added: 'user-plus', marks_uploaded: 'file-text', notice_posted: 'megaphone', fee_recorded: 'credit-card' };
 
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">Dashboard Overview</h2>
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Dashboard Overview</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.totalStudents}</div><div class="text-xs text-white/50 mt-1">Total Students</div></div>
-            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.totalStaff}</div><div class="text-xs text-white/50 mt-1">Total Staff</div></div>
-            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.activeClasses}</div><div class="text-xs text-white/50 mt-1">Active Classes</div></div>
-            <div class="glass rounded-xl p-4 card-hover text-center"><div class="text-3xl font-bold grad-text">${stats.activeNotices}</div><div class="text-xs text-white/50 mt-1">Active Notices</div></div>
+            <div class="glass rounded-2xl p-5 card-hover text-center border border-cream-300 shadow-sm"><div class="text-3xl font-black grad-text">${stats.totalStudents}</div><div class="text-xs text-slate-500 font-bold mt-1">Total Students</div></div>
+            <div class="glass rounded-2xl p-5 card-hover text-center border border-cream-300 shadow-sm"><div class="text-3xl font-black grad-text">${stats.totalStaff}</div><div class="text-xs text-slate-500 font-bold mt-1">Total Staff</div></div>
+            <div class="glass rounded-2xl p-5 card-hover text-center border border-cream-300 shadow-sm"><div class="text-3xl font-black grad-text">${stats.activeClasses}</div><div class="text-xs text-slate-500 font-bold mt-1">Active Classes</div></div>
+            <div class="glass rounded-2xl p-5 card-hover text-center border border-cream-300 shadow-sm"><div class="text-3xl font-black grad-text">${stats.activeNotices}</div><div class="text-xs text-slate-500 font-bold mt-1">Active Notices</div></div>
         </div>
         <div class="grid lg:grid-cols-2 gap-6">
-            <div class="glass rounded-xl p-6 card-hover">
-                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-red-400" data-icon="lucide:alert-triangle"></span> Alerts</h3>
+            <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2"><span class="iconify text-red-600" data-icon="lucide:alert-triangle"></span> Alerts</h3>
                 <div class="space-y-3">
-                    ${alerts.lockedCount > 0 ? `<div class="flex items-start gap-3 p-3 bg-red-500/5 rounded-lg border border-red-500/10"><span class="text-red-400 text-xl">🔴</span><div><p class="text-sm">${alerts.lockedCount} student(s) — results LOCKED</p><button onclick="switchTab('marks')" class="text-xs text-gold-400 mt-1 hover:underline">Resolve Now →</button></div></div>` : ''}
-                    ${alerts.unreadByStaff > 0 ? `<div class="flex items-start gap-3 p-3 bg-gold-500/5 rounded-lg border border-gold-500/10"><span class="text-gold-400 text-xl">🟡</span><div><p class="text-sm">${alerts.unreadByStaff} parent message(s) awaiting staff reply</p><button onclick="switchTab('chat')" class="text-xs text-gold-400 mt-1 hover:underline">View Chats →</button></div></div>` : ''}
-                    ${alerts.staffThisWeek > 0 ? `<div class="flex items-start gap-3 p-3 bg-emerald-500/5 rounded-lg border border-emerald-500/10"><span class="text-emerald-400 text-xl">🟢</span><div><p class="text-sm">${alerts.staffThisWeek} new staff member(s) added this week</p></div></div>` : ''}
-                    ${(alerts.lockedCount === 0 && alerts.unreadByStaff === 0 && alerts.staffThisWeek === 0) ? `<p class="text-white/30 text-sm text-center py-6">All clear — no alerts right now 🎉</p>` : ''}
+                    ${alerts.lockedCount > 0 ? `<div class="flex items-start gap-3 p-3.5 bg-red-50 rounded-xl border border-red-200"><span class="text-red-600 text-xl">🔴</span><div><p class="text-sm font-bold text-red-950">${alerts.lockedCount} student(s) — results LOCKED</p><button onclick="switchTab('marks')" class="text-xs text-gold-700 font-bold mt-1 hover:underline">Resolve Now →</button></div></div>` : ''}
+                    ${alerts.unreadByStaff > 0 ? `<div class="flex items-start gap-3 p-3.5 bg-amber-50 rounded-xl border border-amber-200"><span class="text-gold-700 text-xl">🟡</span><div><p class="text-sm font-bold text-amber-950">${alerts.unreadByStaff} parent message(s) awaiting staff reply</p><button onclick="switchTab('chat')" class="text-xs text-gold-700 font-bold mt-1 hover:underline">View Chats →</button></div></div>` : ''}
+                    ${alerts.staffThisWeek > 0 ? `<div class="flex items-start gap-3 p-3.5 bg-emerald-50 rounded-xl border border-emerald-200"><span class="text-emerald-600 text-xl">🟢</span><div><p class="text-sm font-bold text-emerald-950">${alerts.staffThisWeek} new staff member(s) added this week</p></div></div>` : ''}
+                    ${(alerts.lockedCount === 0 && alerts.unreadByStaff === 0 && alerts.staffThisWeek === 0) ? `<p class="text-slate-400 text-sm text-center py-6">All clear — no alerts right now 🎉</p>` : ''}
                 </div>
             </div>
-            <div class="glass rounded-xl p-6 card-hover">
-                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-400" data-icon="lucide:history"></span> Recent Activity</h3>
+            <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2"><span class="iconify text-gold-600" data-icon="lucide:history"></span> Recent Activity</h3>
                 <div class="space-y-4">
-                    ${activity.map((a, i) => `<div class="flex items-start gap-3 ${i < activity.length - 1 ? 'pb-3 border-b border-white/5' : ''}"><div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-sm"><span class="iconify" data-icon="lucide:${iconMap[a.type] || 'circle'}"></span></div><div class="flex-1"><p class="text-sm">${a.text}</p><span class="text-xs text-white/40">${timeAgo(a.time)}</span></div></div>`).join('') || `<p class="text-white/30 text-sm text-center py-6">No activity yet.</p>`}
+                    ${activity.map((a, i) => `<div class="flex items-start gap-3 ${i < activity.length - 1 ? 'pb-3 border-b border-cream-200' : ''}"><div class="w-8 h-8 rounded-xl bg-cream-100 border border-cream-200 flex items-center justify-center text-slate-600 text-sm shadow-sm"><span class="iconify" data-icon="lucide:${iconMap[a.type] || 'circle'}"></span></div><div class="flex-1"><p class="text-sm font-semibold text-slate-900">${a.text}</p><span class="text-xs text-slate-500">${timeAgo(a.time)}</span></div></div>`).join('') || `<p class="text-slate-400 text-sm text-center py-6">No activity yet.</p>`}
                 </div>
             </div>
         </div>
@@ -403,25 +419,25 @@ function renderStaffTab() {
     const classes = DB.getClasses();
     main.innerHTML = `
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">Manage Staff</h2>
-            <button onclick="openStaffForm()" class="btn-gold px-4 py-2 rounded-lg text-sm flex items-center gap-2"><span class="iconify" data-icon="lucide:user-plus"></span> Add Staff</button>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight">Manage Staff</h2>
+            <button onclick="openStaffForm()" class="btn-gold px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md"><span class="iconify" data-icon="lucide:user-plus"></span> Add Staff</button>
         </div>
-        <div id="staff-form-wrap" class="hidden glass rounded-xl p-6 mb-6 border-l-4 border-gold-400">
-            <h3 id="staff-form-title" class="font-bold text-lg mb-4">➕ Add New Staff Member</h3>
+        <div id="staff-form-wrap" class="hidden glass rounded-2xl p-6 mb-6 border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
+            <h3 id="staff-form-title" class="font-bold text-slate-900 text-lg mb-4">➕ Add New Staff Member</h3>
             <div class="grid md:grid-cols-2 gap-4">
-                <div><label class="text-xs text-white/50 mb-1 block">Name</label><input id="sf-name" type="text" placeholder="Mrs. Kavita Joshi"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Subject</label><input id="sf-subject" type="text" placeholder="Hindi"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Staff Type</label><select id="sf-type" onchange="toggleStaffClassField()"><option value="ct">Class Teacher</option><option value="hw">Homework Team</option></select></div>
-                <div id="sf-class-wrap"><label class="text-xs text-white/50 mb-1 block">Assign Class</label><input id="sf-class" list="class-list" placeholder="e.g. 8A, 8B, 11A"><datalist id="class-list">${classes.map(c => `<option value="${c}">`).join('')}</datalist></div>
-                <div><label class="text-xs text-white/50 mb-1 block">User ID</label><input id="sf-id-preview" type="text" value="(auto-generated on save)" readonly class="opacity-50 cursor-not-allowed"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Password</label><input id="sf-password" type="text" value="staff123"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Name</label><input id="sf-name" type="text" placeholder="Mrs. Kavita Joshi" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Subject</label><input id="sf-subject" type="text" placeholder="Hindi" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Staff Type</label><select id="sf-type" onchange="toggleStaffClassField()" class="bg-white border-slate-300 text-slate-900 font-medium"><option value="ct">Class Teacher</option><option value="hw">Homework Team</option></select></div>
+                <div id="sf-class-wrap"><label class="text-xs font-bold text-slate-700 mb-1 block">Assign Class</label><input id="sf-class" list="class-list" placeholder="e.g. 8A, 8B, 11A" class="bg-white border-slate-300 text-slate-900"><datalist id="class-list">${classes.map(c => `<option value="${c}">`).join('')}</datalist></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">User ID</label><input id="sf-id-preview" type="text" value="(auto-generated on save)" readonly class="bg-cream-100 border-cream-300 text-slate-500 cursor-not-allowed"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Password</label><input id="sf-password" type="text" value="staff123" class="bg-white border-slate-300 text-slate-900"></div>
             </div>
             <div class="flex gap-3 mt-4">
-                <button onclick="saveStaff()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Save</button>
-                <button onclick="closeStaffForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Cancel</button>
+                <button onclick="saveStaff()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold shadow-md">✅ Save</button>
+                <button onclick="closeStaffForm()" class="px-6 py-2.5 rounded-xl text-sm font-semibold border border-slate-300 bg-white text-slate-700 hover:bg-slate-50">Cancel</button>
             </div>
         </div>
-        <div class="glass rounded-xl p-6 card-hover overflow-x-auto">
+        <div class="glass rounded-2xl p-6 card-hover overflow-x-auto border border-cream-300 shadow-sm">
             <table class="w-full text-sm" id="staff-table"></table>
         </div>
     `;
@@ -488,15 +504,15 @@ function saveStaff() {
 function renderStaffTable() {
     const rows = DB.getAllStaff();
     document.getElementById('staff-table').innerHTML = `
-        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3 font-medium">ID</th><th class="text-left pb-3 font-medium">Name</th><th class="text-left pb-3 font-medium">Type</th><th class="text-left pb-3 font-medium">Class</th><th class="text-right pb-3 font-medium">Actions</th></tr></thead>
+        <thead><tr class="text-xs text-slate-500 font-bold uppercase tracking-wider border-b border-cream-200"><th class="text-left pb-3 font-bold">ID</th><th class="text-left pb-3 font-bold">Name</th><th class="text-left pb-3 font-bold">Type</th><th class="text-left pb-3 font-bold">Class</th><th class="text-right pb-3 font-bold">Actions</th></tr></thead>
         <tbody>
-        ${rows.map(s => `<tr class="border-b border-white/5">
-            <td class="py-3 text-white/50">${s.id}</td>
-            <td class="py-3 font-medium">${s.name}</td>
-            <td class="py-3 text-white/70">${s.type === 'hw' ? 'HW Team' : 'Class Teacher'}</td>
-            <td class="py-3 text-gold-400">${s.class || '—'}</td>
-            <td class="py-3 text-right"><button onclick="openStaffForm('${s.id}')" class="text-blue-400 hover:underline text-xs mr-3">✏️ Edit</button><button onclick="removeStaff('${s.id}')" class="text-red-400 hover:underline text-xs">🗑 Delete</button></td>
-        </tr>`).join('') || `<tr><td colspan="5" class="py-8 text-center text-white/30">No staff yet.</td></tr>`}
+        ${rows.map(s => `<tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+            <td class="py-3 text-slate-500 font-bold">${s.id}</td>
+            <td class="py-3 font-bold text-slate-900">${s.name}</td>
+            <td class="py-3 text-slate-600 font-medium">${s.type === 'hw' ? 'HW Team' : 'Class Teacher'}</td>
+            <td class="py-3 text-gold-700 font-bold">${s.class || '—'}</td>
+            <td class="py-3 text-right"><button onclick="openStaffForm('${s.id}')" class="text-gold-700 font-bold hover:underline text-xs mr-3">✏️ Edit</button><button onclick="removeStaff('${s.id}')" class="text-red-600 font-bold hover:underline text-xs">🗑 Delete</button></td>
+        </tr>`).join('') || `<tr><td colspan="5" class="py-8 text-center text-slate-400">No staff yet.</td></tr>`}
         </tbody>
     `;
 }
@@ -514,29 +530,29 @@ let editingStudentId = null;
 function renderStudentsTab() {
     main.innerHTML = `
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">Manage Students</h2>
-            <button onclick="openStudentForm()" class="btn-gold px-4 py-2 rounded-lg text-sm flex items-center gap-2"><span class="iconify" data-icon="lucide:user-plus"></span> Add Student</button>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight">Manage Students</h2>
+            <button onclick="openStudentForm()" class="btn-gold px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md"><span class="iconify" data-icon="lucide:user-plus"></span> Add Student</button>
         </div>
-        <div id="student-form-wrap" class="hidden glass rounded-xl p-6 mb-6 border-l-4 border-gold-400">
-            <h3 id="student-form-title" class="font-bold text-lg mb-4">➕ Add New Student</h3>
+        <div id="student-form-wrap" class="hidden glass rounded-2xl p-6 mb-6 border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
+            <h3 id="student-form-title" class="font-bold text-slate-900 text-lg mb-4">➕ Add New Student</h3>
             <div class="grid md:grid-cols-2 gap-4">
-                <div><label class="text-xs text-white/50 mb-1 block">Name</label><input id="stf-name" type="text" placeholder="Amit Kumar"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Class</label><input id="stf-class" list="class-list-2" placeholder="e.g. 8A"><datalist id="class-list-2">${DB.getClasses().map(c => `<option value="${c}">`).join('')}</datalist></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Father's Name</label><input id="stf-father" type="text"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Mother's Name</label><input id="stf-mother" type="text"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Contact</label><input id="stf-contact" type="text" placeholder="98765 43210"></div>
-                <div><label class="text-xs text-white/50 mb-1 block">Password</label><input id="stf-password" type="text" value="stud123"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Name</label><input id="stf-name" type="text" placeholder="Amit Kumar" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Class</label><input id="stf-class" list="class-list-2" placeholder="e.g. 8A" class="bg-white border-slate-300 text-slate-900"><datalist id="class-list-2">${DB.getClasses().map(c => `<option value="${c}">`).join('')}</datalist></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Father's Name</label><input id="stf-father" type="text" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Mother's Name</label><input id="stf-mother" type="text" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Contact</label><input id="stf-contact" type="text" placeholder="98765 43210" class="bg-white border-slate-300 text-slate-900"></div>
+                <div><label class="text-xs font-bold text-slate-700 mb-1 block">Password</label><input id="stf-password" type="text" value="stud123" class="bg-white border-slate-300 text-slate-900"></div>
             </div>
             <div class="flex gap-3 mt-4">
-                <button onclick="saveStudent()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Save</button>
-                <button onclick="closeStudentForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Cancel</button>
+                <button onclick="saveStudent()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold shadow-md">✅ Save</button>
+                <button onclick="closeStudentForm()" class="px-6 py-2.5 rounded-xl text-sm font-semibold border border-slate-300 bg-white text-slate-700 hover:bg-slate-50">Cancel</button>
             </div>
         </div>
-        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
-            <input id="stu-search" type="text" placeholder="🔍 Search by name or ID..." class="flex-1" oninput="renderStudentsTable()">
-            <select id="stu-class-filter" class="w-auto" onchange="renderStudentsTable()"><option value="">All Classes</option>${DB.getClasses().map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+        <div class="glass rounded-2xl p-4 mb-6 flex gap-4 items-center flex-wrap border border-cream-300 shadow-sm">
+            <input id="stu-search" type="text" placeholder="🔍 Search by name or ID..." class="flex-1 bg-white border-slate-300 text-slate-900 font-medium" oninput="renderStudentsTable()">
+            <select id="stu-class-filter" class="w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="renderStudentsTable()"><option value="">All Classes</option>${DB.getClasses().map(c => `<option value="${c}">${c}</option>`).join('')}</select>
         </div>
-        <div class="glass rounded-xl p-6 card-hover overflow-x-auto"><table class="w-full text-sm" id="students-table"></table></div>
+        <div class="glass rounded-2xl p-6 card-hover overflow-x-auto border border-cream-300 shadow-sm"><table class="w-full text-sm" id="students-table"></table></div>
     `;
     renderStudentsTable();
 }
@@ -595,19 +611,19 @@ function renderStudentsTable() {
     if (q) students = students.filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
 
     document.getElementById('students-table').innerHTML = `
-        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3 font-medium">ID</th><th class="text-left pb-3 font-medium">Name</th><th class="text-left pb-3 font-medium">Class</th><th class="text-left pb-3 font-medium">Roll</th><th class="text-center pb-3 font-medium">Result</th><th class="text-right pb-3 font-medium">Actions</th></tr></thead>
+        <thead><tr class="text-xs text-slate-500 font-bold uppercase tracking-wider border-b border-cream-200"><th class="text-left pb-3 font-bold">ID</th><th class="text-left pb-3 font-bold">Name</th><th class="text-left pb-3 font-bold">Class</th><th class="text-left pb-3 font-bold">Roll</th><th class="text-center pb-3 font-bold">Result</th><th class="text-right pb-3 font-bold">Actions</th></tr></thead>
         <tbody>
         ${students.map(s => {
             const settings = DB.getStudentSettings(s.id);
-            return `<tr class="border-b border-white/5">
-                <td class="py-3 text-white/50">${s.id}</td>
-                <td class="py-3 font-medium">${s.name}</td>
-                <td class="py-3 text-gold-400">${s.class}</td>
-                <td class="py-3">${s.roll}</td>
-                <td class="py-3 text-center">${settings.showResults ? '<span class="text-emerald-400 text-xs">✅ Visible</span>' : '<span class="text-red-400 text-xs">🔒 Locked</span>'}</td>
-                <td class="py-3 text-right"><button onclick="openStudentForm('${s.id}')" class="text-blue-400 hover:underline text-xs mr-2">✏️ Edit</button><button onclick="removeStudent('${s.id}')" class="text-red-400 hover:underline text-xs">🗑 Delete</button></td>
+            return `<tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+                <td class="py-3 text-slate-500 font-bold">${s.id}</td>
+                <td class="py-3 font-bold text-slate-900">${s.name}</td>
+                <td class="py-3 text-gold-700 font-bold">${s.class}</td>
+                <td class="py-3 font-bold text-slate-700">${s.roll}</td>
+                <td class="py-3 text-center">${settings.showResults ? '<span class="text-emerald-700 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200">✅ Visible</span>' : '<span class="text-red-600 font-bold text-xs bg-red-50 px-2 py-1 rounded-md border border-red-200">🔒 Locked</span>'}</td>
+                <td class="py-3 text-right"><button onclick="openStudentForm('${s.id}')" class="text-gold-700 font-bold hover:underline text-xs mr-2">✏️ Edit</button><button onclick="removeStudent('${s.id}')" class="text-red-600 font-bold hover:underline text-xs">🗑 Delete</button></td>
             </tr>`;
-        }).join('') || `<tr><td colspan="6" class="py-8 text-center text-white/30">No students found.</td></tr>`}
+        }).join('') || `<tr><td colspan="6" class="py-8 text-center text-slate-400">No students found.</td></tr>`}
         </tbody>
     `;
 }
@@ -622,9 +638,9 @@ function removeStudent(id) {
 /* ================= TAB: SEARCH ================= */
 function renderSearchTab() {
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">Search</h2>
-        <div class="glass rounded-xl p-4 mb-6">
-            <input id="search-q" type="text" placeholder="Search by student/staff name, ID, or class..." oninput="runSearch()">
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Search</h2>
+        <div class="glass rounded-2xl p-4 mb-6 border border-cream-300 shadow-sm">
+            <input id="search-q" type="text" placeholder="Search by student/staff name, ID, or class..." class="bg-white border-slate-300 text-slate-900 font-medium" oninput="runSearch()">
         </div>
         <div id="search-results" class="space-y-4"></div>
     `;
@@ -634,7 +650,7 @@ function renderSearchTab() {
 function runSearch() {
     const q = document.getElementById('search-q').value.trim().toLowerCase();
     const box = document.getElementById('search-results');
-    if (!q) { box.innerHTML = `<p class="text-white/30 text-center py-8">Type a name, ID, or class to search.</p>`; return; }
+    if (!q) { box.innerHTML = `<p class="text-slate-400 text-center py-8">Type a name, ID, or class to search.</p>`; return; }
 
     const students = DB.getAllStudents().filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || s.class.toLowerCase().includes(q));
     const staff = DB.getAllStaff().filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || (s.class || '').toLowerCase().includes(q));
@@ -649,32 +665,32 @@ function runSearch() {
         const attPct = dates.length ? Math.round(present / dates.length * 100) : 0;
         const teacher = DB.getTeacherByClass(s.class);
         const chatCount = teacher ? DB.getChat(teacher.id, s.id).length : 0;
-        html += `<div class="glass rounded-xl p-5 card-hover">
+        html += `<div class="glass rounded-2xl p-5 card-hover border border-cream-300 shadow-sm">
             <div class="flex justify-between items-start mb-3 flex-wrap gap-2">
-                <div><h3 class="font-bold text-lg">👤 ${s.name}</h3><p class="text-xs text-white/50">Class: ${s.class} | Roll: ${s.roll} | ID: ${s.id}</p></div>
-                <span class="text-xs px-2 py-1 rounded-full ${settings.showResults ? 'bg-emerald-400/10 text-emerald-400' : 'bg-red-400/10 text-red-400'}">${settings.showResults ? '🔓 Results Visible' : '🔒 Results Locked'}</span>
+                <div><h3 class="font-bold text-lg text-slate-900">👤 ${s.name}</h3><p class="text-xs text-slate-500 font-medium">Class: ${s.class} | Roll: ${s.roll} | ID: ${s.id}</p></div>
+                <span class="text-xs px-2.5 py-1 rounded-full font-bold shadow-sm ${settings.showResults ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">${settings.showResults ? '🔓 Results Visible' : '🔒 Results Locked'}</span>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-3 text-white/70">
-                <div>📅 Attendance: <span class="text-gold-400">${attPct}%</span></div>
-                <div>💰 Fees Due: <span class="${feeSum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${feeSum.due.toLocaleString()}</span></div>
-                <div>💬 Chat: ${chatCount} messages</div>
-                <div>👨‍🏫 Teacher: ${teacher ? teacher.name : '—'}</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-3 text-slate-700 font-medium">
+                <div>📅 Attendance: <span class="text-gold-700 font-bold">${attPct}%</span></div>
+                <div>💰 Fees Due: <span class="${feeSum.due > 0 ? 'text-red-600 font-bold' : 'text-emerald-700 font-bold'}">₹${feeSum.due.toLocaleString()}</span></div>
+                <div>💬 Chat: <strong class="text-slate-900">${chatCount} messages</strong></div>
+                <div>👨‍🏫 Teacher: <strong class="text-slate-900">${teacher ? teacher.name : '—'}</strong></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-                <button onclick="openStudentFeeHistoryModal('${s.id}')" class="text-xs px-3 py-1 rounded-lg bg-gold-400/20 text-gold-400 border border-gold-400/30 hover:bg-gold-400/30 font-semibold inline-flex items-center gap-1">📜 Fee History & Dues</button>
-                <button onclick="quickToggleResult('${s.id}')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">${settings.showResults ? '🔒 Lock Results' : '🔓 Unlock Results'}</button>
-                <button onclick="quickToggleFee('${s.id}')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">${settings.showFees ? '🙈 Hide Fees' : '👁 Show Fees'}</button>
-                <button onclick="openStudentForm('${s.id}');switchTab('students')" class="text-xs px-3 py-1 rounded-lg border border-white/10 text-white/70 hover:bg-white/5">✏️ Edit</button>
+                <button onclick="openStudentFeeHistoryModal('${s.id}')" class="text-xs px-3.5 py-1.5 rounded-xl bg-gold-50 text-gold-800 border border-gold-300 hover:bg-gold-100 font-bold inline-flex items-center gap-1 shadow-sm transition">📜 Fee History & Dues</button>
+                <button onclick="quickToggleResult('${s.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border border-cream-300 bg-white text-slate-700 font-semibold hover:bg-cream-100 shadow-sm">${settings.showResults ? '🔒 Lock Results' : '🔓 Unlock Results'}</button>
+                <button onclick="quickToggleFee('${s.id}')" class="text-xs px-3.5 py-1.5 rounded-xl border border-cream-300 bg-white text-slate-700 font-semibold hover:bg-cream-100 shadow-sm">${settings.showFees ? '🙈 Hide Fees' : '👁 Show Fees'}</button>
+                <button onclick="openStudentForm('${s.id}');switchTab('students')" class="text-xs px-3.5 py-1.5 rounded-xl border border-cream-300 bg-white text-slate-700 font-semibold hover:bg-cream-100 shadow-sm">✏️ Edit</button>
             </div>
         </div>`;
     });
     staff.forEach(t => {
-        html += `<div class="glass rounded-xl p-5 card-hover">
-            <h3 class="font-bold text-lg">🧑‍🏫 ${t.name}</h3>
-            <p class="text-xs text-white/50">${t.type === 'hw' ? 'Homework Team' : 'Class Teacher'} ${t.class ? ('• Class ' + t.class) : ''} • ID: ${t.id} ${t.subject ? ('• ' + t.subject) : ''}</p>
+        html += `<div class="glass rounded-2xl p-5 card-hover border border-cream-300 shadow-sm">
+            <h3 class="font-bold text-lg text-slate-900">🧑‍🏫 ${t.name}</h3>
+            <p class="text-xs text-slate-500 font-medium">${t.type === 'hw' ? 'Homework Team' : 'Class Teacher'} ${t.class ? ('• Class ' + t.class) : ''} • ID: ${t.id} ${t.subject ? ('• ' + t.subject) : ''}</p>
         </div>`;
     });
-    box.innerHTML = html || `<p class="text-white/30 text-center py-8">No matches for "${q}".</p>`;
+    box.innerHTML = html || `<p class="text-slate-400 text-center py-8">No matches for "${q}".</p>`;
 }
 
 function quickToggleResult(id) {
@@ -699,14 +715,14 @@ function quickToggleFee(id) {
 function renderAttendanceTab() {
     const classes = DB.getClasses();
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">Attendance Records <span class="text-sm text-white/40 font-normal">(View Only — staff marks it)</span></h2>
-        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
-            <span class="text-sm text-white/50">Class:</span>
-            <select id="att-class" class="w-auto" onchange="renderAdminAttendance()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
-            <span class="text-sm text-white/50">Date:</span>
-            <input id="att-date" type="date" class="w-auto" onchange="renderAdminAttendance()">
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Attendance Records <span class="text-sm text-slate-500 font-normal">(View Only — staff marks it)</span></h2>
+        <div class="glass rounded-2xl p-4 mb-6 flex gap-4 items-center flex-wrap border border-cream-300 shadow-sm">
+            <span class="text-sm text-slate-600 font-bold">Class:</span>
+            <select id="att-class" class="w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="renderAdminAttendance()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+            <span class="text-sm text-slate-600 font-bold">Date:</span>
+            <input id="att-date" type="date" class="w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="renderAdminAttendance()">
         </div>
-        <div id="att-view" class="glass rounded-xl p-6 card-hover"></div>
+        <div id="att-view" class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm"></div>
     `;
     document.getElementById('att-date').value = todayISO();
     renderAdminAttendance();
@@ -721,11 +737,11 @@ function renderAdminAttendance() {
     const box = document.getElementById('att-view');
 
     if (isHol) {
-        box.innerHTML = `<p class="text-center py-10" style="color:#c4b5fd">🎌 This day is marked as a Holiday for Class ${cls}.</p>`;
+        box.innerHTML = `<p class="text-center py-10 font-bold text-purple-900">🎌 This day is marked as a Holiday for Class ${cls}.</p>`;
         return;
     }
     if (Object.keys(data).length === 0) {
-        box.innerHTML = `<p class="text-white/30 text-center py-10">No attendance marked for this date yet.</p>`;
+        box.innerHTML = `<p class="text-slate-400 text-center py-10">No attendance marked for this date yet.</p>`;
         return;
     }
     let p = 0, a = 0, l = 0;
@@ -735,17 +751,17 @@ function renderAdminAttendance() {
         if (rec.status === 'present') p++;
         if (rec.status === 'late') { l++; p++; }
         if (rec.status === 'absent') a++;
-        return `<tr class="border-b border-white/5">
-            <td class="py-2 text-left">${s.name}</td>
-            <td class="py-2 text-center">${icon[rec.status] || '—'} ${rec.status}</td>
-            <td class="py-2 text-left text-white/50">${rec.reason || rec.note || (rec.lateBy ? rec.lateBy + ' min late' : '—')}</td>
-            <td class="py-2 text-right">
-                ${rec.status === 'absent' ? `<button onclick="sendAdminAbsentWhatsApp('${s.id}')" class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 text-xs hover:bg-emerald-500/30 inline-flex items-center gap-1"><span class="iconify" data-icon="lucide:message-circle"></span> WhatsApp</button>` : ''}
+        return `<tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+            <td class="py-2.5 text-left font-bold text-slate-900">${s.name}</td>
+            <td class="py-2.5 text-center font-semibold text-slate-800">${icon[rec.status] || '—'} ${rec.status}</td>
+            <td class="py-2.5 text-left text-slate-600">${rec.reason || rec.note || (rec.lateBy ? rec.lateBy + ' min late' : '—')}</td>
+            <td class="py-2.5 text-right">
+                ${rec.status === 'absent' ? `<button onclick="sendAdminAbsentWhatsApp('${s.id}')" class="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs font-bold hover:bg-emerald-100 inline-flex items-center gap-1 shadow-sm transition"><span class="iconify" data-icon="lucide:message-circle"></span> WhatsApp</button>` : ''}
             </td>
         </tr>`;
     }).join('');
     const pct = students.length ? Math.round(p / students.length * 100) : 0;
-    box.innerHTML = `<table class="w-full text-sm mb-4"><thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-2">Name</th><th class="pb-2">Status</th><th class="text-left pb-2">Reason</th><th class="text-right pb-2">WhatsApp Alert</th></tr></thead><tbody>${rows}</tbody></table><p class="text-sm text-white/50">Summary: ${p}P ${a}A ${l}L = ${pct}%</p>`;
+    box.innerHTML = `<table class="w-full text-sm mb-4"><thead><tr class="text-xs text-slate-500 font-bold uppercase border-b border-cream-200"><th class="text-left pb-2">Name</th><th class="pb-2">Status</th><th class="text-left pb-2">Reason</th><th class="text-right pb-2">WhatsApp Alert</th></tr></thead><tbody>${rows}</tbody></table><p class="text-sm text-slate-600 font-bold">Summary: ${p}P ${a}A ${l}L = <span class="text-emerald-700">${pct}%</span></p>`;
 }
 
 /* ================= TAB: MARKS CONTROL ================= */
@@ -761,17 +777,17 @@ function renderMarksTab() {
     const classes = DB.getClasses();
     const tests = DB.getTests();
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">Marks Control — Lock/Unlock Results</h2>
-        <div class="glass rounded-xl p-4 mb-6 flex gap-4 items-center flex-wrap">
-            <span class="text-sm text-white/50">Class:</span><select id="mc-class" class="w-auto" onchange="renderMarksControlTable()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
-            <span class="text-sm text-white/50">Test:</span><select id="mc-test" class="w-auto" onchange="renderMarksControlTable()">${tests.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Marks Control — Lock/Unlock Results</h2>
+        <div class="glass rounded-2xl p-4 mb-6 flex gap-4 items-center flex-wrap border border-cream-300 shadow-sm">
+            <span class="text-sm text-slate-600 font-bold">Class:</span><select id="mc-class" class="w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="renderMarksControlTable()">${classes.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+            <span class="text-sm text-slate-600 font-bold">Test:</span><select id="mc-test" class="w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="renderMarksControlTable()">${tests.map(t => `<option value="${t}">${t}</option>`).join('')}</select>
         </div>
-        <div class="glass rounded-xl p-6 card-hover overflow-x-auto"><table class="w-full text-sm" id="mc-table"></table></div>
-        <div class="glass rounded-xl p-6 mt-6 card-hover">
-            <h3 class="font-bold text-sm mb-4">⚡ Bulk Actions</h3>
+        <div class="glass rounded-2xl p-6 card-hover overflow-x-auto border border-cream-300 shadow-sm"><table class="w-full text-sm" id="mc-table"></table></div>
+        <div class="glass rounded-2xl p-6 mt-6 card-hover border border-cream-300 shadow-sm">
+            <h3 class="font-bold text-slate-900 text-sm mb-4">⚡ Bulk Actions</h3>
             <div class="flex flex-wrap gap-3">
-                <button onclick="bulkLock()" class="px-4 py-2 bg-red-500/10 text-red-400 rounded-lg text-xs hover:bg-red-500/20">🔒 Lock all students with pending fees</button>
-                <button onclick="bulkUnlock()" class="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-lg text-xs hover:bg-emerald-500/20">🔓 Unlock all results</button>
+                <button onclick="bulkLock()" class="px-4 py-2 bg-red-50 text-red-700 border border-red-300 rounded-xl text-xs font-bold hover:bg-red-100 shadow-sm">🔒 Lock all students with pending fees</button>
+                <button onclick="bulkUnlock()" class="px-4 py-2 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 shadow-sm">🔓 Unlock all results</button>
             </div>
         </div>
     `;
@@ -784,21 +800,21 @@ function renderMarksControlTable() {
     const subjects = DB.getSubjects();
     const students = DB.getClassStudents(cls);
     document.getElementById('mc-table').innerHTML = `
-        <thead><tr class="text-xs text-white/40 border-b border-white/10"><th class="text-left pb-3">Name</th><th class="pb-3">%</th><th class="pb-3">Grade</th><th class="pb-3">Fee Status</th><th class="text-center pb-3">Result Visibility</th></tr></thead>
+        <thead><tr class="text-xs text-slate-500 font-bold uppercase tracking-wider border-b border-cream-200"><th class="text-left pb-3">Name</th><th class="pb-3">%</th><th class="pb-3">Grade</th><th class="pb-3">Fee Status</th><th class="text-center pb-3">Result Visibility</th></tr></thead>
         <tbody class="text-center">
         ${students.map(s => {
             const marks = DB.getMarks(cls, test, s.id) || {};
             const { pct, grade } = computeStudentTotal(marks, subjects);
             const fee = DB.getFeeSummary(s.id);
             const settings = DB.getStudentSettings(s.id);
-            return `<tr class="border-b border-white/5">
-                <td class="py-4 text-left font-medium">${s.name}</td>
-                <td class="py-4">${pct !== null ? pct + '%' : '—'}</td>
-                <td class="py-4" style="color:${grade ? grade.color : '#475569'}">${grade ? grade.grade : '—'}</td>
-                <td class="py-4" style="color:${fee.due > 0 ? '#f87171' : '#34d399'}">${fee.due > 0 ? '⚠️ Due ₹' + fee.due.toLocaleString() : '✅ Paid'}</td>
-                <td class="py-4"><button class="toggle-btn ${settings.showResults ? 'unlock-active' : 'lock-active'}" onclick="toggleResultLock('${s.id}')">${settings.showResults ? '🔓 Visible' : '🔒 Locked'}</button></td>
+            return `<tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+                <td class="py-4 text-left font-bold text-slate-900">${s.name}</td>
+                <td class="py-4 font-bold text-slate-900">${pct !== null ? pct + '%' : '—'}</td>
+                <td class="py-4 font-black" style="color:${grade ? grade.color : '#64748b'}">${grade ? grade.grade : '—'}</td>
+                <td class="py-4 font-bold" style="color:${fee.due > 0 ? '#dc2626' : '#059669'}">${fee.due > 0 ? '⚠️ Due ₹' + fee.due.toLocaleString() : '✅ Paid'}</td>
+                <td class="py-4"><button class="toggle-btn ${settings.showResults ? 'unlock-active' : 'lock-active'} shadow-sm" onclick="toggleResultLock('${s.id}')">${settings.showResults ? '🔓 Visible' : '🔒 Locked'}</button></td>
             </tr>`;
-        }).join('') || `<tr><td colspan="5" class="py-8 text-white/30">No students in this class.</td></tr>`}
+        }).join('') || `<tr><td colspan="5" class="py-8 text-slate-400">No students in this class.</td></tr>`}
         </tbody>
     `;
 }
@@ -837,65 +853,65 @@ function renderFeesTab() {
     main.innerHTML = `
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
-                <h2 class="text-2xl font-bold">Fee Control & Transactions Ledger</h2>
-                <p class="text-xs text-white/50 mt-1">Student fees manage karein, payments record karein aur student ki poori payment history (kab kitna diya, kitna baki hai) check karein.</p>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Fee Control & Transactions Ledger</h2>
+                <p class="text-xs text-slate-500 font-medium mt-1">Student fees manage karein, payments record karein aur student ki poori payment history (kab kitna diya, kitna baki hai) check karein.</p>
             </div>
             <div class="flex gap-2 flex-wrap">
-                <button onclick="scrollToManualPay()" class="btn-gold px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 w-fit">
+                <button onclick="scrollToManualPay()" class="btn-gold px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 w-fit shadow-md">
                     <span class="iconify text-base" data-icon="lucide:plus-circle"></span> Record New Payment
                 </button>
             </div>
         </div>
 
         <!-- DEDICATED STUDENT PAYMENT HISTORY & 360 PROFILE SEARCH EXPLORER -->
-        <div class="glass rounded-xl p-5 mb-6 card-hover border-l-4 border-gold-400 bg-gradient-to-r from-gold-400/10 via-transparent to-transparent">
+        <div class="glass rounded-2xl p-5 mb-6 card-hover border-l-4 border-l-gold-500 border-cream-300 bg-gradient-to-r from-amber-50 via-cream-50 to-transparent shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-3">
                 <div>
-                    <h3 class="font-bold text-base text-gold-400 flex items-center gap-2">
-                        <span class="iconify text-lg" data-icon="lucide:user-check"></span> 🔍 Search Any Student's Full Payment History & Dues
+                    <h3 class="font-black text-base text-gold-800 flex items-center gap-2">
+                        <span class="iconify text-lg text-gold-600" data-icon="lucide:user-check"></span> 🔍 Search Any Student's Full Payment History & Dues
                     </h3>
-                    <p class="text-xs text-white/60">Kisi bhi student ka naam ya roll number likhein aur unki poori payment detail (kab kitna diya, receipt numbers, aur baki fees) turant dekhein.</p>
+                    <p class="text-xs text-slate-600 font-medium">Kisi bhi student ka naam ya roll number likhein aur unki poori payment detail (kab kitna diya, receipt numbers, aur baki fees) turant dekhein.</p>
                 </div>
             </div>
             <div class="relative">
-                <input id="sfh-live-search" type="text" placeholder="🔍 Type Student Name, Roll No., or Student ID (e.g. Aarav, Rahul, Anaya, S8A01)..." oninput="renderStudentHistorySearchCards()" class="w-full bg-white/10 border-2 border-gold-400/40 focus:border-gold-400 py-3 px-4 rounded-xl text-sm text-white placeholder-white/40">
+                <input id="sfh-live-search" type="text" placeholder="🔍 Type Student Name, Roll No., or Student ID (e.g. Aarav, Rahul, Anaya, S8A01)..." oninput="renderStudentHistorySearchCards()" class="w-full bg-white border-2 border-gold-400 focus:border-gold-600 py-3.5 px-4 rounded-2xl text-sm text-slate-900 placeholder-slate-400 shadow-sm font-medium">
             </div>
             <div id="sfh-search-results-box" class="mt-3 hidden"></div>
         </div>
 
         <!-- 1. CLASS-WISE ANNUAL FEE -->
-        <div class="glass rounded-xl p-6 mb-6 card-hover">
-            <h3 class="font-bold text-lg mb-1">🏷️ Class-wise Annual Fee</h3>
-            <p class="text-xs text-white/40 mb-4">Har class ki annual fee set karein. Jab tak badli nahi jati, default ₹25,000 rahega.</p>
+        <div class="glass rounded-2xl p-6 mb-6 card-hover border border-cream-300 shadow-sm">
+            <h3 class="font-bold text-slate-900 text-lg mb-1">🏷️ Class-wise Annual Fee</h3>
+            <p class="text-xs text-slate-500 mb-4 font-medium">Har class ki annual fee set karein. Jab tak badli nahi jati, default ₹25,000 rahega.</p>
             <div class="grid md:grid-cols-3 gap-3" id="class-fee-grid">
                 ${classes.map(c => `
-                    <div class="flex items-center gap-2 bg-white/5 rounded-lg p-2">
-                        <span class="text-sm text-gold-400 w-14 font-medium">${c}</span>
-                        <input type="number" id="cf-${c}" value="${DB.getClassFee(c)}" class="flex-1">
-                        <button onclick="saveClassFee('${c}')" class="text-xs px-3 py-2 rounded-lg btn-gold">Save</button>
+                    <div class="flex items-center gap-2 bg-cream-100/70 border border-cream-200 rounded-xl p-2 shadow-sm">
+                        <span class="text-sm text-gold-800 font-bold w-14">${c}</span>
+                        <input type="number" id="cf-${c}" value="${DB.getClassFee(c)}" class="flex-1 bg-white border-slate-300 text-slate-900 font-semibold !p-2">
+                        <button onclick="saveClassFee('${c}')" class="text-xs px-3 py-2 rounded-xl btn-gold shadow-sm font-bold">Save</button>
                     </div>
                 `).join('')}
             </div>
         </div>
 
         <!-- 2. STUDENT DIRECTORY & LIVE SEARCH -->
-        <div class="glass rounded-xl p-6 mb-6 card-hover border-l-4 border-gold-400">
+        <div class="glass rounded-2xl p-6 mb-6 card-hover border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                 <div>
-                    <h3 class="font-bold text-lg flex items-center gap-2">
-                        <span class="iconify text-gold-400" data-icon="lucide:users"></span> Student Fees Directory & Status
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                        <span class="iconify text-gold-600" data-icon="lucide:users"></span> Student Fees Directory & Status
                     </h3>
-                    <p class="text-xs text-white/50">Student ke naam par click karke uski poori payment history dekhein ya 1-click me fee deposit karein.</p>
+                    <p class="text-xs text-slate-500 font-medium">Student ke naam par click karke uski poori payment history dekhein ya 1-click me fee deposit karein.</p>
                 </div>
                 <div class="flex items-center gap-3 w-full md:w-auto">
                     <div class="w-36">
-                        <select id="fc-class-filter" onchange="renderFeesTable()">
+                        <select id="fc-class-filter" onchange="renderFeesTable()" class="bg-white border-slate-300 text-slate-900 font-bold">
                             <option value="ALL">All Classes</option>
                             ${classes.map(c => `<option value="${c}">Class ${c}</option>`).join('')}
                         </select>
                     </div>
                     <div class="flex-1 md:w-64">
-                        <input id="fc-search-input" type="text" placeholder="🔍 Filter list by name/roll..." oninput="renderFeesTable()">
+                        <input id="fc-search-input" type="text" placeholder="🔍 Filter list by name/roll..." oninput="renderFeesTable()" class="bg-white border-slate-300 text-slate-900 font-medium">
                     </div>
                 </div>
             </div>
@@ -904,31 +920,31 @@ function renderFeesTab() {
             </div>
         </div>
 
-        <!-- 3. RECORD MANUAL PAYMENT FORM (NO INSTALLMENT DROPDOWN) -->
-        <div id="manual-payment-box" class="glass rounded-xl p-6 mb-6 card-hover border-l-4 border-emerald-400 transition-all">
-            <h3 class="font-bold text-lg mb-1 flex items-center gap-2">
-                <span class="iconify text-emerald-400" data-icon="lucide:credit-card"></span> Record Student Payment (Offline / Cash / Bank / UPI)
+        <!-- 3. RECORD MANUAL PAYMENT FORM -->
+        <div id="manual-payment-box" class="glass rounded-2xl p-6 mb-6 card-hover border-l-4 border-l-emerald-500 border-cream-300 shadow-sm transition-all">
+            <h3 class="font-bold text-slate-900 text-lg mb-1 flex items-center gap-2">
+                <span class="iconify text-emerald-600" data-icon="lucide:credit-card"></span> Record Student Payment (Offline / Cash / Bank / UPI)
             </h3>
-            <p class="text-xs text-white/50 mb-4">Student select karein, amount daalein aur receipt issue karein. Balance automatically update hoga.</p>
+            <p class="text-xs text-slate-500 font-medium mb-4">Student select karein, amount daalein aur receipt issue karein. Balance automatically update hoga.</p>
             
             <div class="grid md:grid-cols-5 gap-4">
                 <div class="md:col-span-2">
                     <div class="flex justify-between items-center mb-1">
-                        <label class="text-xs text-white/50 block">1. Select Student *</label>
-                        <select id="fp-class-filter" class="text-[11px] !p-1 !w-auto bg-white/10" onchange="populateFeeStudentDropdown()">
+                        <label class="text-xs font-bold text-slate-700 block">1. Select Student *</label>
+                        <select id="fp-class-filter" class="text-[11px] !p-1 !w-auto bg-white border-slate-300 text-slate-900 font-bold" onchange="populateFeeStudentDropdown()">
                             <option value="ALL">Filter: All Classes</option>
                             ${classes.map(c => `<option value="${c}">Class ${c}</option>`).join('')}
                         </select>
                     </div>
-                    <select id="fp-student" onchange="onFeeStudentSelected()"></select>
+                    <select id="fp-student" onchange="onFeeStudentSelected()" class="bg-white border-slate-300 text-slate-900 font-semibold"></select>
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">2. Amount Paid (₹) *</label>
-                    <input id="fp-amount" type="number" placeholder="Enter ₹" value="6250">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">2. Amount Paid (₹) *</label>
+                    <input id="fp-amount" type="number" placeholder="Enter ₹" value="6250" class="bg-white border-slate-300 text-slate-900 font-bold">
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">3. Payment Mode</label>
-                    <select id="fp-method">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">3. Payment Mode</label>
+                    <select id="fp-method" class="bg-white border-slate-300 text-slate-900 font-semibold">
                         <option value="Cash">Cash</option>
                         <option value="UPI">UPI</option>
                         <option value="Bank Transfer">Bank Transfer / NEFT</option>
@@ -936,39 +952,39 @@ function renderFeesTab() {
                     </select>
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">4. Payment Date</label>
-                    <input id="fp-date" type="date">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">4. Payment Date</label>
+                    <input id="fp-date" type="date" class="bg-white border-slate-300 text-slate-900 font-semibold">
                 </div>
             </div>
             <div class="mt-3">
-                <label class="text-xs text-white/50 mb-1 block">5. Purpose / Remarks / Note (optional)</label>
-                <input id="fp-note" type="text" placeholder="e.g. Tuition Fee / Term 1 / Cash deposit at school counter">
+                <label class="text-xs font-bold text-slate-700 mb-1 block">5. Purpose / Remarks / Note (optional)</label>
+                <input id="fp-note" type="text" placeholder="e.g. Tuition Fee / Term 1 / Cash deposit at school counter" class="bg-white border-slate-300 text-slate-900">
             </div>
-            <button onclick="recordPayment()" class="btn-gold px-6 py-2.5 rounded-lg mt-4 text-sm font-semibold flex items-center gap-2">
+            <button onclick="recordPayment()" class="btn-gold px-6 py-3 rounded-xl mt-4 text-sm font-bold flex items-center gap-2 shadow-md">
                 <span class="iconify text-base" data-icon="lucide:file-check"></span> Record Payment & Generate Official Receipt
             </button>
         </div>
 
         <!-- 4. ONLINE PAYMENT PROOFS APPROVAL QUEUE -->
-        <div class="glass rounded-xl p-6 mb-6 card-hover border-l-4 border-gold-400">
-            <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                <span class="iconify text-gold-400" data-icon="lucide:qr-code"></span> Online UPI Payment Verification Queue
+        <div class="glass rounded-2xl p-6 mb-6 card-hover border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
+            <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                <span class="iconify text-gold-600" data-icon="lucide:qr-code"></span> Online UPI Payment Verification Queue
             </h3>
-            <p class="text-xs text-white/50 mb-4">Parents dwara UPI QR se submit kiye gaye UTR numbers ko verify karke approve karein.</p>
+            <p class="text-xs text-slate-500 font-medium mb-4">Parents dwara UPI QR se submit kiye gaye UTR numbers ko verify karke approve karein.</p>
             <div id="utr-approval-queue" class="space-y-3"></div>
         </div>
 
         <!-- 5. ALL SCHOOL PAYMENT HISTORY & TRANSACTIONS LEDGER -->
-        <div class="glass rounded-xl p-6 card-hover border-l-4 border-blue-400" id="payment-ledger-section">
+        <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-blue-500 border-cream-300 shadow-sm" id="payment-ledger-section">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                 <div>
-                    <h3 class="font-bold text-lg flex items-center gap-2">
-                        <span class="iconify text-blue-400" data-icon="lucide:receipt"></span> All Payment Transactions & Receipts Ledger
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                        <span class="iconify text-blue-600" data-icon="lucide:receipt"></span> All Payment Transactions & Receipts Ledger
                     </h3>
-                    <p class="text-xs text-white/50">Student ke naam ya '📜 History' button par click karke uski poori transaction detail dekhein.</p>
+                    <p class="text-xs text-slate-500 font-medium">Student ke naam ya '📜 History' button par click karke uski poori transaction detail dekhein.</p>
                 </div>
                 <div class="w-full md:w-80">
-                    <input id="pl-search-input" type="text" placeholder="🔍 Search receipt / student / mode..." oninput="renderPaymentLedger()" class="w-full bg-white/10 border border-white/20 px-3 py-2 rounded-lg text-xs">
+                    <input id="pl-search-input" type="text" placeholder="🔍 Search receipt / student / mode..." oninput="renderPaymentLedger()" class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-xs text-slate-900 font-medium">
                 </div>
             </div>
             <div class="overflow-x-auto">
@@ -1003,37 +1019,37 @@ function renderStudentHistorySearchCards() {
     );
 
     if (students.length === 0) {
-        box.innerHTML = `<p class="text-xs text-white/40 p-3 text-center bg-white/5 rounded-xl">Koi student match nahi hua "${query}" ke liye.</p>`;
+        box.innerHTML = `<p class="text-xs text-slate-500 p-3 text-center bg-cream-100 rounded-xl border border-cream-200 font-medium">Koi student match nahi hua "${query}" ke liye.</p>`;
         box.classList.remove('hidden');
         return;
     }
 
     box.classList.remove('hidden');
     box.innerHTML = `
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 p-3 bg-navy-900/80 rounded-xl border border-gold-400/30">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 p-3 bg-white/95 rounded-2xl border border-gold-300 shadow-lg">
             ${students.map(s => {
                 const sum = DB.getFeeSummary(s.id);
                 const txns = DB.getStudentPayments(s.id);
                 return `
-                    <div class="p-3 rounded-lg bg-white/5 border border-white/10 hover:border-gold-400/40 transition">
+                    <div class="p-3.5 rounded-xl bg-cream-50 border border-cream-200 hover:border-gold-400 transition shadow-sm">
                         <div class="flex justify-between items-start mb-1.5">
                             <div>
-                                <h4 class="font-bold text-sm text-white">${s.name}</h4>
-                                <p class="text-[11px] text-white/50">Class ${s.class} • Roll ${s.roll} • ID: ${s.id}</p>
+                                <h4 class="font-bold text-sm text-slate-900">${s.name}</h4>
+                                <p class="text-[11px] text-slate-500 font-medium">Class ${s.class} • Roll ${s.roll} • ID: ${s.id}</p>
                             </div>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${sum.due > 0 ? 'bg-red-400/15 text-red-400' : 'bg-emerald-400/15 text-emerald-400'}">
+                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold ${sum.due > 0 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'}">
                                 ${sum.due > 0 ? 'Due: ₹' + sum.due.toLocaleString() : '✅ All Paid'}
                             </span>
                         </div>
-                        <div class="flex justify-between text-xs py-1 border-t border-b border-white/5 my-2">
-                            <span class="text-white/60">Paid: <strong class="text-emerald-400">₹${sum.paid.toLocaleString()}</strong> (${txns.length} txns)</span>
-                            <span class="text-white/60">Total: <strong class="text-white">₹${sum.total.toLocaleString()}</strong></span>
+                        <div class="flex justify-between text-xs py-1.5 border-t border-b border-cream-200 my-2 font-medium">
+                            <span class="text-slate-600">Paid: <strong class="text-emerald-700">₹${sum.paid.toLocaleString()}</strong> (${txns.length} txns)</span>
+                            <span class="text-slate-600">Total: <strong class="text-slate-900">₹${sum.total.toLocaleString()}</strong></span>
                         </div>
                         <div class="flex gap-2 mt-2">
-                            <button onclick="openStudentFeeHistoryModal('${s.id}')" class="flex-1 py-1.5 rounded bg-gold-400/20 text-gold-400 hover:bg-gold-400/30 font-semibold text-xs flex items-center justify-center gap-1 border border-gold-400/30">
+                            <button onclick="openStudentFeeHistoryModal('${s.id}')" class="flex-1 py-1.5 rounded-xl bg-gold-100 text-gold-900 hover:bg-gold-200 font-bold text-xs flex items-center justify-center gap-1 border border-gold-300 shadow-sm transition">
                                 <span class="iconify" data-icon="lucide:history"></span> View History & Dues
                             </button>
-                            <button onclick="quickOpenPayModal('${s.id}')" class="px-3 py-1.5 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 font-semibold text-xs border border-emerald-500/30">
+                            <button onclick="quickOpenPayModal('${s.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 hover:bg-emerald-200 font-bold text-xs border border-emerald-300 shadow-sm transition">
                                 💰 Pay
                             </button>
                         </div>
@@ -1064,91 +1080,91 @@ function openStudentFeeHistoryModal(studentId) {
     document.getElementById('sfh-content-body').innerHTML = `
         <!-- STATS OVERVIEW CARDS -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-5">
-            <div class="glass rounded-xl p-4 bg-white/5 border border-white/10">
-                <span class="text-xs text-white/50 block mb-1">Total Annual Fees</span>
-                <div class="text-2xl font-bold text-white">₹${sum.total.toLocaleString()}</div>
-                ${fees.discountReason ? `<span class="text-[11px] text-emerald-400 font-medium">🎓 ${fees.discountReason}</span>` : '<span class="text-[10px] text-white/40">Standard annual fee</span>'}
+            <div class="glass rounded-2xl p-4 bg-cream-50 border border-cream-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-bold block mb-1">Total Annual Fees</span>
+                <div class="text-2xl font-black text-slate-900">₹${sum.total.toLocaleString()}</div>
+                ${fees.discountReason ? `<span class="text-xs text-emerald-700 font-bold">🎓 ${fees.discountReason}</span>` : '<span class="text-[11px] text-slate-400 font-medium">Standard annual fee</span>'}
             </div>
-            <div class="glass rounded-xl p-4 bg-white/5 border border-emerald-400/30">
-                <span class="text-xs text-white/50 block mb-1">Total Paid Till Date</span>
-                <div class="text-2xl font-bold text-emerald-400">₹${sum.paid.toLocaleString()}</div>
-                <span class="text-[11px] text-white/40">${txns.length} payment transaction(s) recorded</span>
+            <div class="glass rounded-2xl p-4 bg-emerald-50/60 border border-emerald-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-bold block mb-1">Total Paid Till Date</span>
+                <div class="text-2xl font-black text-emerald-700">₹${sum.paid.toLocaleString()}</div>
+                <span class="text-xs text-slate-500 font-medium">${txns.length} payment transaction(s) recorded</span>
             </div>
-            <div class="glass rounded-xl p-4 bg-white/5 border ${sum.due > 0 ? 'border-red-400/30' : 'border-emerald-400/30'}">
-                <span class="text-xs text-white/50 block mb-1">Remaining Pending Balance (Baki)</span>
-                <div class="text-2xl font-bold ${sum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${sum.due.toLocaleString()}</div>
-                <span class="text-[11px] ${sum.due > 0 ? 'text-red-300' : 'text-emerald-300'} font-semibold">${sum.due > 0 ? '⚠️ Fee Payment Pending' : '✅ 100% Fees Cleared'}</span>
+            <div class="glass rounded-2xl p-4 ${sum.due > 0 ? 'bg-red-50/60 border-red-200' : 'bg-emerald-50/60 border-emerald-200'} border shadow-sm">
+                <span class="text-xs text-slate-500 font-bold block mb-1">Remaining Pending Balance (Baki)</span>
+                <div class="text-2xl font-black ${sum.due > 0 ? 'text-red-600' : 'text-emerald-700'}">₹${sum.due.toLocaleString()}</div>
+                <span class="text-xs ${sum.due > 0 ? 'text-red-700 font-bold' : 'text-emerald-700 font-bold'}">${sum.due > 0 ? '⚠️ Fee Payment Pending' : '✅ 100% Fees Cleared'}</span>
             </div>
         </div>
 
         <!-- PROGRESS BAR -->
-        <div class="bg-white/5 rounded-xl p-3.5 mb-5 border border-white/10">
+        <div class="bg-cream-50 rounded-2xl p-4 mb-5 border border-cream-200 shadow-sm">
             <div class="flex justify-between items-center text-xs mb-1.5">
-                <span class="text-white/70">Payment Completion Status</span>
-                <strong class="text-gold-400 font-mono">${pct}% Paid (₹${sum.paid.toLocaleString()} / ₹${sum.total.toLocaleString()})</strong>
+                <span class="text-slate-700 font-bold">Payment Completion Status</span>
+                <strong class="text-gold-800 font-mono text-sm font-black">${pct}% Paid (₹${sum.paid.toLocaleString()} / ₹${sum.total.toLocaleString()})</strong>
             </div>
-            <div class="w-full bg-white/10 rounded-full h-2.5 overflow-hidden">
-                <div class="h-2.5 rounded-full transition-all duration-500 ${pct === 100 ? 'bg-emerald-400' : 'bg-gradient-to-r from-amber-400 to-yellow-500'}" style="width: ${pct}%"></div>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                <div class="h-3 rounded-full transition-all duration-500 ${pct === 100 ? 'bg-emerald-600' : 'bg-gradient-to-r from-amber-500 to-yellow-500'}" style="width: ${pct}%"></div>
             </div>
         </div>
 
         <!-- WHATSAPP & ACTIONS BAR -->
-        <div class="flex flex-wrap items-center justify-between gap-3 bg-white/5 p-3 rounded-xl mb-5 border border-white/10">
-            <div class="flex items-center gap-2 text-xs text-white/70">
-                <span class="iconify text-emerald-400 text-base" data-icon="lucide:phone"></span>
-                <span>Parent Contact: <strong class="text-white">${s.contact || 'Not provided'}</strong> (${s.father || 'Parent'})</span>
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-cream-50 p-3.5 rounded-2xl mb-5 border border-cream-200 shadow-sm">
+            <div class="flex items-center gap-2 text-xs text-slate-700 font-semibold">
+                <span class="iconify text-emerald-600 text-lg" data-icon="lucide:phone"></span>
+                <span>Parent Contact: <strong class="text-slate-900">${s.contact || 'Not provided'}</strong> (${s.father || 'Parent'})</span>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="sendStudentHistoryWhatsApp('${s.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold hover:bg-emerald-500/30 flex items-center gap-1.5">
-                    <span class="iconify" data-icon="lucide:message-circle"></span> Send Full Fee Statement on WhatsApp
+                <button onclick="sendStudentHistoryWhatsApp('${s.id}')" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 flex items-center gap-1.5 shadow-sm transition">
+                    <span class="iconify text-base" data-icon="lucide:message-circle"></span> Send Full Fee Statement on WhatsApp
                 </button>
             </div>
         </div>
 
         <!-- TRANSACTIONS TIMELINE / LEDGER TABLE -->
-        <div class="glass rounded-xl p-4 bg-white/5 border border-white/10">
+        <div class="glass rounded-2xl p-5 bg-white border border-cream-300 shadow-sm">
             <div class="flex justify-between items-center mb-3">
                 <div>
-                    <h4 class="font-bold text-sm text-gold-400 flex items-center gap-2">
-                        <span class="iconify" data-icon="lucide:list-ordered"></span> Complete Payment Transactions History (${txns.length})
+                    <h4 class="font-black text-base text-gold-800 flex items-center gap-2">
+                        <span class="iconify text-lg text-gold-600" data-icon="lucide:list-ordered"></span> Complete Payment Transactions History (${txns.length})
                     </h4>
-                    <p class="text-[11px] text-white/50">Kab kitni payments kari thi, kis mode (Cash/UPI/Bank) se kari thi aur har receipt ka record.</p>
+                    <p class="text-xs text-slate-500 font-medium">Kab kitni payments kari thi, kis mode (Cash/UPI/Bank) se kari thi aur har receipt ka record.</p>
                 </div>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-xs">
                     <thead>
-                        <tr class="text-white/40 border-b border-white/10 text-left">
-                            <th class="pb-2.5 font-medium"># Receipt No.</th>
-                            <th class="pb-2.5 font-medium">Date Paid</th>
-                            <th class="pb-2.5 font-medium">Amount Paid (₹)</th>
-                            <th class="pb-2.5 font-medium">Payment Mode</th>
-                            <th class="pb-2.5 font-medium">Purpose / Remarks</th>
-                            <th class="pb-2.5 font-medium">Recorded By</th>
-                            <th class="pb-2.5 text-right font-medium">Official Receipt</th>
+                        <tr class="text-slate-500 font-bold uppercase border-b border-cream-200 text-left">
+                            <th class="pb-2.5 font-bold"># Receipt No.</th>
+                            <th class="pb-2.5 font-bold">Date Paid</th>
+                            <th class="pb-2.5 font-bold">Amount Paid (₹)</th>
+                            <th class="pb-2.5 font-bold">Payment Mode</th>
+                            <th class="pb-2.5 font-bold">Purpose / Remarks</th>
+                            <th class="pb-2.5 font-bold">Recorded By</th>
+                            <th class="pb-2.5 text-right font-bold">Official Receipt</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${txns.map(p => `
-                            <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                                <td class="py-3 font-mono font-bold text-gold-400">${p.receiptNo}</td>
-                                <td class="py-3 text-white/80 font-medium">${p.date}</td>
-                                <td class="py-3 font-bold text-emerald-400 text-sm">₹${Number(p.amount).toLocaleString()}</td>
+                            <tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+                                <td class="py-3 font-mono font-bold text-gold-700">${p.receiptNo}</td>
+                                <td class="py-3 text-slate-800 font-semibold">${p.date}</td>
+                                <td class="py-3 font-black text-emerald-700 text-sm">₹${Number(p.amount).toLocaleString()}</td>
                                 <td class="py-3">
-                                    <span class="px-2 py-0.5 rounded bg-white/10 text-white/90 font-medium">${p.method}</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-cream-200 text-slate-800 font-bold">${p.method}</span>
                                 </td>
-                                <td class="py-3 text-white/70">${p.note || 'School Fee'}</td>
-                                <td class="py-3 text-white/40">${p.recordedBy || 'Admin'}</td>
+                                <td class="py-3 text-slate-700 font-medium">${p.note || 'School Fee'}</td>
+                                <td class="py-3 text-slate-500">${p.recordedBy || 'Admin'}</td>
                                 <td class="py-3 text-right">
-                                    <button onclick="openReceiptModal('${p.id}')" class="px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 font-semibold hover:bg-blue-500/30 inline-flex items-center gap-1">
+                                    <button onclick="openReceiptModal('${p.id}')" class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-300 font-bold hover:bg-blue-100 inline-flex items-center gap-1 shadow-sm transition">
                                         <span class="iconify" data-icon="lucide:printer"></span> Print Receipt
                                     </button>
                                 </td>
                             </tr>
                         `).join('') || `
                             <tr>
-                                <td colspan="7" class="py-8 text-center text-white/40">
+                                <td colspan="7" class="py-8 text-center text-slate-400 font-medium">
                                     Abhi tak is student ki koi payment transaction record nahi hui hai.
                                 </td>
                             </tr>
@@ -1194,8 +1210,8 @@ function scrollToManualPay() {
     const el = document.getElementById('manual-payment-box');
     if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
-        el.classList.add('ring-2', 'ring-gold-400');
-        setTimeout(() => el.classList.remove('ring-2', 'ring-gold-400'), 1500);
+        el.classList.add('ring-2', 'ring-gold-500');
+        setTimeout(() => el.classList.remove('ring-2', 'ring-gold-500'), 1500);
     }
 }
 
@@ -1263,15 +1279,15 @@ function renderFeesTable() {
 
     table.innerHTML = `
         <thead>
-            <tr class="text-xs text-white/40 border-b border-white/10">
-                <th class="text-left pb-3 font-medium">Student Name (Click for History)</th>
-                <th class="pb-3 font-medium">Class & Roll</th>
-                <th class="pb-3 font-medium">Total Fee</th>
-                <th class="pb-3 font-medium">Paid Till Date</th>
-                <th class="pb-3 font-medium">Pending Due</th>
-                <th class="text-center pb-3 font-medium">Fee Visibility</th>
-                <th class="text-center pb-3 font-medium">WhatsApp Alert</th>
-                <th class="text-right pb-3 font-medium">Actions</th>
+            <tr class="text-xs text-slate-500 font-bold uppercase tracking-wider border-b border-cream-200">
+                <th class="text-left pb-3 font-bold">Student Name (Click for History)</th>
+                <th class="pb-3 font-bold">Class & Roll</th>
+                <th class="pb-3 font-bold">Total Fee</th>
+                <th class="pb-3 font-bold">Paid Till Date</th>
+                <th class="pb-3 font-bold">Pending Due</th>
+                <th class="text-center pb-3 font-bold">Fee Visibility</th>
+                <th class="text-center pb-3 font-bold">WhatsApp Alert</th>
+                <th class="text-right pb-3 font-bold">Actions</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -1279,45 +1295,45 @@ function renderFeesTable() {
             const sum = DB.getFeeSummary(s.id);
             const fees = DB.getFees(s.id);
             const settings = DB.getStudentSettings(s.id);
-            return `<tr class="border-b border-white/5 hover:bg-white/5 transition">
+            return `<tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
                 <td class="py-3.5 text-left font-medium">
-                    <button onclick="openStudentFeeHistoryModal('${s.id}')" class="text-left font-bold text-white hover:text-gold-400 hover:underline transition flex items-center gap-1.5 group">
+                    <button onclick="openStudentFeeHistoryModal('${s.id}')" class="text-left font-bold text-slate-900 hover:text-gold-700 hover:underline transition flex items-center gap-1.5 group">
                         <span>${s.name}</span>
-                        <span class="text-[10px] px-1.5 py-0.2 rounded bg-white/10 text-gold-400/80 group-hover:bg-gold-400/20 group-hover:text-gold-400 font-normal">📜 History</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-md bg-amber-100 text-gold-800 group-hover:bg-gold-200 font-bold">📜 History</span>
                     </button>
-                    ${fees.discountReason ? `<span class="text-[10px] text-emerald-400">🎓 ${fees.discountReason}</span>` : ''}
+                    ${fees.discountReason ? `<span class="text-[11px] text-emerald-700 font-bold">🎓 ${fees.discountReason}</span>` : ''}
                 </td>
-                <td class="py-3.5 text-white/70 text-xs">Class ${s.class} • Roll ${s.roll}</td>
-                <td class="py-3.5 text-white/80">₹${sum.total.toLocaleString()}</td>
-                <td class="py-3.5 text-emerald-400 font-semibold">₹${sum.paid.toLocaleString()}</td>
-                <td class="py-3.5 font-bold ${sum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">
+                <td class="py-3.5 text-slate-600 text-xs font-semibold">Class ${s.class} • Roll ${s.roll}</td>
+                <td class="py-3.5 text-slate-900 font-bold">₹${sum.total.toLocaleString()}</td>
+                <td class="py-3.5 text-emerald-700 font-black">₹${sum.paid.toLocaleString()}</td>
+                <td class="py-3.5 font-black ${sum.due > 0 ? 'text-red-600' : 'text-emerald-700'}">
                     ${sum.due > 0 ? '₹' + sum.due.toLocaleString() : '✅ All Paid'}
                 </td>
                 <td class="py-3.5">
-                    <button class="toggle-btn ${settings.showFees ? 'unlock-active' : 'lock-active'}" onclick="toggleFeeVis('${s.id}')">
+                    <button class="toggle-btn ${settings.showFees ? 'unlock-active' : 'lock-active'} shadow-sm" onclick="toggleFeeVis('${s.id}')">
                         ${settings.showFees ? '🔓 Visible' : '🔒 Hidden'}
                     </button>
                 </td>
                 <td class="py-3.5 text-center">
                     ${sum.due > 0 ? `
-                        <button onclick="sendAdminFeeReminderWhatsApp('${s.id}')" class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs hover:bg-emerald-500/30 inline-flex items-center gap-1">
+                        <button onclick="sendAdminFeeReminderWhatsApp('${s.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs font-bold hover:bg-emerald-100 inline-flex items-center gap-1 shadow-sm transition">
                             <span class="iconify" data-icon="lucide:message-circle"></span> Reminder
                         </button>
-                    ` : `<span class="text-emerald-400 text-xs">✅ Clear</span>`}
+                    ` : `<span class="text-emerald-700 font-bold text-xs">✅ Clear</span>`}
                 </td>
                 <td class="py-3.5 text-right space-x-1.5">
-                    <button onclick="openStudentFeeHistoryModal('${s.id}')" class="px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-semibold hover:bg-blue-500/30 inline-flex items-center gap-1">
+                    <button onclick="openStudentFeeHistoryModal('${s.id}')" class="px-2.5 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-300 text-xs font-bold hover:bg-blue-100 inline-flex items-center gap-1 shadow-sm transition">
                         <span class="iconify" data-icon="lucide:history"></span> History
                     </button>
-                    <button onclick="quickOpenPayModal('${s.id}')" class="px-2.5 py-1 rounded bg-gold-400/20 text-gold-400 border border-gold-400/30 text-xs font-semibold hover:bg-gold-400/30">
+                    <button onclick="quickOpenPayModal('${s.id}')" class="px-2.5 py-1.5 rounded-xl bg-gold-100 text-gold-900 border border-gold-300 text-xs font-bold hover:bg-gold-200 shadow-sm transition">
                         💰 Pay
                     </button>
-                    <button onclick="openFeeOverride('${s.id}')" class="text-xs text-blue-400 hover:underline">
+                    <button onclick="openFeeOverride('${s.id}')" class="text-xs text-gold-700 font-bold hover:underline">
                         🎓 Discount
                     </button>
                 </td>
             </tr>`;
-        }).join('') || `<tr><td colspan="8" class="py-8 text-white/30">No students matched the filter.</td></tr>`}
+        }).join('') || `<tr><td colspan="8" class="py-8 text-slate-400">No students matched the filter.</td></tr>`}
         </tbody>
     `;
 }
@@ -1327,31 +1343,31 @@ function renderUTRQueue() {
     const box = document.getElementById('utr-approval-queue');
     if (!box) return;
     if (proofs.length === 0) {
-        box.innerHTML = `<p class="text-white/30 text-xs py-2">No pending online payment proofs right now.</p>`;
+        box.innerHTML = `<p class="text-slate-400 text-xs py-2">No pending online payment proofs right now.</p>`;
         return;
     }
     box.innerHTML = proofs.map(p => {
         const s = DB.getStudentById(p.studentId);
         const name = s ? s.name + ' (' + s.class + ')' : p.studentId;
         return `
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-3 rounded-lg bg-white/5 gap-3">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-3.5 rounded-2xl bg-cream-50 border border-cream-200 gap-3 shadow-sm">
                 <div>
-                    <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="text-left font-semibold text-sm text-white hover:text-gold-400 hover:underline">
+                    <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="text-left font-bold text-sm text-slate-900 hover:text-gold-700 hover:underline">
                         ${name} 📜
                     </button>
-                    <span class="text-gold-400 font-bold ml-2">₹${p.amount.toLocaleString()}</span>
-                    <p class="text-xs text-white/60 mt-0.5">UTR / Txn ID: <code class="bg-black/30 px-1.5 py-0.5 rounded text-emerald-300">${p.utr}</code> • Submitted: ${(p.submittedAt || '').slice(0, 10)}</p>
+                    <span class="text-emerald-700 font-black ml-2">₹${p.amount.toLocaleString()}</span>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">UTR / Txn ID: <code class="bg-white border border-slate-300 px-1.5 py-0.5 rounded font-bold text-emerald-800">${p.utr}</code> • Submitted: ${(p.submittedAt || '').slice(0, 10)}</p>
                 </div>
                 <div class="flex items-center gap-2">
                     ${p.status === 'pending' ? `
-                        <button onclick="handleApproveUTR('${p.id}', true)" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold hover:bg-emerald-500/30 flex items-center gap-1">
+                        <button onclick="handleApproveUTR('${p.id}', true)" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 flex items-center gap-1 shadow-sm transition">
                             <span class="iconify" data-icon="lucide:check"></span> Approve & Generate Receipt
                         </button>
-                        <button onclick="handleApproveUTR('${p.id}', false)" class="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-semibold hover:bg-red-500/30 flex items-center gap-1">
+                        <button onclick="handleApproveUTR('${p.id}', false)" class="px-3.5 py-1.5 rounded-xl bg-red-100 text-red-800 border border-red-300 text-xs font-bold hover:bg-red-200 flex items-center gap-1 shadow-sm transition">
                             <span class="iconify" data-icon="lucide:x"></span> Reject
                         </button>
                     ` : `
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${p.status === 'verified' ? 'bg-emerald-400/20 text-emerald-400' : 'bg-red-400/20 text-red-400'}">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${p.status === 'verified' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'} shadow-sm">
                             ${p.status === 'verified' ? '✅ Approved' : '❌ Rejected'}
                         </span>
                     `}
@@ -1425,49 +1441,49 @@ function renderPaymentLedger() {
 
     table.innerHTML = `
         <thead>
-            <tr class="text-xs text-white/40 border-b border-white/10">
-                <th class="text-left pb-3 font-medium">Receipt No.</th>
-                <th class="text-left pb-3 font-medium">Student (Click for History)</th>
-                <th class="pb-3 font-medium">Amount Paid</th>
-                <th class="pb-3 font-medium">Mode</th>
-                <th class="pb-3 font-medium">Date</th>
-                <th class="text-left pb-3 font-medium">Purpose / Note</th>
-                <th class="text-right pb-3 font-medium">Actions</th>
+            <tr class="text-xs text-slate-500 font-bold uppercase tracking-wider border-b border-cream-200">
+                <th class="text-left pb-3 font-bold">Receipt No.</th>
+                <th class="text-left pb-3 font-bold">Student (Click for History)</th>
+                <th class="pb-3 font-bold">Amount Paid</th>
+                <th class="pb-3 font-bold">Mode</th>
+                <th class="pb-3 font-bold">Date</th>
+                <th class="text-left pb-3 font-bold">Purpose / Note</th>
+                <th class="text-right pb-3 font-bold">Actions</th>
             </tr>
         </thead>
         <tbody class="text-center">
             ${payments.map(p => {
                 const s = DB.getStudentById(p.studentId);
                 return `
-                <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                    <td class="py-3.5 text-left font-mono font-bold text-gold-400">${p.receiptNo}</td>
+                <tr class="border-b border-cream-200 hover:bg-amber-500/5 transition">
+                    <td class="py-3.5 text-left font-mono font-bold text-gold-700">${p.receiptNo}</td>
                     <td class="py-3.5 text-left">
-                        <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="text-left font-bold text-white hover:text-gold-400 hover:underline transition block group">
+                        <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="text-left font-bold text-slate-900 hover:text-gold-700 hover:underline transition block group">
                             <span class="group-hover:underline">${s ? s.name : p.studentId}</span>
-                            <span class="text-[10px] text-gold-400 ml-1">📜</span>
+                            <span class="text-[10px] text-gold-700 ml-1">📜</span>
                         </button>
-                        <span class="text-[11px] text-white/40">Class ${s ? s.class : '—'} • Roll ${s ? s.roll : '—'}</span>
+                        <span class="text-xs text-slate-500 font-medium">Class ${s ? s.class : '—'} • Roll ${s ? s.roll : '—'}</span>
                     </td>
-                    <td class="py-3.5 font-bold text-emerald-400">₹${Number(p.amount).toLocaleString()}</td>
-                    <td class="py-3.5 text-xs text-white/70">
-                        <span class="px-2 py-0.5 rounded bg-white/10">${p.method}</span>
+                    <td class="py-3.5 font-black text-emerald-700">₹${Number(p.amount).toLocaleString()}</td>
+                    <td class="py-3.5 text-xs">
+                        <span class="px-2.5 py-1 rounded-md bg-cream-200 text-slate-800 font-bold">${p.method}</span>
                     </td>
-                    <td class="py-3.5 text-xs text-white/50">${p.date}</td>
-                    <td class="py-3.5 text-left text-xs text-white/70">${p.note || 'School Fee'}</td>
+                    <td class="py-3.5 text-xs text-slate-500 font-medium">${p.date}</td>
+                    <td class="py-3.5 text-left text-xs text-slate-700 font-medium">${p.note || 'School Fee'}</td>
                     <td class="py-3.5 text-right space-x-1.5">
-                        <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="px-2.5 py-1 rounded bg-gold-400/20 text-gold-400 border border-gold-400/30 text-xs font-semibold hover:bg-gold-400/30 inline-flex items-center gap-1">
+                        <button onclick="openStudentFeeHistoryModal('${p.studentId}')" class="px-2.5 py-1.5 rounded-xl bg-gold-100 text-gold-900 border border-gold-300 text-xs font-bold hover:bg-gold-200 inline-flex items-center gap-1 shadow-sm transition">
                             <span class="iconify" data-icon="lucide:history"></span> History
                         </button>
-                        <button onclick="openReceiptModal('${p.id}')" class="px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-semibold hover:bg-blue-500/30 inline-flex items-center gap-1">
+                        <button onclick="openReceiptModal('${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-300 text-xs font-bold hover:bg-blue-100 inline-flex items-center gap-1 shadow-sm transition">
                             <span class="iconify" data-icon="lucide:printer"></span> Receipt
                         </button>
-                        <button onclick="deletePaymentRecord('${p.id}')" class="text-xs text-red-400 hover:underline">
+                        <button onclick="deletePaymentRecord('${p.id}')" class="text-xs text-red-600 font-bold hover:underline">
                             🗑
                         </button>
                     </td>
                 </tr>
                 `;
-            }).join('') || `<tr><td colspan="7" class="py-8 text-white/30">No payments found in ledger.</td></tr>`}
+            }).join('') || `<tr><td colspan="7" class="py-8 text-slate-400">No payments found in ledger.</td></tr>`}
         </tbody>
     `;
 }
@@ -1493,32 +1509,32 @@ function openReceiptModal(paymentId) {
     if (!modal) return;
     
     document.getElementById('receipt-content-body').innerHTML = `
-        <div id="receipt-printable-area" class="bg-slate-900 border-2 border-gold-400/40 rounded-2xl p-6 text-white max-w-2xl mx-auto shadow-2xl relative">
-            <div class="border-b-2 border-gold-400 pb-4 mb-4 flex justify-between items-center">
+        <div id="receipt-printable-area" class="bg-white border-2 border-gold-400 rounded-2xl p-6 text-slate-900 max-w-2xl mx-auto shadow-2xl relative">
+            <div class="border-b-2 border-gold-500 pb-4 mb-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" class="w-14 h-14 rounded-full object-contain">
+                    <img src="https://z-cdn-media.chatglm.cn/files/86ea5126-69b9-4081-b946-64aa0a44bd93.png?auth_key=1886449124-077c5874f267495baec4b40eaeb6d993-0-a4f5d6545971547cd066013f776aca37" class="w-14 h-14 rounded-full object-contain bg-white shadow-sm">
                     <div>
-                        <h2 class="text-xl font-black text-gold-400 uppercase tracking-tight">${settings.name || 'New Sanskar Academy'}</h2>
-                        <p class="text-xs text-white/70">Higher Secondary School • ${settings.address || 'Dhannad Khurd, Pithampur'}</p>
-                        <p class="text-[11px] text-white/50">Ph: ${settings.phone || '9876543210'} • Official Fee Receipt</p>
+                        <h2 class="text-xl font-black text-slate-900 uppercase tracking-tight">${settings.name || 'New Sanskar Academy'}</h2>
+                        <p class="text-xs text-slate-600 font-medium">Higher Secondary School • ${settings.address || 'Dhannad Khurd, Pithampur'}</p>
+                        <p class="text-[11px] text-slate-500">Ph: ${settings.phone || '9876543210'} • Official Fee Receipt</p>
                     </div>
                 </div>
                 <div class="text-right">
-                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-bold uppercase tracking-wider">PAID</span>
-                    <p class="text-xs font-mono text-white/70 mt-2">Receipt: <strong class="text-gold-400">${p.receiptNo}</strong></p>
-                    <p class="text-xs text-white/50">Date: ${p.date || new Date().toISOString().slice(0, 10)}</p>
+                    <span class="px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">PAID</span>
+                    <p class="text-xs font-mono text-slate-600 mt-2">Receipt: <strong class="text-gold-700">${p.receiptNo}</strong></p>
+                    <p class="text-xs text-slate-500">Date: ${p.date || new Date().toISOString().slice(0, 10)}</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-white/5 p-3 rounded-xl mb-4 text-xs">
-                <div><span class="text-white/40 block">Student Name:</span><strong class="text-sm text-white">${s.name}</strong></div>
-                <div><span class="text-white/40 block">Class & Roll:</span><strong class="text-white">Class ${s.class}, Roll ${s.roll}</strong></div>
-                <div><span class="text-white/40 block">Student ID:</span><strong class="text-white">${s.id}</strong></div>
-                <div><span class="text-white/40 block">Father's Name:</span><strong class="text-white">${s.father || '—'}</strong></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-cream-50 border border-cream-200 p-3.5 rounded-xl mb-4 text-xs">
+                <div><span class="text-slate-500 font-semibold block">Student Name:</span><strong class="text-sm text-slate-900">${s.name}</strong></div>
+                <div><span class="text-slate-500 font-semibold block">Class & Roll:</span><strong class="text-slate-900">Class ${s.class}, Roll ${s.roll}</strong></div>
+                <div><span class="text-slate-500 font-semibold block">Student ID:</span><strong class="text-slate-900">${s.id}</strong></div>
+                <div><span class="text-slate-500 font-semibold block">Father's Name:</span><strong class="text-slate-900">${s.father || '—'}</strong></div>
             </div>
 
-            <table class="w-full text-sm mb-4 border border-white/10 rounded-lg overflow-hidden">
-                <thead class="bg-white/10 text-xs text-gold-400">
+            <table class="w-full text-sm mb-4 border border-cream-300 rounded-xl overflow-hidden">
+                <thead class="bg-cream-100 text-xs text-slate-800 font-bold">
                     <tr>
                         <th class="text-left p-2.5">Description / Purpose</th>
                         <th class="p-2.5">Payment Mode</th>
@@ -1526,31 +1542,31 @@ function openReceiptModal(paymentId) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-t border-white/10">
+                    <tr class="border-t border-cream-200">
                         <td class="p-3">
-                            <span class="font-medium text-white">${p.note || 'School Fee Payment'}</span>
-                            <span class="block text-[11px] text-white/40">Txn Ref: ${p.id}</span>
+                            <span class="font-bold text-slate-900">${p.note || 'School Fee Payment'}</span>
+                            <span class="block text-[11px] text-slate-500">Txn Ref: ${p.id}</span>
                         </td>
-                        <td class="p-3 text-center text-white/80 font-medium">${p.method}</td>
-                        <td class="p-3 text-right font-bold text-emerald-400 text-base">₹${Number(p.amount).toLocaleString()}</td>
+                        <td class="p-3 text-center text-slate-800 font-bold">${p.method}</td>
+                        <td class="p-3 text-right font-black text-emerald-700 text-base">₹${Number(p.amount).toLocaleString()}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="grid grid-cols-3 gap-2 bg-white/5 p-3 rounded-xl mb-6 text-xs text-center">
-                <div><span class="text-white/40 block">Total Annual Fee</span><strong>₹${sum.total.toLocaleString()}</strong></div>
-                <div><span class="text-white/40 block">Total Paid Till Date</span><strong class="text-emerald-400">₹${sum.paid.toLocaleString()}</strong></div>
-                <div><span class="text-white/40 block">Remaining Balance</span><strong class="${sum.due > 0 ? 'text-red-400' : 'text-emerald-400'}">₹${sum.due.toLocaleString()}</strong></div>
+            <div class="grid grid-cols-3 gap-2 bg-cream-50 border border-cream-200 p-3 rounded-xl mb-6 text-xs text-center">
+                <div><span class="text-slate-500 block font-semibold">Total Annual Fee</span><strong class="text-slate-900">₹${sum.total.toLocaleString()}</strong></div>
+                <div><span class="text-slate-500 block font-semibold">Total Paid Till Date</span><strong class="text-emerald-700">₹${sum.paid.toLocaleString()}</strong></div>
+                <div><span class="text-slate-500 block font-semibold">Remaining Balance</span><strong class="${sum.due > 0 ? 'text-red-600' : 'text-emerald-700'}">₹${sum.due.toLocaleString()}</strong></div>
             </div>
 
-            <div class="flex justify-between items-end pt-4 border-t border-white/10 text-xs text-white/40">
+            <div class="flex justify-between items-end pt-4 border-t border-cream-200 text-xs text-slate-500">
                 <div>
-                    <p>Computer Generated Official Receipt</p>
+                    <p class="font-medium text-slate-700">Computer Generated Official Receipt</p>
                     <p class="text-[10px]">No physical signature required • Issued by School Accounts Dept</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-28 h-10 border-b border-dashed border-white/30 mb-1"></div>
-                    <p class="text-[10px] text-gold-400 font-semibold uppercase">Authorized Signatory</p>
+                    <div class="w-28 h-10 border-b border-dashed border-slate-400 mb-1"></div>
+                    <p class="text-[10px] text-gold-700 font-bold uppercase">Authorized Signatory</p>
                 </div>
             </div>
         </div>
@@ -1571,43 +1587,43 @@ function printReceipt() {
 function renderNewsTab() {
     const classes = DB.getClasses();
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">News & Updates</h2>
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">News & Updates</h2>
         <div class="grid lg:grid-cols-3 gap-6 mb-6">
-            <div class="lg:col-span-2 glass rounded-xl p-6 card-hover border-l-4 border-gold-400">
-                <h3 class="font-bold text-lg mb-4">📢 Post New Update</h3>
+            <div class="lg:col-span-2 glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-4">📢 Post New Update</h3>
                 <div class="space-y-4">
-                    <input id="nf-title" type="text" placeholder="Title: e.g., Annual Day Celebration">
-                    <textarea id="nf-desc" rows="3" placeholder="Description..."></textarea>
+                    <input id="nf-title" type="text" placeholder="Title: e.g., Annual Day Celebration" class="bg-white border-slate-300 text-slate-900 font-semibold">
+                    <textarea id="nf-desc" rows="3" placeholder="Description..." class="bg-white border-slate-300 text-slate-900"></textarea>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label class="text-xs text-white/50 mb-1 block">Category</label><select id="nf-cat"><option value="event">Event</option><option value="urgent">Urgent</option><option value="academic">Academic</option><option value="general">General</option></select></div>
-                        <div><label class="text-xs text-white/50 mb-1 block">Target Audience</label><select id="nf-audience"><option value="all">Everyone</option><option value="students_only">Students Only</option><option value="staff_only">Staff Only</option></select></div>
+                        <div><label class="text-xs font-bold text-slate-700 mb-1 block">Category</label><select id="nf-cat" class="bg-white border-slate-300 text-slate-900 font-medium"><option value="event">Event</option><option value="urgent">Urgent</option><option value="academic">Academic</option><option value="general">General</option></select></div>
+                        <div><label class="text-xs font-bold text-slate-700 mb-1 block">Target Audience</label><select id="nf-audience" class="bg-white border-slate-300 text-slate-900 font-medium"><option value="all">Everyone</option><option value="students_only">Students Only</option><option value="staff_only">Staff Only</option></select></div>
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Target Classes</label>
-                        <div class="flex flex-wrap gap-3 p-2">
-                            <label class="text-xs flex items-center gap-1"><input type="checkbox" id="nf-all-classes" checked onchange="toggleClassChecks()" class="w-auto"> All Classes</label>
-                            ${classes.map(c => `<label class="text-xs flex items-center gap-1"><input type="checkbox" class="nf-class-check w-auto" disabled value="${c}"> ${c}</label>`).join('')}
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Target Classes</label>
+                        <div class="flex flex-wrap gap-3 p-2 bg-cream-50 rounded-xl border border-cream-200">
+                            <label class="text-xs font-bold text-slate-800 flex items-center gap-1"><input type="checkbox" id="nf-all-classes" checked onchange="toggleClassChecks()" class="w-auto"> All Classes</label>
+                            ${classes.map(c => `<label class="text-xs font-medium text-slate-700 flex items-center gap-1"><input type="checkbox" class="nf-class-check w-auto" disabled value="${c}"> ${c}</label>`).join('')}
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label class="text-xs text-white/50 mb-1 block">Show From</label><input id="nf-from" type="date"></div>
-                        <div><label class="text-xs text-white/50 mb-1 block">Hide After (optional)</label><input id="nf-until" type="date"></div>
+                        <div><label class="text-xs font-bold text-slate-700 mb-1 block">Show From</label><input id="nf-from" type="date" class="bg-white border-slate-300 text-slate-900 font-medium"></div>
+                        <div><label class="text-xs font-bold text-slate-700 mb-1 block">Hide After (optional)</label><input id="nf-until" type="date" class="bg-white border-slate-300 text-slate-900 font-medium"></div>
                     </div>
-                    <label class="text-xs flex items-center gap-2"><input id="nf-pin" type="checkbox" class="w-auto"> Pin to top</label>
+                    <label class="text-xs font-bold text-slate-800 flex items-center gap-2"><input id="nf-pin" type="checkbox" class="w-auto"> Pin to top</label>
                     <div class="flex gap-3">
-                        <button onclick="publishNotice()" class="btn-gold px-6 py-2 rounded-lg text-sm">✅ Publish Update</button>
-                        <button onclick="resetNoticeForm()" class="px-6 py-2 rounded-lg text-sm border border-white/10 text-white/60">Clear</button>
+                        <button onclick="publishNotice()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold shadow-md">✅ Publish Update</button>
+                        <button onclick="resetNoticeForm()" class="px-6 py-2.5 rounded-xl text-sm font-semibold border border-slate-300 bg-white text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                 </div>
             </div>
-            <div class="glass rounded-xl p-6 card-hover">
-                <h3 class="font-bold text-sm mb-4">⚡ Quick Actions</h3>
+            <div class="glass rounded-2xl p-6 card-hover border border-cream-300 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-sm mb-4">⚡ Quick Actions</h3>
                 <div class="space-y-2">
-                    <button onclick="quickFeeReminder()" class="w-full p-3 bg-white/5 text-white/70 rounded-lg text-xs hover:bg-white/10 text-left">📢 Send fee reminder to all students</button>
+                    <button onclick="quickFeeReminder()" class="w-full p-3.5 bg-cream-100 hover:bg-cream-200 text-slate-800 rounded-xl text-xs font-bold text-left border border-cream-200 shadow-sm transition">📢 Send fee reminder to all students</button>
                 </div>
             </div>
         </div>
-        <h3 class="font-bold text-lg mb-4">📢 Published Updates</h3>
+        <h3 class="font-black text-slate-900 text-lg mb-4">📢 Published Updates</h3>
         <div id="notices-list-admin" class="space-y-4"></div>
     `;
     document.getElementById('nf-from').value = todayISO();
@@ -1674,21 +1690,21 @@ function renderNoticesListAdmin() {
         const statusLabel = status === 'visible' ? '✅ Currently Visible' : status === 'scheduled' ? '⏳ Scheduled' : '⏹ Expired';
         const targetLabel = n.targetClasses[0] === 'ALL' ? 'All Classes' : n.targetClasses.join(', ');
         const audienceLabel = { all: '+ Staff & Students', students_only: '(Students only)', staff_only: '(Staff only)' }[n.targetAudience] || '';
-        return `<div class="glass rounded-xl p-5 card-hover ${n.isPinned ? 'border-l-4 border-gold-400' : ''}">
+        return `<div class="glass rounded-2xl p-5 card-hover border border-cream-300 shadow-sm ${n.isPinned ? 'border-l-4 border-l-gold-500' : ''}">
             <div class="flex justify-between items-start mb-2 flex-wrap gap-2">
-                <h4 class="font-bold flex items-center gap-2">📢 ${n.title} ${n.isPinned ? '<span class="text-gold-400 text-xs">📌 Pinned</span>' : ''}</h4>
-                <span class="text-xs text-white/40">${(n.createdAt || '').slice(0, 10)}</span>
+                <h4 class="font-bold text-slate-900 flex items-center gap-2">📢 ${n.title} ${n.isPinned ? '<span class="text-gold-700 text-xs font-bold">📌 Pinned</span>' : ''}</h4>
+                <span class="text-xs text-slate-500 font-semibold">${(n.createdAt || '').slice(0, 10)}</span>
             </div>
-            <p class="text-white/70 text-sm mb-2">${n.desc || ''}</p>
-            <p class="text-xs text-white/40">👁 For: ${targetLabel} ${audienceLabel}</p>
-            <p class="text-xs text-white/40">📅 Visible: ${(n.visibleFrom || '').slice(0, 10)} → ${n.visibleUntil ? n.visibleUntil.slice(0, 10) : 'Forever'}</p>
-            <p class="text-xs mt-1" style="color:${status === 'visible' ? '#34d399' : status === 'scheduled' ? '#fbbf24' : '#94a3b8'}">${statusLabel}</p>
+            <p class="text-slate-600 text-sm mb-2 leading-relaxed">${n.desc || ''}</p>
+            <p class="text-xs text-slate-500 font-medium">👁 For: <strong>${targetLabel} ${audienceLabel}</strong></p>
+            <p class="text-xs text-slate-500 font-medium">📅 Visible: ${(n.visibleFrom || '').slice(0, 10)} → ${n.visibleUntil ? n.visibleUntil.slice(0, 10) : 'Forever'}</p>
+            <p class="text-xs font-bold mt-1" style="color:${status === 'visible' ? '#047857' : status === 'scheduled' ? '#b45309' : '#64748b'}">${statusLabel}</p>
             <div class="flex gap-3 mt-3">
-                <button onclick="togglePin('${n.id}')" class="text-xs text-blue-400 hover:underline">${n.isPinned ? 'Unpin' : '📌 Pin'}</button>
-                <button onclick="removeNotice('${n.id}')" class="text-xs text-red-400 hover:underline">🗑 Delete</button>
+                <button onclick="togglePin('${n.id}')" class="text-xs text-gold-700 font-bold hover:underline">${n.isPinned ? 'Unpin' : '📌 Pin'}</button>
+                <button onclick="removeNotice('${n.id}')" class="text-xs text-red-600 font-bold hover:underline">🗑 Delete</button>
             </div>
         </div>`;
-    }).join('') || `<p class="text-white/30 text-center py-8">No notices posted yet.</p>`;
+    }).join('') || `<p class="text-slate-400 text-center py-8">No notices posted yet.</p>`;
 }
 
 function togglePin(id) { DB.togglePinNotice(id); renderNoticesListAdmin(); }
@@ -1697,11 +1713,11 @@ function removeNotice(id) { if (!confirm('Delete this notice?')) return; DB.dele
 /* ================= TAB: CHAT MONITOR (read only) ================= */
 function renderChatTab() {
     main.innerHTML = `
-        <h2 class="text-2xl font-bold mb-6">Chat Monitor <span class="text-sm text-white/40 font-normal">(Read Only)</span></h2>
+        <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-tight">Chat Monitor <span class="text-sm text-slate-500 font-normal">(Read Only)</span></h2>
         <div class="grid md:grid-cols-3 gap-6">
-            <div id="chat-monitor-list" class="glass rounded-xl p-4 card-hover space-y-2 md:col-span-1"></div>
-            <div class="glass rounded-xl p-6 card-hover md:col-span-2">
-                <div id="chat-monitor-header" class="text-white/40 text-sm mb-4 pb-4 border-b border-white/10">Select a conversation to view</div>
+            <div id="chat-monitor-list" class="glass rounded-2xl p-4 card-hover space-y-2 md:col-span-1 border border-cream-300 shadow-sm"></div>
+            <div class="glass rounded-2xl p-6 card-hover md:col-span-2 border border-cream-300 shadow-sm">
+                <div id="chat-monitor-header" class="text-slate-500 font-medium text-sm mb-4 pb-4 border-b border-cream-200">Select a conversation to view</div>
                 <div id="chat-monitor-messages" class="chat-container"></div>
             </div>
         </div>
@@ -1712,27 +1728,27 @@ function renderChatTab() {
 function renderChatMonitorList() {
     const chats = DB.getAllChatsSummary();
     document.getElementById('chat-monitor-list').innerHTML = chats.map(c => `
-        <div class="p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer" onclick="viewChatMonitor('${c.teacherId}','${c.studentId}')">
+        <div class="p-3.5 rounded-xl bg-white border border-cream-200 hover:bg-cream-100 cursor-pointer shadow-sm transition" onclick="viewChatMonitor('${c.teacherId}','${c.studentId}')">
             <div class="flex justify-between items-center">
-                <span class="font-medium text-sm">${c.studentName} ↔ ${c.teacherName}</span>
-                ${c.unreadByStaff ? '<span class="w-2 h-2 rounded-full bg-red-400"></span>' : ''}
+                <span class="font-bold text-sm text-slate-900">${c.studentName} ↔ ${c.teacherName}</span>
+                ${c.unreadByStaff ? '<span class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm"></span>' : ''}
             </div>
-            <p class="text-xs text-white/40 mt-1 truncate">${c.lastMsg}</p>
+            <p class="text-xs text-slate-500 mt-1 truncate">${c.lastMsg}</p>
         </div>
-    `).join('') || `<p class="text-white/30 text-center py-4">No conversations yet.</p>`;
+    `).join('') || `<p class="text-slate-400 text-center py-4">No conversations yet.</p>`;
 }
 
 function viewChatMonitor(teacherId, studentId) {
     const student = DB.getStudentById(studentId);
     const teacher = DB.getTeacherById(teacherId);
-    document.getElementById('chat-monitor-header').innerHTML = `<span class="text-white">${student ? student.name : studentId} (Class ${student ? student.class : '—'}) ↔ ${teacher ? teacher.name : teacherId}</span>`;
+    document.getElementById('chat-monitor-header').innerHTML = `<span class="font-bold text-slate-900">${student ? student.name : studentId} (Class ${student ? student.class : '—'}) ↔ ${teacher ? teacher.name : teacherId}</span>`;
     const msgs = DB.getChat(teacherId, studentId);
     document.getElementById('chat-monitor-messages').innerHTML = msgs.map(m => `
-        <div class="${m.from === 'teacher' ? 'msg-teacher' : 'msg-parent'}">
-            <p class="text-xs ${m.from === 'teacher' ? 'text-emerald-400' : 'text-gold-400'} mb-1">${m.from === 'teacher' ? 'Teacher' : 'Parent'} (${new Date(m.time).toLocaleString()})</p>
-            <p class="text-sm text-white/80">${m.msg}</p>
+        <div class="${m.from === 'teacher' ? 'msg-teacher' : 'msg-parent'} shadow-sm">
+            <p class="text-xs ${m.from === 'teacher' ? 'text-emerald-800' : 'text-amber-900'} font-bold mb-1">${m.from === 'teacher' ? 'Teacher' : 'Parent'} (${new Date(m.time).toLocaleString()})</p>
+            <p class="text-sm text-slate-900 font-normal leading-relaxed">${m.msg}</p>
         </div>
-    `).join('') || `<p class="text-white/30 text-center py-4">No messages.</p>`;
+    `).join('') || `<p class="text-slate-400 text-center py-4">No messages.</p>`;
 }
 
 /* ================= TAB: WEBSITE MANAGER (CMS) ================= */
@@ -1751,38 +1767,38 @@ function renderWebsiteTab() {
     main.innerHTML = `
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
-                <h2 class="text-2xl font-bold">Public Website Manager (Full CMS)</h2>
-                <p class="text-xs text-white/50 mt-1">Yahan se aap main website (index.html) ka har section, photo, text, numbers aur contact bina code chhue live change kar sakte hain. (Photo ko apne computer/phone se drag-and-drop ya select karein).</p>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Public Website Manager (Full CMS)</h2>
+                <p class="text-xs text-slate-500 font-medium mt-1">Yahan se aap main website (index.html) ka har section, photo, text, numbers aur contact bina code chhue live change kar sakte hain. (Photo ko apne computer/phone se drag-and-drop ya select karein).</p>
             </div>
-            <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-gold-400/20 text-gold-400 border border-gold-400/30 text-xs font-semibold hover:bg-gold-400/30 flex items-center gap-2 w-fit">
+            <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-gold-50 text-gold-800 border border-gold-300 text-xs font-bold hover:bg-gold-100 flex items-center gap-2 w-fit shadow-sm transition">
                 <span class="iconify text-base" data-icon="lucide:external-link"></span> Open Public Website
             </a>
         </div>
 
         <!-- CMS Sub-navigation tabs -->
-        <div class="flex flex-wrap gap-2 mb-6 pb-2 border-b border-white/10">
-            <button onclick="setCmsTab('hero')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='hero' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+        <div class="flex flex-wrap gap-2 mb-6 pb-2 border-b border-cream-200">
+            <button onclick="setCmsTab('hero')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='hero' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 🌟 Hero & Branding
             </button>
-            <button onclick="setCmsTab('stats')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='stats' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('stats')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='stats' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 📊 Counter Stats
             </button>
-            <button onclick="setCmsTab('about')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='about' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('about')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='about' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 📖 About Us
             </button>
-            <button onclick="setCmsTab('faculty')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='faculty' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('faculty')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='faculty' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 👨‍🏫 Faculty & Teachers
             </button>
-            <button onclick="setCmsTab('facilities')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='facilities' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('facilities')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='facilities' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 🏛️ Facilities
             </button>
-            <button onclick="setCmsTab('contact')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='contact' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('contact')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='contact' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 📞 Contact & Address
             </button>
-            <button onclick="setCmsTab('upi')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='upi' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('upi')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='upi' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 💳 School 0% UPI
             </button>
-            <button onclick="setCmsTab('gallery')" class="px-4 py-2 rounded-lg text-xs font-semibold transition ${activeCmsTab==='gallery' ? 'bg-gold-400 text-navy-900 font-bold' : 'bg-white/5 text-white/70 hover:bg-white/10'}">
+            <button onclick="setCmsTab('gallery')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeCmsTab==='gallery' ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-slate-950 shadow-sm' : 'bg-white border border-cream-200 text-slate-700 hover:bg-cream-100'}">
                 🖼️ Photo Gallery
             </button>
         </div>
@@ -1844,73 +1860,73 @@ function renderCmsSection(c, g, s) {
     if (activeCmsTab === 'hero') {
         container.innerHTML = `
             <div class="grid lg:grid-cols-2 gap-6">
-                <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 space-y-4">
-                    <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                        <span class="iconify text-gold-400" data-icon="lucide:sparkles"></span> Hero Headlines & Texts
+                <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                        <span class="iconify text-gold-600" data-icon="lucide:sparkles"></span> Hero Headlines & Texts
                     </h3>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">School Title (Main Name)</label>
-                        <input id="cms-hero-title" type="text" value="${c.title || 'New Sanskar Academy'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">School Title (Main Name)</label>
+                        <input id="cms-hero-title" type="text" value="${c.title || 'New Sanskar Academy'}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">School Subtitle / Category</label>
-                        <input id="cms-hero-sub" type="text" value="${c.subtitle || 'Higher Secondary School'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">School Subtitle / Category</label>
+                        <input id="cms-hero-sub" type="text" value="${c.subtitle || 'Higher Secondary School'}" class="bg-white border-slate-300 text-slate-900 font-medium">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Admission Open Badge Text</label>
-                        <input id="cms-hero-badge" type="text" value="${c.badge || 'Admission Open 2025-26'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Admission Open Badge Text</label>
+                        <input id="cms-hero-badge" type="text" value="${c.badge || 'Admission Open 2025-26'}" class="bg-white border-slate-300 text-slate-900 font-medium">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">School Slogan / Motto</label>
-                        <input id="cms-hero-motto" type="text" value="${c.motto || 'Knowledge is Power, Education is Life'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">School Slogan / Motto</label>
+                        <input id="cms-hero-motto" type="text" value="${c.motto || 'Knowledge is Power, Education is Life'}" class="bg-white border-slate-300 text-slate-900 font-medium">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Hero Main Description Paragraph</label>
-                        <textarea id="cms-hero-desc" rows="3">${c.heroDesc || ''}</textarea>
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Hero Main Description Paragraph</label>
+                        <textarea id="cms-hero-desc" rows="3" class="bg-white border-slate-300 text-slate-900">${c.heroDesc || ''}</textarea>
                     </div>
-                    <button onclick="saveCmsHero()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                    <button onclick="saveCmsHero()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                         <span class="iconify" data-icon="lucide:save"></span> Save Hero Section
                     </button>
                 </div>
 
-                <div class="glass rounded-xl p-6 card-hover border-l-4 border-emerald-400 space-y-5">
-                    <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                        <span class="iconify text-emerald-400" data-icon="lucide:image"></span> School Logos & Hero Building Photo (Upload or Drag & Drop)
+                <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-emerald-500 border-cream-300 space-y-5 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                        <span class="iconify text-emerald-600" data-icon="lucide:image"></span> School Logos & Hero Building Photo (Upload or Drag & Drop)
                     </h3>
                     
                     <!-- School Logo -->
                     <div>
-                        <label class="text-xs text-white/70 font-semibold mb-1 block">1. School Logo Image</label>
+                        <label class="text-xs text-slate-800 font-bold mb-1 block">1. School Logo Image</label>
                         <div id="dropzone-logo" class="drop-zone mb-2">
-                            <span class="iconify text-2xl text-gold-400 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
-                            <p class="text-xs text-white/80 font-medium">Click or Drag & Drop Logo Image from PC/Phone</p>
-                            <p class="text-[10px] text-white/40">PNG, JPG, SVG supported</p>
+                            <span class="iconify text-2xl text-gold-600 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
+                            <p class="text-xs text-slate-800 font-bold">Click or Drag & Drop Logo Image from PC/Phone</p>
+                            <p class="text-[10px] text-slate-500">PNG, JPG, SVG supported</p>
                         </div>
                         <input type="file" id="file-logo" accept="image/*" class="hidden">
-                        <input id="cms-logo-url" type="text" value="${c.logoUrl || ''}" placeholder="Or paste image URL" class="text-xs">
+                        <input id="cms-logo-url" type="text" value="${c.logoUrl || ''}" placeholder="Or paste image URL" class="text-xs bg-white border-slate-300 text-slate-900">
                         <div class="mt-2 flex items-center gap-3">
-                            <img id="preview-logo" src="${c.logoUrl || ''}" class="w-12 h-12 rounded-full object-contain bg-white/5 p-1 border border-white/10" onerror="this.src='https://via.placeholder.com/100?text=Logo'">
-                            <span class="text-xs text-white/40">Live logo preview</span>
+                            <img id="preview-logo" src="${c.logoUrl || ''}" class="w-12 h-12 rounded-full object-contain bg-white p-1 border border-cream-300 shadow-sm" onerror="this.src='https://via.placeholder.com/100?text=Logo'">
+                            <span class="text-xs text-slate-500 font-medium">Live logo preview</span>
                         </div>
                     </div>
 
                     <!-- School Hero Building Photo -->
-                    <div class="pt-3 border-t border-white/10">
-                        <label class="text-xs text-white/70 font-semibold mb-1 block">2. Hero School Building Photo</label>
+                    <div class="pt-3 border-t border-cream-200">
+                        <label class="text-xs text-slate-800 font-bold mb-1 block">2. Hero School Building Photo</label>
                         <div id="dropzone-hero" class="drop-zone mb-2">
-                            <span class="iconify text-2xl text-gold-400 mx-auto mb-1 block" data-icon="lucide:image-plus"></span>
-                            <p class="text-xs text-white/80 font-medium">Click or Drag & Drop School Building Photo</p>
-                            <p class="text-[10px] text-white/40">High quality landscape photo recommended</p>
+                            <span class="iconify text-2xl text-gold-600 mx-auto mb-1 block" data-icon="lucide:image-plus"></span>
+                            <p class="text-xs text-slate-800 font-bold">Click or Drag & Drop School Building Photo</p>
+                            <p class="text-[10px] text-slate-500">High quality landscape photo recommended</p>
                         </div>
                         <input type="file" id="file-hero" accept="image/*" class="hidden">
-                        <input id="cms-hero-img" type="text" value="${c.heroImg || ''}" placeholder="Or paste image URL" class="text-xs">
+                        <input id="cms-hero-img" type="text" value="${c.heroImg || ''}" placeholder="Or paste image URL" class="text-xs bg-white border-slate-300 text-slate-900">
                         <div class="mt-2">
-                            <img id="preview-hero" src="${c.heroImg || ''}" class="w-full h-36 rounded-lg object-cover border border-white/10" onerror="this.src='https://via.placeholder.com/600x300?text=Hero+Image'">
-                            <span class="text-xs text-white/40 mt-1 block">Live hero image preview</span>
+                            <img id="preview-hero" src="${c.heroImg || ''}" class="w-full h-36 rounded-xl object-cover border border-cream-300 shadow-sm" onerror="this.src='https://via.placeholder.com/600x300?text=Hero+Image'">
+                            <span class="text-xs text-slate-500 font-medium mt-1 block">Live hero image preview</span>
                         </div>
                     </div>
 
-                    <button onclick="saveCmsHeroImages()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                    <button onclick="saveCmsHeroImages()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                         <span class="iconify" data-icon="lucide:save"></span> Save Photos & Logos
                     </button>
                 </div>
@@ -1922,26 +1938,26 @@ function renderCmsSection(c, g, s) {
         }, 50);
     } else if (activeCmsTab === 'stats') {
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 max-w-2xl space-y-4">
-                <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span class="iconify text-gold-400" data-icon="lucide:bar-chart-2"></span> Animated Homepage Counter Numbers
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 max-w-2xl space-y-4 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                    <span class="iconify text-gold-600" data-icon="lucide:bar-chart-2"></span> Animated Homepage Counter Numbers
                 </h3>
-                <p class="text-xs text-white/50">Ye numbers homepage ke banner me automatically animated counter ke sath dikhte hain.</p>
+                <p class="text-xs text-slate-500 font-medium">Ye numbers homepage ke banner me automatically animated counter ke sath dikhte hain.</p>
                 <div class="grid grid-cols-3 gap-4">
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Total Students Count</label>
-                        <input id="cms-stat-students" type="number" value="${c.statStudents || 1200}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Total Students Count</label>
+                        <input id="cms-stat-students" type="number" value="${c.statStudents || 1200}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Total Teachers Count</label>
-                        <input id="cms-stat-teachers" type="number" value="${c.statTeachers || 65}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Total Teachers Count</label>
+                        <input id="cms-stat-teachers" type="number" value="${c.statTeachers || 65}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Years Legacy Count</label>
-                        <input id="cms-stat-legacy" type="number" value="${c.statLegacy || 20}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Years Legacy Count</label>
+                        <input id="cms-stat-legacy" type="number" value="${c.statLegacy || 20}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                 </div>
-                <button onclick="saveCmsStats()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                <button onclick="saveCmsStats()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                     <span class="iconify" data-icon="lucide:save"></span> Save Counter Stats
                 </button>
             </div>
@@ -1949,39 +1965,39 @@ function renderCmsSection(c, g, s) {
     } else if (activeCmsTab === 'about') {
         container.innerHTML = `
             <div class="grid lg:grid-cols-2 gap-6">
-                <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 space-y-4">
-                    <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                        <span class="iconify text-gold-400" data-icon="lucide:book-open"></span> About Us Story & Heading
+                <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                        <span class="iconify text-gold-600" data-icon="lucide:book-open"></span> About Us Story & Heading
                     </h3>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">About Us Section Main Heading</label>
-                        <input id="cms-about-heading" type="text" value="${c.aboutHeading || 'Building Future Leaders'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">About Us Section Main Heading</label>
+                        <input id="cms-about-heading" type="text" value="${c.aboutHeading || 'Building Future Leaders'}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Years of Excellence Badge</label>
-                        <input id="cms-about-years" type="text" value="${c.aboutYears || '20+'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Years of Excellence Badge</label>
+                        <input id="cms-about-years" type="text" value="${c.aboutYears || '20+'}" class="bg-white border-slate-300 text-slate-900 font-bold">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">About School Full Text</label>
-                        <textarea id="cms-about-text" rows="6">${c.about || ''}</textarea>
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">About School Full Text</label>
+                        <textarea id="cms-about-text" rows="6" class="bg-white border-slate-300 text-slate-900 leading-relaxed">${c.about || ''}</textarea>
                     </div>
-                    <button onclick="saveCmsAbout()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                    <button onclick="saveCmsAbout()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                         <span class="iconify" data-icon="lucide:save"></span> Save About Details
                     </button>
                 </div>
-                <div class="glass rounded-xl p-6 card-hover border-l-4 border-emerald-400 space-y-4">
-                    <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                        <span class="iconify text-emerald-400" data-icon="lucide:image"></span> About Campus Photo (Drag & Drop or Upload)
+                <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-emerald-500 border-cream-300 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                        <span class="iconify text-emerald-600" data-icon="lucide:image"></span> About Campus Photo (Drag & Drop or Upload)
                     </h3>
                     <div>
                         <div id="dropzone-about" class="drop-zone mb-2">
-                            <span class="iconify text-2xl text-gold-400 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
-                            <p class="text-xs text-white/80 font-medium">Click or Drag & Drop Campus Photo from Device</p>
+                            <span class="iconify text-2xl text-gold-600 mx-auto mb-1 block" data-icon="lucide:upload-cloud"></span>
+                            <p class="text-xs text-slate-800 font-bold">Click or Drag & Drop Campus Photo from Device</p>
                         </div>
                         <input type="file" id="file-about" accept="image/*" class="hidden">
-                        <input id="cms-about-img" type="text" value="${c.aboutImg || ''}" placeholder="Or paste image URL" class="text-xs">
+                        <input id="cms-about-img" type="text" value="${c.aboutImg || ''}" placeholder="Or paste image URL" class="text-xs bg-white border-slate-300 text-slate-900">
                         <div class="mt-3">
-                            <img id="preview-about" src="${c.aboutImg || ''}" class="w-full h-56 rounded-lg object-cover border border-white/10" onerror="this.src='https://via.placeholder.com/600x400?text=Campus+Image'">
+                            <img id="preview-about" src="${c.aboutImg || ''}" class="w-full h-56 rounded-xl object-cover border border-cream-300 shadow-sm" onerror="this.src='https://via.placeholder.com/600x400?text=Campus+Image'">
                         </div>
                     </div>
                 </div>
@@ -1993,28 +2009,28 @@ function renderCmsSection(c, g, s) {
     } else if (activeCmsTab === 'faculty') {
         const facultyList = c.faculty || [];
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 mb-6">
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 mb-6 shadow-sm">
                 <div class="flex justify-between items-center mb-4">
                     <div>
-                        <h3 class="font-bold text-lg flex items-center gap-2">
-                            <span class="iconify text-gold-400" data-icon="lucide:users"></span> Featured Homepage Faculty (${facultyList.length})
+                        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                            <span class="iconify text-gold-600" data-icon="lucide:users"></span> Featured Homepage Faculty (${facultyList.length})
                         </h3>
-                        <p class="text-xs text-white/50">Teachers ke cards homepage par show honge. Photo upload karne ke liye 'Add Teacher Card' dabayein.</p>
+                        <p class="text-xs text-slate-500 font-medium">Teachers ke cards homepage par show honge. Photo upload karne ke liye 'Add Teacher Card' dabayein.</p>
                     </div>
-                    <button onclick="openAddFacultyModal()" class="btn-gold px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                    <button onclick="openAddFacultyModal()" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
                         <span class="iconify" data-icon="lucide:plus"></span> Add Teacher Card
                     </button>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                     ${facultyList.map((f, idx) => `
-                        <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-center relative group">
-                            <div class="w-20 h-20 rounded-full mx-auto mb-3 overflow-hidden border-2 border-gold-400/30">
+                        <div class="p-4 rounded-2xl bg-cream-50 border border-cream-200 text-center relative group shadow-sm">
+                            <div class="w-20 h-20 rounded-2xl mx-auto mb-3 overflow-hidden border-2 border-amber-300 shadow-sm">
                                 <img src="${f.photo}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/150?text=Teacher'">
                             </div>
-                            <h4 class="font-bold text-sm text-white">${f.name}</h4>
-                            <p class="text-xs text-gold-400 mt-0.5">${f.role}</p>
-                            <p class="text-[11px] text-white/50 mt-1">${f.exp}</p>
-                            <button onclick="removeFaculty(${idx})" class="mt-3 px-3 py-1 bg-red-500/20 text-red-300 hover:bg-red-500/30 text-xs rounded-lg border border-red-500/30">
+                            <h4 class="font-bold text-sm text-slate-900">${f.name}</h4>
+                            <p class="text-xs text-gold-800 font-bold mt-0.5">${f.role}</p>
+                            <p class="text-[11px] text-slate-500 mt-1 font-medium">${f.exp}</p>
+                            <button onclick="removeFaculty(${idx})" class="mt-3 px-3 py-1 bg-red-100 text-red-800 hover:bg-red-200 text-xs rounded-xl font-bold border border-red-300 shadow-sm transition">
                                 🗑 Delete
                             </button>
                         </div>
@@ -2025,32 +2041,32 @@ function renderCmsSection(c, g, s) {
     } else if (activeCmsTab === 'facilities') {
         const facilitiesList = c.facilities || [];
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400">
-                <h3 class="font-bold text-lg mb-1 flex items-center gap-2">
-                    <span class="iconify text-gold-400" data-icon="lucide:cpu"></span> World-Class Facilities Cards
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-1 flex items-center gap-2">
+                    <span class="iconify text-gold-600" data-icon="lucide:cpu"></span> World-Class Facilities Cards
                 </h3>
-                <p class="text-xs text-white/50 mb-4">Har facility ke photos upload karein ya Drag-and-Drop karein.</p>
+                <p class="text-xs text-slate-500 font-medium mb-4">Har facility ke photos upload karein ya Drag-and-Drop karein.</p>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${facilitiesList.map((fc, idx) => `
-                        <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                        <div class="p-4 rounded-2xl bg-cream-50 border border-cream-200 space-y-2 shadow-sm">
                             <div class="flex justify-between items-center">
-                                <label class="text-xs text-gold-400 font-semibold block">Facility #${idx + 1}</label>
-                                <span class="text-[10px] text-white/40">Drop image below</span>
+                                <label class="text-xs text-gold-800 font-bold block">Facility #${idx + 1}</label>
+                                <span class="text-[10px] text-slate-400 font-medium">Drop image below</span>
                             </div>
-                            <input id="fac-title-${idx}" type="text" value="${fc.title}" placeholder="Facility Title">
-                            <input id="fac-desc-${idx}" type="text" value="${fc.desc}" placeholder="Short Description">
+                            <input id="fac-title-${idx}" type="text" value="${fc.title}" placeholder="Facility Title" class="bg-white border-slate-300 text-slate-900 font-bold">
+                            <input id="fac-desc-${idx}" type="text" value="${fc.desc}" placeholder="Short Description" class="bg-white border-slate-300 text-slate-900">
                             
                             <div id="dropzone-fac-${idx}" class="drop-zone !p-2">
-                                <span class="iconify text-lg text-gold-400 mx-auto block" data-icon="lucide:upload"></span>
-                                <p class="text-[10px] text-white/70">Click / Drag Photo</p>
+                                <span class="iconify text-lg text-gold-600 mx-auto block" data-icon="lucide:upload"></span>
+                                <p class="text-[10px] text-slate-700 font-bold">Click / Drag Photo</p>
                             </div>
                             <input type="file" id="file-fac-${idx}" accept="image/*" class="hidden">
-                            <input id="fac-img-${idx}" type="text" value="${fc.photo}" placeholder="Or Image URL" class="text-xs">
-                            <img id="preview-fac-${idx}" src="${fc.photo}" class="w-full h-24 rounded object-cover border border-white/10" onerror="this.src='https://via.placeholder.com/300x150?text=Facility'">
+                            <input id="fac-img-${idx}" type="text" value="${fc.photo}" placeholder="Or Image URL" class="text-xs bg-white border-slate-300 text-slate-900">
+                            <img id="preview-fac-${idx}" src="${fc.photo}" class="w-full h-24 rounded-xl object-cover border border-cream-300 shadow-sm" onerror="this.src='https://via.placeholder.com/300x150?text=Facility'">
                         </div>
                     `).join('')}
                 </div>
-                <button onclick="saveCmsFacilities()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold mt-6 flex items-center gap-2">
+                <button onclick="saveCmsFacilities()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold mt-6 flex items-center gap-2 shadow-md">
                     <span class="iconify" data-icon="lucide:save"></span> Save Facilities Cards
                 </button>
             </div>
@@ -2062,90 +2078,90 @@ function renderCmsSection(c, g, s) {
         }, 50);
     } else if (activeCmsTab === 'contact') {
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 space-y-4">
-                <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span class="iconify text-gold-400" data-icon="lucide:phone-call"></span> Contact Details, WhatsApp & Location
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 space-y-4 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                    <span class="iconify text-gold-600" data-icon="lucide:phone-call"></span> Contact Details, WhatsApp & Location
                 </h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Primary Phone Number</label>
-                        <input id="cms-phone-1" type="text" value="${c.phone1 || '+91 98765 43210'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Primary Phone Number</label>
+                        <input id="cms-phone-1" type="text" value="${c.phone1 || '+91 98765 43210'}" class="bg-white border-slate-300 text-slate-900">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Secondary Phone Number</label>
-                        <input id="cms-phone-2" type="text" value="${c.phone2 || '+91 98765 12345'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Secondary Phone Number</label>
+                        <input id="cms-phone-2" type="text" value="${c.phone2 || '+91 98765 12345'}" class="bg-white border-slate-300 text-slate-900">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Enquiry / Admission WhatsApp Number (with country code 91)</label>
-                        <input id="cms-whatsapp-no" type="text" value="${c.whatsappNumber || '919876543210'}" placeholder="e.g. 919876543210">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Enquiry / Admission WhatsApp Number (with country code 91)</label>
+                        <input id="cms-whatsapp-no" type="text" value="${c.whatsappNumber || '919876543210'}" placeholder="e.g. 919876543210" class="bg-white border-slate-300 text-slate-900">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">School Office Timing</label>
-                        <input id="cms-office-hours" type="text" value="${c.officeHours || 'Mon-Sat: 8:00 AM - 3:00 PM (Sun: Closed)'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">School Office Timing</label>
+                        <input id="cms-office-hours" type="text" value="${c.officeHours || 'Mon-Sat: 8:00 AM - 3:00 PM (Sun: Closed)'}" class="bg-white border-slate-300 text-slate-900">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Primary Email Address</label>
-                        <input id="cms-email-1" type="text" value="${c.email1 || 'info@sanskaracademy.edu'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Primary Email Address</label>
+                        <input id="cms-email-1" type="text" value="${c.email1 || 'info@sanskaracademy.edu'}" class="bg-white border-slate-300 text-slate-900">
                     </div>
                     <div>
-                        <label class="text-xs text-white/50 mb-1 block">Admission Email Address</label>
-                        <input id="cms-email-2" type="text" value="${c.email2 || 'admission@sanskaracademy.edu'}">
+                        <label class="text-xs font-bold text-slate-700 mb-1 block">Admission Email Address</label>
+                        <input id="cms-email-2" type="text" value="${c.email2 || 'admission@sanskaracademy.edu'}" class="bg-white border-slate-300 text-slate-900">
                     </div>
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">School Full Physical Address</label>
-                    <input id="cms-address" type="text" value="${c.address || 'Dhannad Khurd, Pithampur, Dist. Dhar (M.P.)'}">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">School Full Physical Address</label>
+                    <input id="cms-address" type="text" value="${c.address || 'Dhannad Khurd, Pithampur, Dist. Dhar (M.P.)'}" class="bg-white border-slate-300 text-slate-900">
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">Google Maps Link / Embed</label>
-                    <input id="cms-maps-link" type="text" value="${c.mapsLink || 'https://maps.google.com'}">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">Google Maps Link / Embed</label>
+                    <input id="cms-maps-link" type="text" value="${c.mapsLink || 'https://maps.google.com'}" class="bg-white border-slate-300 text-slate-900">
                 </div>
-                <button onclick="saveCmsContact()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                <button onclick="saveCmsContact()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                     <span class="iconify" data-icon="lucide:save"></span> Save Contact Details
                 </button>
             </div>
         `;
     } else if (activeCmsTab === 'upi') {
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 max-w-2xl space-y-4">
-                <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span class="iconify text-gold-400" data-icon="lucide:qr-code"></span> School Direct UPI Payment Setup (0% Commission)
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 max-w-2xl space-y-4 shadow-sm">
+                <h3 class="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                    <span class="iconify text-gold-600" data-icon="lucide:qr-code"></span> School Direct UPI Payment Setup (0% Commission)
                 </h3>
-                <p class="text-xs text-white/50">Student portal me fees bharne ke liye yahi UPI ID aur Payee Name use hoga.</p>
+                <p class="text-xs text-slate-500 font-medium">Student portal me fees bharne ke liye yahi UPI ID aur Payee Name use hoga.</p>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">School Official UPI ID / VPA</label>
-                    <input id="set-upi-id" type="text" value="${s.upiId || 'newsanskaracademy@upi'}" placeholder="e.g. newsanskaracademy@okaxis">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">School Official UPI ID / VPA</label>
+                    <input id="set-upi-id" type="text" value="${s.upiId || 'newsanskaracademy@upi'}" placeholder="e.g. newsanskaracademy@okaxis" class="bg-white border-slate-300 text-slate-900 font-bold">
                 </div>
                 <div>
-                    <label class="text-xs text-white/50 mb-1 block">Payee Display Name</label>
-                    <input id="set-upi-name" type="text" value="${s.upiName || 'New Sanskar Academy'}" placeholder="New Sanskar Academy">
+                    <label class="text-xs font-bold text-slate-700 mb-1 block">Payee Display Name</label>
+                    <input id="set-upi-name" type="text" value="${s.upiName || 'New Sanskar Academy'}" placeholder="New Sanskar Academy" class="bg-white border-slate-300 text-slate-900 font-medium">
                 </div>
-                <button onclick="saveSchoolPaymentSettings()" class="btn-gold px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2">
+                <button onclick="saveSchoolPaymentSettings()" class="btn-gold px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md">
                     <span class="iconify" data-icon="lucide:save"></span> Save UPI Configuration
                 </button>
             </div>
         `;
     } else if (activeCmsTab === 'gallery') {
         container.innerHTML = `
-            <div class="glass rounded-xl p-6 card-hover border-l-4 border-gold-400 space-y-4">
+            <div class="glass rounded-2xl p-6 card-hover border-l-4 border-l-gold-500 border-cream-300 space-y-4 shadow-sm">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h3 class="font-bold text-lg flex items-center gap-2">
-                            <span class="iconify text-gold-400" data-icon="lucide:image"></span> School Photo Gallery (${g.length})
+                        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                            <span class="iconify text-gold-600" data-icon="lucide:image"></span> School Photo Gallery (${g.length})
                         </h3>
-                        <p class="text-xs text-white/50">Photos upload karein jo public website par gallery section me show hongi.</p>
+                        <p class="text-xs text-slate-500 font-medium">Photos upload karein jo public website par gallery section me show hongi.</p>
                     </div>
-                    <button onclick="openAddGalleryModal()" class="btn-gold px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                    <button onclick="openAddGalleryModal()" class="btn-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
                         <span class="iconify" data-icon="lucide:upload"></span> Upload Photo from Device
                     </button>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3" id="gallery-grid">
                     ${g.map(item => `
-                        <div class="relative aspect-square rounded-xl overflow-hidden border border-white/10 group">
+                        <div class="relative aspect-square rounded-2xl overflow-hidden border border-cream-300 group shadow-sm">
                             <img src="${item.url}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/200?text=Gallery'">
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition p-2 flex flex-col justify-between">
-                                <span class="text-[10px] text-white font-medium truncate">${item.caption || 'Campus Photo'}</span>
-                                <button onclick="removeGalleryPhoto('${item.id}')" class="px-2 py-1 bg-red-500 text-white text-[10px] rounded self-end">Delete</button>
+                            <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition p-2 flex flex-col justify-between">
+                                <span class="text-[10px] text-white font-semibold truncate">${item.caption || 'Campus Photo'}</span>
+                                <button onclick="removeGalleryPhoto('${item.id}')" class="px-2 py-1 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold rounded-lg self-end shadow-sm">Delete</button>
                             </div>
                         </div>
                     `).join('')}
@@ -2328,42 +2344,33 @@ function sendAdminFeeReminderWhatsApp(studentId) {
     window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`, '_blank');
 }
 
-/* ================= PARTICLES (decorative, same as rest of site) ================= */
+/* ================= PARTICLES ================= */
 (function () {
     const c = document.getElementById('global-particles');
+    if (!c) return;
     const icons = ['lucide:book-open', 'lucide:graduation-cap', 'lucide:pencil', 'lucide:star', 'lucide:apple', 'lucide:trophy', 'lucide:brain', 'lucide:lightbulb', 'lucide:heart', 'lucide:sparkles', 'lucide:atom', 'lucide:calculator', 'lucide:globe', 'lucide:music', 'lucide:palette'];
     const colors = ['gold', 'emerald', 'blue', 'purple', 'rose'];
     const anims = ['floatSlow', 'floatReverse'];
-    const colorMap = { gold: '#fbbf24', emerald: '#34d399', blue: '#60a5fa', purple: '#a78bfa', rose: '#fb7185' };
+    const colorMap = { gold: '#d97706', emerald: '#059669', blue: '#2563eb', purple: '#7c3aed', rose: '#e11d48' };
     for (let i = 0; i < 25; i++) {
         const el = document.createElement('div'); el.className = 'absolute pointer-events-none';
         el.style.top = Math.random() * 100 + '%'; el.style.left = Math.random() * 100 + '%';
-        el.style.animation = anims[Math.floor(Math.random() * anims.length)] + ' ' + (5 + Math.random() * 10) + 's ease-in-out infinite';
-        el.style.animationDelay = Math.random() * 5 + 's'; el.style.opacity = .03 + Math.random() * .07;
-        const s = 16 + Math.random() * 24, co = colors[Math.floor(Math.random() * colors.length)], ic = icons[Math.floor(Math.random() * icons.length)];
+        el.style.animation = anims[Math.floor(Math.random() * anims.length)] + ' ' + (6 + Math.random() * 10) + 's ease-in-out infinite';
+        el.style.animationDelay = Math.random() * 5 + 's'; el.style.opacity = .06 + Math.random() * .08;
+        const s = 16 + Math.random() * 22, co = colors[Math.floor(Math.random() * colors.length)], ic = icons[Math.floor(Math.random() * icons.length)];
         el.innerHTML = `<span class="iconify" data-icon="${ic}" style="font-size:${s}px;color:${colorMap[co]}"></span>`;
         c.appendChild(el);
     }
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 35; i++) {
         const el = document.createElement('div'); el.className = 'absolute rounded-full pointer-events-none';
-        const s = 2 + Math.random() * 4; el.style.width = s + 'px'; el.style.height = s + 'px';
+        const s = 3 + Math.random() * 4; el.style.width = s + 'px'; el.style.height = s + 'px';
         el.style.top = Math.random() * 100 + '%'; el.style.left = Math.random() * 100 + '%';
         const co = colors[Math.floor(Math.random() * colors.length)];
-        el.style.background = colorMap[co]; el.style.opacity = .05 + Math.random() * .15;
+        el.style.background = colorMap[co]; el.style.opacity = .08 + Math.random() * .12;
         el.style.animation = (Math.random() > .5 ? 'floatSlow' : 'floatReverse') + ' ' + (8 + Math.random() * 12) + 's ease-in-out infinite';
         el.style.animationDelay = Math.random() * 8 + 's'; c.appendChild(el);
     }
 })();
-
-document.addEventListener('mousemove', function (e) {
-    if (Math.random() > .92) {
-        const p = document.createElement('div');
-        p.style.cssText = `position:fixed;pointer-events:none;z-index:9999;width:4px;height:4px;border-radius:50%;background:${['#fbbf24', '#34d399', '#60a5fa'][Math.floor(Math.random() * 3)]};opacity:0.6;left:${e.clientX}px;top:${e.clientY}px;transition:all 1s ease;`;
-        document.body.appendChild(p);
-        requestAnimationFrame(() => { p.style.opacity = '0'; p.style.transform = `translate(${(Math.random() - .5) * 60}px,${-40 - Math.random() * 40}px) scale(0)`; });
-        setTimeout(() => p.remove(), 1000);
-    }
-});
 
 /* ================= INIT ================= */
 initHeader();
