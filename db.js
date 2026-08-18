@@ -204,12 +204,62 @@ const DB = {
   },
 
   save(db) {
-    localStorage.setItem(DB_KEY, JSON.stringify(db));
+    try {
+      localStorage.setItem(DB_KEY, JSON.stringify(db));
+    } catch (e) {
+      console.warn('LocalStorage save warning:', e);
+    }
+    this.syncToCloud(db);
+  },
+
+  syncToCloud(db) {
+    try {
+      if (typeof firestoreDb !== 'undefined' && firestoreDb) {
+        firestoreDb.collection('school').doc('database').set(db, { merge: true })
+          .then(() => {
+            console.log('☁️ Synced to Firebase Cloud Firestore!');
+          })
+          .catch(err => {
+            console.warn('Firestore cloud sync notice:', err.message);
+          });
+      }
+    } catch (e) {
+      console.warn('Cloud sync error:', e);
+    }
+  },
+
+  initCloudSync() {
+    try {
+      if (typeof firestoreDb !== 'undefined' && firestoreDb) {
+        firestoreDb.collection('school').doc('database').onSnapshot((doc) => {
+          if (doc.exists) {
+            const cloudData = doc.data();
+            const local = this.load();
+            const merged = Object.assign({}, local, cloudData);
+            try {
+              localStorage.setItem(DB_KEY, JSON.stringify(merged));
+            } catch (e) {}
+            console.log('🔄 Real-time Cloud update received from Firebase!');
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('nsa_db_updated', { detail: merged }));
+            }
+          } else {
+            const local = this.load();
+            this.syncToCloud(local);
+          }
+        }, err => {
+          console.warn('Firestore real-time listener notice:', err.message);
+        });
+      }
+    } catch (e) {
+      console.warn('initCloudSync notice:', e);
+    }
   },
 
   reset() {
     const seeded = seedDB();
     localStorage.setItem(DB_KEY, JSON.stringify(seeded));
+    this.syncToCloud(seeded);
     return seeded;
   },
 
@@ -827,6 +877,12 @@ const DB = {
 };
 
 DB.load();
+setTimeout(() => {
+  if (typeof DB !== 'undefined' && typeof DB.initCloudSync === 'function') {
+    DB.initCloudSync();
+  }
+}, 300);
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DB;
 }

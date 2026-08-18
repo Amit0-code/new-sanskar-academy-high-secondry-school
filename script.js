@@ -242,24 +242,34 @@ document.querySelectorAll('section > div > .grid > div, section > div > form').f
    7. NAVBAR BACKGROUND ON SCROLL + BACK-TO-TOP BUTTON
    ============================================================ */
 window.addEventListener('scroll', () => {
-  // Navbar background darkens after scrolling past 50px
+  // Navbar creamy glass styling on scroll
   const navbar = document.getElementById('navbar');
-  if (window.scrollY > 50) {
-    navbar.style.background = 'rgba(2,8,20,0.9)';
-    navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
-  } else {
-    navbar.style.background = 'rgba(255,255,255,0.05)';
-    navbar.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+  if (navbar) {
+    if (window.scrollY > 40) {
+      navbar.style.background = 'rgba(253, 251, 247, 0.94)';
+      navbar.style.backdropFilter = 'blur(16px)';
+      navbar.style.webkitBackdropFilter = 'blur(16px)';
+      navbar.style.borderBottom = '1px solid rgba(226, 218, 203, 0.9)';
+      navbar.style.boxShadow = '0 4px 20px -2px rgba(15, 23, 42, 0.08)';
+    } else {
+      navbar.style.background = 'rgba(255, 255, 255, 0.88)';
+      navbar.style.backdropFilter = 'blur(16px)';
+      navbar.style.webkitBackdropFilter = 'blur(16px)';
+      navbar.style.borderBottom = '1px solid rgba(226, 218, 203, 0.85)';
+      navbar.style.boxShadow = '0 10px 25px -5px rgba(24, 39, 75, 0.05)';
+    }
   }
 
   // Back-to-top button fades in after scrolling past 500px
   const backToTop = document.getElementById('backToTop');
-  if (window.scrollY > 500) {
-    backToTop.style.opacity = '1';
-    backToTop.style.transform = 'translateY(0)';
-  } else {
-    backToTop.style.opacity = '0';
-    backToTop.style.transform = 'translateY(16px)';
+  if (backToTop) {
+    if (window.scrollY > 500) {
+      backToTop.style.opacity = '1';
+      backToTop.style.transform = 'translateY(0)';
+    } else {
+      backToTop.style.opacity = '0';
+      backToTop.style.transform = 'translateY(16px)';
+    }
   }
 });
 
@@ -390,13 +400,13 @@ function loadDynamicSiteContent() {
   const facultyGrid = document.getElementById('faculty-grid');
   if (facultyGrid && c.faculty && c.faculty.length > 0) {
     facultyGrid.innerHTML = c.faculty.map((f, idx) => `
-      <div class="glass rounded-2xl p-6 text-center card-hover group relative overflow-hidden">
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 ${idx % 2 === 0 ? 'border-gold-400/20 group-hover:border-gold-400/50' : 'border-emerald-400/20 group-hover:border-emerald-400/50'} transition-colors">
+      <div class="glass rounded-2xl p-6 text-center card-hover group relative overflow-hidden shadow-sm">
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 ${idx % 2 === 0 ? 'border-gold-400/40 group-hover:border-gold-500' : 'border-emerald-400/40 group-hover:border-emerald-500'} transition-colors shadow-sm">
           <img src="${f.photo}" alt="${f.name}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/${encodeURIComponent(f.name)}/200/200.jpg'">
         </div>
-        <h4 class="font-semibold text-white">${f.name}</h4>
-        <p class="text-xs text-gold-400 mt-1">${f.role}</p>
-        <p class="text-xs text-slate-500 mt-2">${f.exp}</p>
+        <h4 class="font-bold text-slate-900 text-base">${f.name}</h4>
+        <p class="text-xs text-gold-700 font-bold mt-1">${f.role}</p>
+        <p class="text-xs text-slate-500 mt-2 font-medium">${f.exp}</p>
       </div>
     `).join('');
   }
@@ -405,15 +415,15 @@ function loadDynamicSiteContent() {
   const facilitiesGrid = document.getElementById('facilities-grid');
   if (facilitiesGrid && c.facilities && c.facilities.length > 0) {
     facilitiesGrid.innerHTML = c.facilities.map((fc, idx) => `
-      <div class="glass rounded-2xl overflow-hidden card-hover group">
+      <div class="glass rounded-2xl overflow-hidden card-hover group shadow-sm">
         <div class="relative h-48 overflow-hidden">
-          <img src="${fc.photo}" alt="${fc.title}" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" onerror="this.src='https://picsum.photos/seed/school-${idx}/400/300.jpg'">
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-900/90 to-transparent"></div>
-          <div class="absolute bottom-3 left-4"><span class="iconify text-2xl ${idx % 2 === 0 ? 'text-gold-400' : 'text-emerald-400'}" data-icon="${fc.icon || 'lucide:sparkles'}"></span></div>
+          <img src="${fc.photo}" alt="${fc.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" onerror="this.src='https://picsum.photos/seed/school-${idx}/400/300.jpg'">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent"></div>
+          <div class="absolute bottom-3 left-4"><span class="iconify text-2xl ${idx % 2 === 0 ? 'text-amber-400' : 'text-emerald-400'}" data-icon="${fc.icon || 'lucide:sparkles'}"></span></div>
         </div>
         <div class="p-5">
-          <h4 class="font-semibold mb-1 text-white">${fc.title}</h4>
-          <p class="text-xs text-slate-400">${fc.desc}</p>
+          <h4 class="font-bold text-slate-900 mb-1 text-base">${fc.title}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">${fc.desc}</p>
         </div>
       </div>
     `).join('');
